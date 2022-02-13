@@ -1,4 +1,3 @@
-installCRDs: false
 podDnsPolicy: "None"
 podDnsConfig:
   nameservers:

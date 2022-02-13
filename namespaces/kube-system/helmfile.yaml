@@ -8,7 +8,7 @@ repositories:
     url: https://halkeye.github.io/helm-charts
 
 releases:
-  - name: g4v-wildcard-certificate
+  - name: g4v-do-wildcard-certificate
     chart: halkeye/certificate
     namespace: kube-system
     values:

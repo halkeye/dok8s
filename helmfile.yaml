@@ -13,11 +13,6 @@ repositories:
     url: https://halkeye.github.io/helm-charts
 
 releases:
-  #- name: cert-manager
-  #  namespace: cert-manager
-  #  chart: jetstack/cert-manager
-  #  values:
-  #    - cert-manager.yaml
   #- name: acme
   #  namespace: cert-manager
   #  chart: ./charts/acme
