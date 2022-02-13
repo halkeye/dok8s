@@ -1,0 +1,23 @@
+---
+ingress:
+  enabled: true
+  hosts:
+    - vouch.do.g4v.dev
+  tls:
+    - secretName: vouch-tls
+      hosts:
+        - vouch.do.g4v.dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+
+config:
+  vouch:
+    allowAllUsers: false
+    domains:
+      - do.g4v.dev
+    webapp: true
+    testing: false
+  oauth:
+    provider: google

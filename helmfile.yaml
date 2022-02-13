@@ -1,0 +1,68 @@
+helmDefaults:
+  kubeContext: do-k8s
+  cleanupOnFail: true
+  wait: true
+  timeout: 300
+  atomic: true
+
+helmfiles:
+  - namespaces/*/helmfile.yaml
+
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
+releases:
+  #- name: cert-manager
+  #  namespace: cert-manager
+  #  chart: jetstack/cert-manager
+  #  values:
+  #    - cert-manager.yaml
+  #- name: acme
+  #  namespace: cert-manager
+  #  chart: ./charts/acme
+  #  secrets:
+  #    - acme-secrets.yaml
+  #- name: dex
+  #  namespace: dex
+  #  chart: banzaicloud-stable/dex
+  #  values:
+  #    - dex.yaml
+  #- name: grafana
+  #  chart: grafana/grafana
+  #  namespace: grafana
+  #  values:
+  #    - grafana.yaml
+  #  secrets:
+  #    - grafana-secrets.yaml
+  #- name: kubeapps
+  #  namespace: kubeapps
+  #  chart: bitnami/kubeapps
+  #  values:
+  #    - kubeapps.yaml
+  #  secrets:
+  #    - kubeapps-secrets.yaml
+  #- name: prometheus
+  #  chart: prometheus-community/prometheus
+  #  namespace: monitoring
+  #- name: helm-exporter
+  #  chart: sstarcher/helm-exporter
+  #  namespace: monitoring
+  #- name: prometheus-node-exporter
+  #  chart: prometheus-community/prometheus-node-exporter
+  #  namespace: monitoring
+  #- name: kube-state-metrics
+  #  chart: bitnami/kube-state-metrics
+  #  namespace: monitoring
+  #- name: nginx-ingress
+  #  namespace: ingress-nginx
+  #  chart: ingress-nginx/ingress-nginx
+  #  values:
+  #    - nginx-ingress.yaml
+  - name: vouch
+    chart: halkeye/vouch
+    namespace: ingress-nginx
+    values:
+      - vouch.yaml
+    secrets:
+      - vouch-secrets.yaml
