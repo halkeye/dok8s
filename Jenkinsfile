@@ -35,6 +35,11 @@ pipeline {
         '''
       }
     }
+    stage('Make sure cert-manager is installed'){
+      steps {
+        sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.yaml'
+      }
+    }
     stage('Helmfile Lint'){
       steps {
         sh 'helmfile lint'
