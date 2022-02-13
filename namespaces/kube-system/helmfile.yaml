@@ -4,8 +4,8 @@ repositories:
     url: https://charts.bitnami.com/bitnami
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
-  - name: kubernetes-dashboard
-    url: https://kubernetes.github.io/dashboard/
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
 
 releases:
   - name: g4v-wildcard-certificate
