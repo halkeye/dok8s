@@ -1,0 +1,27 @@
+---
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: kubernetes-dashboard
+    url: https://kubernetes.github.io/dashboard/
+
+releases:
+  - name: g4v-wildcard-certificate
+    chart: halkeye/certificate
+    namespace: kube-system
+    values:
+      - ingress-nginx-certificate.yaml
+  - name: ingress-nginx
+    namespace: kube-system
+    chart: ingress-nginx/ingress-nginx
+    values:
+      - ingress-nginx.yaml
+  - name: external-dns
+    namespace: kube-system
+    chart: bitnami/external-dns
+    values:
+      - external-dns.yaml
+    secrets:
+      - external-dns-secrets.yaml

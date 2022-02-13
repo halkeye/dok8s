@@ -54,11 +54,6 @@ releases:
   #- name: kube-state-metrics
   #  chart: bitnami/kube-state-metrics
   #  namespace: monitoring
-  #- name: nginx-ingress
-  #  namespace: ingress-nginx
-  #  chart: ingress-nginx/ingress-nginx
-  #  values:
-  #    - nginx-ingress.yaml
   - name: vouch
     chart: halkeye/vouch
     namespace: ingress-nginx
