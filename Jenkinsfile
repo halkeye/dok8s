@@ -27,6 +27,7 @@ pipeline {
   stages {
     stage('Prepare Environment'){
       steps {
+        sh 'wget -O $(which sops) https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux'
         sh 'apk add gnupg'
         sh 'kubectl cluster-info > /dev/null'
         sh '''
