@@ -38,7 +38,7 @@ pipeline {
     stage('Make sure cert-manager is installed'){
       steps {
         sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.yaml'
-        sh 'helm secrets view cert-manager-cluster-issuer-secrets.yml | kubectl apply -f -'
+        sh 'sops -d cert-manager-cluster-issuer-secrets.yml | kubectl apply -f -'
       }
     }
     stage('Helmfile Lint'){
