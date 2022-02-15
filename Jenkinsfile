@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'quay.io/roboll/helmfile:helm3-v0.135.0'
+      image 'quay.io/roboll/helmfile:v0.143.0'
       args '-u 0:0'
     }
   }
@@ -27,7 +27,6 @@ pipeline {
   stages {
     stage('Prepare Environment'){
       steps {
-        sh 'wget -O $(which sops) https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux'
         sh 'apk add gnupg'
         sh 'kubectl cluster-info > /dev/null'
         sh '''
