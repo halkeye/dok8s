@@ -1,0 +1,7 @@
+env:
+  TZ: American/Vancouver
+
+persistence:
+  config:
+    enabled: true
+
