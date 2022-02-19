@@ -1,0 +1,41 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  - name: redis
+    chart: bitnami/redis
+    namespace: databases
+    values:
+      - redis.yaml
+    secrets:
+      - redis-secrets.yaml
+  - name: postgresql
+    chart: bitnami/postgresql
+    version: 8.10.14
+    namespace: databases
+    values:
+      - postgresql.yaml
+    secrets:
+      - postgresql-secret.yaml
+  - name: pgadmin
+    chart: halkeye/pgadmin
+    namespace: databasedatabases
+    values:
+      - pgadmin.yaml
+    secrets:
+      - pgadmin-secret.yaml
+  - name: mariadb
+    chart: bitnami/mariadb
+    namespace: databases
+    values:
+      - mariadb.yaml
+    secrets:
+      - mariadb-secrets.yaml
+  - name: phpmyadmin
+    chart: bitnami/phpmyadmin
+    namespace: databases
+    values:
+      - phpmyadmin.yaml
