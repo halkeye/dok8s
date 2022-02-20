@@ -22,7 +22,7 @@ releases:
       - postgresql-secrets.yaml
   - name: pgadmin
     chart: halkeye/pgadmin
-    namespace: databasedatabases
+    namespace: database
     values:
       - pgadmin.yaml
     secrets:
