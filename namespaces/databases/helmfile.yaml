@@ -19,14 +19,14 @@ releases:
     values:
       - postgresql.yaml
     secrets:
-      - postgresql-secret.yaml
+      - postgresql-secrets.yaml
   - name: pgadmin
     chart: halkeye/pgadmin
     namespace: databasedatabases
     values:
       - pgadmin.yaml
     secrets:
-      - pgadmin-secret.yaml
+      - pgadmin-secrets.yaml
   - name: mariadb
     chart: bitnami/mariadb
     namespace: databases
