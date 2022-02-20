@@ -37,7 +37,7 @@ pipeline {
       }
     }
     stage('Make sure cert-manager is installed'){
-      when { changeRequest() }
+      when { branch 'main' }
       steps {
         sh 'kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.yaml'
         sh 'sops -d cert-manager-cluster-issuer-secrets.yml | kubectl apply -f -'
@@ -70,7 +70,7 @@ pipeline {
   }
   post {
     always {
-      when { changeRequest() }
+      when { branch 'main' }
       script {
         withCredentials([string(credentialsId: 'discord-webhook', variable: 'WEBHOOK_URL')]) {
           discordSend description: "Jenkins Pipeline Build", link: env.BUILD_URL, result: currentBuild.currentResult, title: env.JOB_NAME, webhookURL: env.WEBHOOK_URL
