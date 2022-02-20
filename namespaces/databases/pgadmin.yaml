@@ -1,5 +1,6 @@
 ingress:
   enabled: true
+  ingressClassName: nginx
   hosts:
     - pgadmin.do.g4v.dev
   annotations:

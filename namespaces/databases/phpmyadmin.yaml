@@ -1,5 +1,6 @@
 ingress:
   enabled: true
+  ingressClassName: nginx
   hostname: phpmyadmin.do.g4v.dev
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
