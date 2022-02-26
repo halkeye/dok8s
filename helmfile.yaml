@@ -18,11 +18,6 @@ releases:
   #  chart: ./charts/acme
   #  secrets:
   #    - acme-secrets.yaml
-  #- name: dex
-  #  namespace: dex
-  #  chart: banzaicloud-stable/dex
-  #  values:
-  #    - dex.yaml
   #- name: grafana
   #  chart: grafana/grafana
   #  namespace: grafana
