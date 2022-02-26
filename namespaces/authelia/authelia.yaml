@@ -6,3 +6,8 @@ ingress:
   className: nginx
   subdomain: authelia
 
+session:
+  redis:
+    enabled: true
+    enabledSecret: true
+    host: redis-master.databases.svc.cluster.local

@@ -1,3 +1,6 @@
+helmDefaults:
+  kubeContext: do-k8s
+
 repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts

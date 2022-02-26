@@ -12,3 +12,5 @@ releases:
     version: 0.8.2
     values:
       - authelia.yaml
+    secrets:
+      - authelia-secrets.yaml
