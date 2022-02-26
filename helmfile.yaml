@@ -12,7 +12,7 @@ repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
 
-releases:
+releases: []
   #- name: acme
   #  namespace: cert-manager
   #  chart: ./charts/acme
@@ -44,10 +44,3 @@ releases:
   #- name: kube-state-metrics
   #  chart: bitnami/kube-state-metrics
   #  namespace: monitoring
-  - name: vouch
-    chart: halkeye/vouch
-    namespace: ingress-nginx
-    values:
-      - vouch.yaml
-    secrets:
-      - vouch-secrets.yaml

@@ -1,0 +1,16 @@
+helmDefaults:
+  kubeContext: do-k8s
+
+repositories:
+  - name: vouch
+    url: https://vouch.github.io/helm-charts/
+
+releases:
+  - name: vouch
+    namespace: vouch
+    chart: vouch/vouch
+    version: 3.0.3
+    values:
+      - vouch.yaml
+    secrets:
+      - vouch-secrets.yaml
