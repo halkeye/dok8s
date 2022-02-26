@@ -1,5 +1,6 @@
 env:
   TZ: American/Vancouver
+  GROCY_STOCK_BARCODE_LOOKUP_PLUGIN: ShamaconBarcodeLookupPlugin
 
 persistence:
   config:
@@ -16,3 +17,17 @@ ingress:
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+initContainers:
+  update-volume-permission:
+    name: install-qr-plugin
+    image: busybox
+    command:
+      - "sh"
+      - "-c"
+      - "test -f /config/data/plugins/ShamaconBarcodeLookupPlugin.php || wget -O config/data/plugins/ShamaconBarcodeLookupPlugin.php https://raw.githubusercontent.com/amazingproducer/grocy-barcode-plugin/0e02768f174c51e8cd07d1fb9c217160a8486ec7/ShamaconBarcodeLookupPlugin.php"
+    volumeMounts:
+      - name: config
+        mountPath: /config
+    securityContext:
+      runAsUser: 0
