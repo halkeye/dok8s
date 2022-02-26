@@ -12,7 +12,7 @@ config:
 
 ingress:
   enabled: true
-
+  className: nginx
   hosts:
     - host: dex.do.g4v.dev
       paths:
