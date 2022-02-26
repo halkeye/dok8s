@@ -1,0 +1,8 @@
+rbac:
+  enabled: true
+domain: do.g4v.dev
+ingress:
+  enabled: true
+  className: nginx
+  subdomain: authelia
+
