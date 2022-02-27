@@ -1,0 +1,13 @@
+helmDefaults:
+  kubeContext: do-k8s
+
+repositories:
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
+
+releases:
+  - name: tautulli
+    chart: k8s-at-home/tautulli
+    namespace: tautulli
+    values:
+      - tautulli.yaml
