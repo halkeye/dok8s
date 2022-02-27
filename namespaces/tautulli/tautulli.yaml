@@ -1,3 +1,5 @@
+env:
+  TZ: America/Vancouver
 ingress:
   main:
     enabled: true
@@ -21,3 +23,17 @@ resources:
 persistence:
   config:
     enabled: true
+podSecurityContext:
+  runAsUser: 1026
+  runAsGroup: 100
+
+initContainers:
+  update-volume-permission:
+    name: update-volume-permission
+    image: busybox
+    command: ["sh", "-c", "chown -R 1026:100 /config"]
+    volumeMounts:
+      - name: config
+        mountPath: /config
+    securityContext:
+      runAsUser: 0
