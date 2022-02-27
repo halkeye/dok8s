@@ -18,7 +18,7 @@ strategy: {}
   # rollingUpdate: null
 image:
   repository: bitnami/openldap
-  tag: 2.5.11
+  tag: 2.6.1
   pullPolicy: IfNotPresent
 
 # Spcifies an existing secret to be used for admin and config user passwords
