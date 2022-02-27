@@ -1,0 +1,11 @@
+strategy:
+  type: Recreate
+  rollingUpdate: null
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 1Gi
+
+logLevel: debug
+root: "dc=gavinmogan,dc=com"

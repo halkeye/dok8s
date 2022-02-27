@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  {{ template "openldap.fullname" . }}
+  labels:
+    app: {{ template "openldap.name" . }}
+    chart: {{ template "openldap.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- if .Values.extraLabels }}
+{{ toYaml .Values.extraLabels | indent 4 }}
+{{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+{{- if .Values.strategy }}
+  strategy:
+{{ toYaml .Values.strategy | indent 4 }}
+{{- end }}
+  selector:
+    matchLabels:
+      app: {{ template "openldap.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+{{- if .Values.customLdifFiles}}
+        checksum/configmap-customldif: {{ include (print $.Template.BasePath "/configmap-customldif.yaml") . | sha256sum }}
+{{- else }}
+        checksum/configmap-customldif: "N/A"
+{{- end }}
+{{- if .Values.podAnnotations}}
+{{ toYaml .Values.podAnnotations | indent 8}}
+{{- end }}
+      labels:
+        app: {{ template "openldap.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: ldap-port
+              containerPort: 1389
+            - name: ssl-ldap-port
+              containerPort: 1636
+          envFrom:
+            - secretRef:
+                name: {{ template "openldap.secretName" . }}
+          volumeMounts:
+            - name: data
+              mountPath: /bitnami/openldap
+            - name: tls
+              mountPath: /certs
+              readOnly: true
+            {{- if .Values.customLdifFiles }}
+            - name: customldif
+              mountPath: /ldifs
+            {{- end }}
+          env:
+            - name: BITNAMI_DEBUG
+              value: "yes"
+            - name: LDAP_SKIP_DEFAULT_TREE
+              value: "no"
+            - name: LDAP_CUSTOM_LDIF_DIR
+              value: "/ldifs"
+            - name: LDAP_ROOT
+              value: "{{ .Values.root }}"
+            - name: LDAP_TLS_CA_FILE
+              value: "/certs/ca.crt"
+            - name: LDAP_TLS_CERT_FILE
+              value: "/certs/tls.crt"
+            - name: LDAP_TLS_KEY_FILE
+              value: "/certs/tls.key"
+            - name: LDAP_ENABLE_TLS
+              value: "yes"
+            - name: LDAP_LDAPS_PORT_NUMBER
+              value: "1636"
+            - name: LDAP_ADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "openldap.secretName" . }}
+                  key: LDAP_ADMIN_USERNAME
+            - name: LDAP_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "openldap.secretName" . }}
+                  key: LDAP_ADMIN_PASSWORD
+#          livenessProbe:
+#            tcpSocket:
+#              port: ldap-port
+#            initialDelaySeconds: 20
+#            periodSeconds: 10
+#            failureThreshold: 10
+#          readinessProbe:
+#            tcpSocket:
+#              port: ldap-port
+#            initialDelaySeconds: 20
+#            periodSeconds: 10
+#            failureThreshold: 10
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      volumes:
+        {{- if .Values.customLdifFiles }}
+        - name: customldif
+          configMap:
+            name: {{ template "openldap.fullname" . }}-customldif
+        {{- end }}
+        - name: data
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "openldap.fullname" .) }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        - name: tls
+          secret:
+            secretName: {{ template "openldap.fullname" . }}-tls

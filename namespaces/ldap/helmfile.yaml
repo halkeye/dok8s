@@ -1,0 +1,12 @@
+helmDefaults:
+  kubeContext: do-k8s
+
+
+releases:
+  - name: openldap
+    chart: ../../charts/openldap
+    namespace: ldap
+    values:
+      - openldap.yaml
+    secrets:
+      - openldap-secrets.yaml
