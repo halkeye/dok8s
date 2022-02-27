@@ -1,0 +1,16 @@
+helmDefaults:
+  kubeContext: do-k8s
+
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
+releases:
+  - name: postfix
+    chart: halkeye/postfix
+    namespace: smtp
+    values:
+      - postfix.yaml
+    secrets:
+      - postfix-secrets.yaml
+
