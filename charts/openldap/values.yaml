@@ -102,7 +102,7 @@ test:
   enabled: false
   image:
     repository: dduportal/bats
-    tag: 0.4.0
+    tag: 1.1.0
 
 dnsNames: []
 root: ""
