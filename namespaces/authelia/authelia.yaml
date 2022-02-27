@@ -1,13 +1,60 @@
 rbac:
   enabled: true
+
 domain: do.g4v.dev
+
 ingress:
   enabled: true
   className: nginx
   subdomain: authelia
 
-session:
-  redis:
-    enabled: true
-    enabledSecret: true
-    host: redis-master.databases.svc.cluster.local
+configMap:
+  storage:
+     postgres:
+      enabled: true
+      host: postgresql.databases.svc.cluster.local
+      port: 5432
+      database: authelia
+      schema: public
+      username: authelia
+      ssl:
+        mode: disable
+        root_certificate: ""
+        certificate: ""
+        key: ""
+      timeout: 5s
+  session:
+    redis:
+      enabled: true
+      enabledSecret: true
+      host: redis-master.databases.svc.cluster.local
+  authentication_backend:
+    ldap:
+      enabled: false
+    file:
+      enabled: true
+  notifier:
+    disable_startup_check: true
+    smtp:
+      enabled: true
+      startup_check_address: test-authelia@g4v.dev
+      host: postfix.smtp.svc.cluster.local
+      sender: authelia@do.g4v.dev
+      identifier: authelia.do.g4v.dev
+
+
+persistence:
+  enabled: true
+  size: 1Gi
+
+pod:
+  kind: Deployment
+  strategy:
+    type: Recreate
+  resources:
+    limits:
+      cpu: "4.00"
+      memory: 125Mi
+    requests:
+      cpu: "0.25"
+      memory: 50Mi
