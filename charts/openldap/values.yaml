@@ -97,12 +97,5 @@ tolerations: []
 
 affinity: {}
 
-## test container details
-test:
-  enabled: false
-  image:
-    repository: dduportal/bats
-    tag: 0.4.0
-
 dnsNames: []
 root: ""
