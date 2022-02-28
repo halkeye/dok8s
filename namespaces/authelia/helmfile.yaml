@@ -9,7 +9,7 @@ releases:
   - name: authelia
     namespace: authelia
     chart: authelia/authelia
-    version: 0.8.2
+    version: 0.8.3
     values:
       - authelia.yaml
     secrets:
