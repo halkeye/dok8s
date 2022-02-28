@@ -1,0 +1,11 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
+releases:
+  - name: whoami
+    chart: halkeye/whoami
+    namespace: default
+    version: 1.0.1
+    values:
+      - whoami.yaml
