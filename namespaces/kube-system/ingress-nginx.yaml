@@ -5,19 +5,27 @@ rbac:
 controller:
   extraArgs:
     default-ssl-certificate: "kube-system/wildcard-do-g4v-tls"
+
   stats:
     enabled: true
+
   metrics:
     enabled: true
     port: 10254
-    service:
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "10254"
+
+  kind: "DaemonSet"
+
   config:
-    # This is the important part
     use-forwarded-headers: "true"
+    use-proxy-protocol: "true"
+
   service:
+    type: LoadBalancer
     externalTrafficPolicy: Local
+    publishService:
+      enabled: "true"
     annotations:
       external-dns.alpha.kubernetes.io/hostname: "*.do.g4v.dev."
+      "service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol": "true"
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
