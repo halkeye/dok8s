@@ -9,7 +9,7 @@ releases:
   - name: vouch
     namespace: vouch
     chart: vouch/vouch
-    version: 3.0.3
+    version: 3.0.5
     values:
       - vouch.yaml
     secrets:
