@@ -1,5 +1,5 @@
 env:
-  TZ: American/Vancouver
+  TZ: America/Vancouver
   GROCY_STOCK_BARCODE_LOOKUP_PLUGIN: ShamaconBarcodeLookupPlugin
 
 persistence:
