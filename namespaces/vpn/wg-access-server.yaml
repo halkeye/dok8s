@@ -1,0 +1,24 @@
+---
+config:
+  loglevel: "debug"
+  externalHost: "vpn.do.g4v.dev"
+  auth:
+    oidc:
+      name: "wg-access-server"
+      issuer: "https://authentik.do.g4v.dev/application/o/vpn/"
+      redirectURL: "https://admin-vpn.do.g4v.dev/callback"
+      claimMapping:
+        admin: "'WireguardAdmins' in group_membership"
+wireguard:
+  service:
+    externalTrafficPolicy: Local
+    type: LoadBalancer
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: vpn.do.g4v.dev
+      external-dns.alpha.kubernetes.io/ttl: "120"
+persistence:
+  enabled: false
+ingress:
+  enabled: true
+  hosts: ["admin-vpn.do.g4v.dev"]
+  ingressClassName: nginx
