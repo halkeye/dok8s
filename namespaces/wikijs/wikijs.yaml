@@ -1,0 +1,28 @@
+env:
+  TZ: American/Vancouver
+
+controller:
+  strategy: RollingUpdate
+
+secret:
+  DB_HOST: postgresql.databases.svc.cluster.local
+  DB_NAME: wikijs
+  DB_TYPE: postgres
+  DB_USER: wikijs
+
+persistence:
+  config:
+    enabled: false
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: wikijs.do.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
