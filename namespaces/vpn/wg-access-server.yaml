@@ -7,8 +7,13 @@ config:
       name: "wg-access-server"
       issuer: "https://authentik.do.g4v.dev/application/o/vpn/"
       redirectURL: "https://admin-vpn.do.g4v.dev/callback"
+      scopes:
+        - email
+        - openid
+        - profile
+        - groups
       claimMapping:
-        admin: "'WireguardAdmins' in group_membership"
+        admin: '''WireguardAdmins'' in groups'
 wireguard:
   service:
     externalTrafficPolicy: Local
