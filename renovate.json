@@ -10,7 +10,7 @@
       "matchStrings": [
         "tag: \"(?<currentValue>[a-z0-9.-]+)@(?<currentDigest>sha256:[a-f0-9]+)\""
       ],
-      "depName": "halkeye/jenkins",
+      "depNameTemplate": "halkeye/jenkins",
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker"
     }
