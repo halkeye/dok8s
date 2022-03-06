@@ -1,7 +1,7 @@
 ---
 config:
   loglevel: "debug"
-  externalHost: "vpn.do.g4v.dev"
+  externalHost: "vpn.do.g4v.dev:32487"
   auth:
     oidc:
       name: "wg-access-server"
@@ -16,8 +16,7 @@ config:
         admin: '''WireguardAdmins'' in groups'
 wireguard:
   service:
-    externalTrafficPolicy: Local
-    type: LoadBalancer
+    type: NodePort
     annotations:
       external-dns.alpha.kubernetes.io/hostname: vpn.do.g4v.dev
       external-dns.alpha.kubernetes.io/ttl: "120"
