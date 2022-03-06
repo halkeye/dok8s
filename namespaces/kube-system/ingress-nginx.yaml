@@ -3,6 +3,9 @@ metrics:
 rbac:
   create: true
 controller:
+  ingressClassResource:
+    default: true
+
   extraArgs:
     default-ssl-certificate: "kube-system/wildcard-do-g4v-tls"
 
