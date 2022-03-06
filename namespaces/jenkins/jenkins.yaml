@@ -38,7 +38,7 @@ controller:
 
   ingress:
     enabled: true
-    hostName: ci.do.g4v.dev
+    hostName: ci.g4v.dev
     ingressClassName: nginx
     path: /
     annotations:
@@ -161,16 +161,16 @@ controller:
                 teamCacheDuration: 0
           location:
             adminAddress: "jenkins@g4v.dev"
-            url: "https://ci.do.g4v.dev/"
+            url: "https://ci.g4v.dev/"
           email-ext:
             defaultReplyTo: "jenkins@g4v.dev"
             mailAccount:
               smtpPort: "25"
               smtpHost: "${SMTP_SERVER}"
-          #gitHubPluginConfig:
-          #  configs:
-          #    - credentialsId: "github-admin-halkeye"
-          #  hookUrl: "https://ci.do.g4v.dev/github-webhook/"
+          gitHubPluginConfig:
+            configs:
+              - credentialsId: "github-admin-halkeye"
+            hookUrl: "https://ci.g4v.dev/github-webhook/"
           mailer:
             replyToAddress: "jenkins@g4v.dev"
             smtpHost: "${SMTP_SERVER}"
@@ -449,7 +449,7 @@ controller:
                         }
                         */
                         notificationContextTrait {
-                          contextLabel("continuous-integration/ci.do.g4v.dev")
+                          contextLabel("continuous-integration/ci.g4v.dev")
                           typeSuffix(true)
                         }
                       }
