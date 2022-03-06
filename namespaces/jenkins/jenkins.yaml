@@ -320,7 +320,143 @@ controller:
                     id: discord-webhook
                     secret: "${DISCORD_WEBHOOK}"
         jobs:
-          - url: https://raw.githubusercontent.com/halkeye/jenkins-jobs/master/jobs.groovy
+          - script: |-
+              def githubOrgs = [
+                "halkeye": [
+                  "public": true,
+                  "repos": [
+                    "bamboohr-employee-stats",
+                    "codacy-maven-plugin",
+                    "discord-twitch-streamers",
+                    "dok8s",
+                    "EcoNextFoodPlugin",
+                    "eslint-formatter-multiple",
+                    "flask_atlassian_connect",
+                    "GamesDealsBot",
+                    "gatsby-jenkins-io",
+                    "gatsby-source-goodreads",
+                    "gatsby-theme-nodeschool",
+                    "get_groups",
+                    "gitter-irc-bridge",
+                    "git-version-commits",
+                    "go_windows_stats",
+                    "graphite_scripts",
+                    "halkeye-ansible",
+                    "helm-repo-html",
+                    "http_bouncer_client",
+                    "http_bouncer_server",
+                    "hubot-plugins",
+                    "infinicatr",
+                    "kubernetes-usb-labeler",
+                    "language-versions",
+                    "mastodon-twitter-poster",
+                    "minecraft.gavinmogan.com",
+                    "proxy-s3-google-oauth",
+                    "react-book-reader",
+                    "release-dashboard",
+                    "self-service-password",
+                    "slack-foodee",
+                    "slacktalker",
+                    "soundboard",
+                    "www-gavinmogan-com"
+                  ]
+                ],
+                "nodeschool": [
+                  "public": true,
+                  "repos": [
+                    "vancouver"
+                  ]
+                ],
+                "halkeye-helm-charts": ["public": true],
+                "halkeye-docker": ["public": true],
+                "nodeschoolyvr": ["public": true],
+              ]
+
+              def appEnabledAccounts = ["halkeye", "halkeye-helm-charts", "halkeye-docker"]
+
+              githubOrgs.keySet().each { githubOrg ->
+                organizationFolder(githubOrg) {
+                  authorization {
+                    if (githubOrgs[githubOrg]["public"]) {
+                      ["anonymous", "authorized", "authenticated"].each { user ->
+                        permission("hudson.model.Item.Read", user)
+                        permission("hudson.model.Item.Discover", user)
+                      }
+                    }
+                    if (githubOrgs[githubOrg]["allowed_read_users"]) {
+                      githubOrgs[githubOrg]["allowed_read_users"].each { user ->
+                        permission("hudson.model.Item.Read", user)
+                        permission("hudson.model.Item.Discover", user)
+                      }
+                    }
+                  }
+                  buildStrategies {
+                    buildAnyBranches {
+                      strategies {
+                        buildAllBranches {
+                          strategies {
+                            buildRegularBranches()
+                            // skipInitialBuildOnFirstBranchIndexing()
+                          }
+                        }
+                      }
+                    }
+                    buildAnyBranches {
+                      strategies {
+                        buildAllBranches {
+                          strategies {
+                            buildTags {
+                              atLeastDays '-1'
+                              atMostDays '3'
+                            }
+                            // skipInitialBuildOnFirstBranchIndexing()
+                          }
+                        }
+                      }
+                    }
+                  }
+                  orphanedItemStrategy {
+                    defaultOrphanedItemStrategy {
+                      pruneDeadBranches(true)
+                      numToKeepStr("5")
+                      daysToKeepStr("")
+                    }
+                    discardOldItems {
+                      numToKeep(5)
+                    }
+                  }
+                  organizations {
+                    github {
+                      credentialsId(appEnabledAccounts.contains(githubOrg) ? "github-app-" + githubOrg : "github-halkeye")
+                      repoOwner(githubOrg)
+                      traits {
+                        if (githubOrgs[githubOrg].repos) {
+                          sourceRegexFilter { "^" + regex(githubOrgs[githubOrg].repos.join("|") + "\$") }
+                        }
+                        pruneStaleBranchTrait()
+                        gitHubExcludeArchivedRepositories()
+                        gitHubBranchDiscovery {
+                          strategyId(1) // 1-Exclude branches that are also filed as PRs
+                        }
+                        gitHubPullRequestDiscovery {
+                          strategyId(1) // Merging the pull request with the current target branch revision
+                        }
+                        gitHubTagDiscovery()
+                        gitHubExcludeArchivedRepositories()
+                        /*
+                        pullRequestLabelsBlackListFilterTrait {
+                          labels('on-hold ci-skip skip-ci')
+                        }
+                        */
+                        notificationContextTrait {
+                          contextLabel("continuous-integration/ci.do.g4v.dev")
+                          typeSuffix(true)
+                        }
+                      }
+                    }
+                  }
+                }
+              }
 
 rbac:
   create: true
