@@ -41,7 +41,13 @@ controller:
     hostName: ci.g4v.dev
     ingressClassName: nginx
     path: /
+    tls:
+      - secretName: ci-tls
+        hosts:
+          - ci.g4v.dev
     annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/tls-acme: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: 2000m
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
