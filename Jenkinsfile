@@ -53,7 +53,7 @@ pipeline {
       steps {
         script {
           def diff = sh(
-            script:'helmfile --no-color -f "clusters/${K8S_CLUSTER}.yaml" diff --suppress-secrets --skip-deps --context=2 --concurrency=8',
+            script:'helmfile --no-color diff --suppress-secrets --skip-deps --context=2 --concurrency=8',
             returnStdout: true,
           ).trim()
           // Note the GitHub markdown formatting for the diff, to have syntax coloration
