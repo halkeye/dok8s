@@ -73,7 +73,7 @@ pipeline {
       script {
         if (env.BRANCH_NAME == "main") {
           withCredentials([string(credentialsId: 'discord-webhook', variable: 'WEBHOOK_URL')]) {
-            discordSend description: "Jenkins Pipeline Build", link: env.BUILD_URL, result: currentBuild.currentResult, title: env.JOB_NAME, webhookURL: env.WEBHOOK_URL
+            discordSend description: env.CHANGE_TITLE, link: env.BUILD_URL, result: currentBuild.currentResult, title: env.JOB_NAME, webhookURL: env.WEBHOOK_URL
           }
         }
       }
@@ -82,7 +82,7 @@ pipeline {
       script {
         if (env.BRANCH_NAME == "main") {
           withCredentials([string(credentialsId: 'discord-webhook', variable: 'WEBHOOK_URL')]) {
-            discordSend description: "Jenkins Pipeline Build", link: env.BUILD_URL, result: currentBuild.currentResult, title: env.JOB_NAME, webhookURL: env.WEBHOOK_URL
+            discordSend description: env.CHANGE_TITLE, link: env.BUILD_URL, result: currentBuild.currentResult, title: env.JOB_NAME, webhookURL: env.WEBHOOK_URL
           }
         }
       }
