@@ -76,11 +76,11 @@ controller:
           authorizationStrategy:
             projectMatrix:
               permissions:
-              - "Agent/Build:anonymous"
-              - "Job/Discover:anonymous"
-              - "Overall/Administer:halkeye"
-              - "Overall/Read:anonymous"
-              - "Overall/Read:authenticated"
+              - "GROUP:Overall/Read:authenticated"
+              - "USER:Agent/Build:anonymous"
+              - "USER:Job/Discover:anonymous"
+              - "USER:Overall/Read:anonymous"
+              - "USER:Overall/Administer:halkeye"
           markupFormatter: "markdownFormatter"
           securityRealm:
             oic:
