@@ -9,4 +9,4 @@ releases:
     values:
       - ./mastodon-twitter-poster.yaml
     secrets:
-      - ./mastodon-twitter-poster-secret.yaml
+      - ./mastodon-twitter-poster-secrets.yaml
