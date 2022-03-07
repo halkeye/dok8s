@@ -1,3 +1,7 @@
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
 releases:
   - name: mastodon-twitter-poster
     #chart: halkeye/mastodon-twitter-poster
