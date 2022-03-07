@@ -6,6 +6,7 @@ releases:
   - name: mastodon-twitter-poster
     chart: halkeye/mastodon-twitter-poster
     namespace: mastodon
+    version: 0.2.7
     values:
       - ./mastodon-twitter-poster.yaml
     secrets:
