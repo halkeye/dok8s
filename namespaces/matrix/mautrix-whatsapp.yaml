@@ -1,0 +1,44 @@
+config:
+  homeserver:
+    address: https://matrix.g4v.dev
+    domain: g4v.dev
+  metrics:
+    enabled: true
+    listen: 0.0.0.0:8000
+  appservice:
+    address: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
+    database:
+      type: postgres
+      uri:
+      max_open_conns: 20
+      max_idle_conns: 2
+    id: whatsapp
+  bridge:
+    permissions:
+      "*": 5
+      "@halkeye:g4v.dev": 100
+      g4v.dev: 10
+    relaybot:
+      enabled: false
+  logging:
+    directory: /logs
+    file_name_format: "{{.Date}}-{{.Index}}.log"
+    file_date_format: "2006-01-02"
+    file_mode: 384
+    timestamp_format: Jan _2, 2006 15:04:05
+    print_level: debug
+    loggers:
+      aiohttp:
+        level: ERROR
+registration:
+  id: whatsapp
+  url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
+  sender_localpart: whatsappbot
+  rate_limited: false
+  namespaces:
+    users:
+      - regex: ^@whatsapp_[0-9]+:g4v.dev$
+        exclusive: true
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8000"

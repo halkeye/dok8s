@@ -1,0 +1,197 @@
+ingress:
+  enabled: true
+  tls:
+    - secretName: synapse-tls
+      hosts:
+        - matrix.g4v.dev
+  hosts:
+    - host: matrix.g4v.dev
+      paths:
+        - /
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "180"
+
+cacheFactor: 5.0
+
+podAnnotations:
+  prometheus.io/path: /_synapse/metrics
+  prometheus.io/port: "9000"
+  prometheus.io/scrape: "true"
+
+probes:
+  liveness:
+    failureThreshold: 15
+    periodSeconds: 30
+  readiness:
+    failureThreshold: 15
+    periodSeconds: 30
+
+extra_python_modules:
+  - https://github.com/t2bot/synapse-simple-antispam/archive/refs/heads/master.zip#egg=synapse-simple-antispam
+  - https://github.com/devture/matrix-synapse-shared-secret-auth/archive/refs/tags/2.0.1.zip
+  - https://github.com/matrix-org/synapse-s3-storage-provider/archive/refs/heads/main.zip
+
+homeserver:
+  server_name: "g4v.dev"
+  signing_key_path: "/data/signing.key"
+  admin_contact: "mailto:matrix@g4v.dev"
+  enable_registration: false
+  public_baseurl: https://matrix.g4v.dev/
+  app_service_config_files:
+    - /config/whatsapp-registration.yaml
+    - /config/telegram-registration.yaml
+    - /config/instagram-registration.yaml
+    - /config/twitter-registration.yaml
+    - /config/googlechat-registration.yaml
+    - /config/signal-registration.yaml
+  enable_group_creation: true
+  enable_3pid_lookup: true
+  #default_identity_server: https://matrix-identity.g4v.dev
+  trusted_third_party_id_servers:
+    - matrix.g4v.dev
+  #account_threepid_delegates:
+  #  email: https://matrix-identity.g4v.dev
+  #  msisdn: https://matrix-identity.g4v.dev
+  email:
+    enable_notifs: false
+    notif_from: "Your Friendly %(app)s homeserver <noreply@g4v.dev>"
+    client_base_url: "http://chat.g4v.dev"
+  enable_media_repo: true
+  # Directory where uploaded images and attachments are stored.
+  media_store_path: "/data/media_store"
+
+  # The largest allowed upload size in bytes
+  max_upload_size: 1000M
+
+  # Maximum number of pixels that will be thumbnailed
+  max_image_pixels: 32M
+
+  url_preview_enabled: true
+
+  url_preview_ip_range_blacklist:
+    - "127.0.0.0/8"
+    - "10.0.0.0/8"
+    - "172.16.0.0/12"
+    - "192.168.0.0/16"
+    - "100.64.0.0/10"
+    - "169.254.0.0/16"
+    - "::1/128"
+    - "fe80::/64"
+    - "fc00::/7"
+
+  url_preview_url_blacklist:
+    # blacklist any URL with a username in its URI
+    - username: "*"
+    # blacklist all *.google.com URLs
+    - netloc: "google.com"
+    - netloc: "*.google.com"
+    # blacklist all plain HTTP URLs
+    - scheme: "http"
+    # blacklist http(s)://www.acme.com/foo
+    - netloc: "www.acme.com"
+      path: "/foo"
+    # blacklist any URL with a literal IPv4 address
+    - netloc: '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'
+
+  password_config:
+    enabled: true
+  sso:
+    client_whitelist:
+      - https://chat.g4v.dev
+      - https://chat2.g4v.dev
+      - https://g4v.dev
+
+logconfig:
+  root:
+    level: INFO
+    handlers: [console]
+  loggers:
+    shared_secret_authenticator:
+      level: INFO
+    synapse.access.http.8008:
+      level: ERROR
+    synapse.federation.transport.server:
+      level: ERROR
+    synapse.metrics:
+      level: ERROR
+
+#dnsConfig:
+#  options:
+#    - name: ndots
+#      value: "1"
+
+extraConfigs:
+  whatsapp-registration.yaml:
+    id: whatsapp
+    url: http://mautrix-whatsapp.matrix.svc.cluster.local:29318
+    sender_localpart: whatsappbot
+    rate_limited: false
+    namespaces:
+      users:
+        - regex: ^@whatsapp_[0-9]+:g4v.dev$
+          exclusive: true
+  telegram-registration.yaml:
+    id: telegram
+    namespaces:
+      users:
+        - exclusive: true
+          regex: "@telegram_.+:g4v.dev"
+      aliases:
+        - exclusive: true
+          regex: "#telegram_.+:g4v.dev"
+    url: http://mautrix-telegram.matrix.svc.cluster.local:29317
+    sender_localpart: telegrambot
+    rate_limited: false
+  instagram-registration.yaml:
+    id: instagram
+    namespaces:
+      users:
+        - exclusive: true
+          regex: "@instagram_.+:g4v.dev"
+      aliases:
+        - exclusive: true
+          regex: "#instagram_.+:g4v.dev"
+    url: http://mautrix-instagram.matrix.svc.cluster.local:29328
+    sender_localpart: instagrambot
+    rate_limited: false
+  twitter-registration.yaml:
+    id: twitter
+    namespaces:
+      users:
+        - exclusive: true
+          regex: "@twitter_.+:g4v.dev"
+      aliases:
+        - exclusive: true
+          regex: "#twitter_.+:g4v.dev"
+    url: http://mautrix-twitter.matrix.svc.cluster.local:29328
+    sender_localpart: twitterbot
+    rate_limited: false
+  googlechat-registration.yaml:
+    id: googlechatbot
+    namespaces:
+      users:
+        - exclusive: true
+          regex: "@googlechat_.+:g4v.dev"
+          group_id: +googlechat:g4v.dev
+    url: http://mautrix-googlechat:29320
+    sender_localpart: googlechatbot
+    rate_limited: false
+  signal-registration.yaml:
+    id: signal
+    namespaces:
+      users:
+        - exclusive: true
+          regex: "@signal_.+:g4v.dev"
+          group_id: +signal:g4v.dev
+    url: http://mautrix-signal:29328
+    sender_localpart: signalbot
+    rate_limited: false
+
+persistence:
+  enabled: false
+  size: 10Gi

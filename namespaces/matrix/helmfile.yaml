@@ -1,0 +1,93 @@
+helmDefaults:
+  cleanupOnFail: true
+
+repositories:
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
+
+releases:
+  - name: synapse
+    chart: halkeye/synapse
+    version: 0.8.8
+    namespace: matrix
+    values:
+      - ./synapse.yaml
+    secrets:
+      - ./synapse-secrets.yaml
+
+  - name: element-web
+    chart: halkeye/element-web
+    namespace: matrix
+    version: 1.0.35
+    values:
+      - ./element-web.yaml
+
+  - name: schildichat-web
+    chart: halkeye/schildichat-web
+    version: 1.0.0
+    namespace: matrix
+    values:
+      - ./schildichat-web.yaml
+
+  - name: matrix-media-repo
+    chart: halkeye/matrix-media-repo
+    version: 1.0.5
+    namespace: matrix
+    values:
+      - ./matrix-media-repo.yaml
+    secrets:
+      - ./matrix-media-repo-secrets.yaml
+
+  - name: mautrix-whatsapp
+    chart: halkeye/mautrix-whatsapp
+    version: 1.0.1
+    namespace: matrix
+    values:
+      - ./mautrix-whatsapp.yaml
+    secrets:
+      - ./mautrix-whatsapp-secrets.yaml
+
+  - name: mautrix-telegram
+    chart: halkeye/mautrix-telegram
+    namespace: matrix
+    version: 1.0.1
+    values:
+      - ./mautrix-telegram.yaml
+    secrets:
+      - ./mautrix-telegram-secrets.yaml
+
+  - name: mautrix-googlechat
+    chart: halkeye/mautrix-googlechat
+    namespace: matrix
+    version: 1.0.1
+    values:
+      - ./mautrix-googlechat.yaml
+    secrets:
+      - ./mautrix-googlechat-secrets.yaml
+
+  - name: mautrix-signal
+    chart: halkeye/mautrix-signal
+    namespace: matrix
+    version: 0.0.8
+    values:
+      - ./mautrix-signal.yaml
+    secrets:
+      - ./mautrix-signal-secrets.yaml
+
+  - name: mautrix-instagram
+    chart: halkeye/mautrix-instagram
+    namespace: matrix
+    version: 1.0.0
+    values:
+      - ./mautrix-instagram.yaml
+    secrets:
+      - ./mautrix-instagram-secrets.yaml
+
+  - name: mautrix-twitter
+    chart: halkeye/mautrix-twitter
+    namespace: matrix
+    version: 1.0.0
+    values:
+      - ./mautrix-twitter.yaml
+    secrets:
+      - ./mautrix-twitter-secrets.yaml
