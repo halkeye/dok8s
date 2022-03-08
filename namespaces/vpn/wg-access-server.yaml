@@ -5,7 +5,7 @@ config:
   auth:
     oidc:
       name: "wg-access-server"
-      issuer: "https://authentik.do.g4v.dev/application/o/vpn/"
+      issuer: "https://auth.g4v.dev/application/o/vpn/"
       redirectURL: "https://admin-vpn.do.g4v.dev/callback"
       scopes:
         - email

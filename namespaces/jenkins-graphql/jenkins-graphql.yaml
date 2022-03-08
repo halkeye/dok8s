@@ -19,7 +19,6 @@ controller:
           - graphql-jenkins.do.g4v.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-      kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: 2000m
       nginx.ingress.kubernetes.io/enable-cors: "true"

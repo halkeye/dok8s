@@ -84,17 +84,17 @@ controller:
           markupFormatter: "markdownFormatter"
           securityRealm:
             oic:
-              authorizationServerUrl: "https://authentik.do.g4v.dev/application/o/authorize/"
+              authorizationServerUrl: "https://auth.g4v.dev/application/o/authorize/"
               clientId: "${OIC_AUTH_CLIENT_ID}"
               clientSecret: "${OIC_AUTH_CLIENT_SECRET}"
               disableSslVerification: false
-              endSessionEndpoint: "https://authentik.do.g4v.dev/if/session-end/jenkins/"
+              endSessionEndpoint: "https://auth.g4v.dev/if/session-end/jenkins/"
               escapeHatchEnabled: false
               logoutFromOpenidProvider: true
               scopes: "email groups openid profile"
-              tokenServerUrl: "https://authentik.do.g4v.dev/application/o/token/"
-              userInfoServerUrl: "https://authentik.do.g4v.dev/application/o/userinfo/"
-              wellKnownOpenIDConfigurationUrl: "https://authentik.do.g4v.dev/application/o/jenkins/.well-known/openid-configuration"
+              tokenServerUrl: "https://auth.g4v.dev/application/o/token/"
+              userInfoServerUrl: "https://auth.g4v.dev/application/o/userinfo/"
+              wellKnownOpenIDConfigurationUrl: "https://auth.g4v.dev/application/o/jenkins/.well-known/openid-configuration"
               userNameField: "preferred_username"
               emailFieldName: "email"
               fullNameFieldName: "name"
@@ -449,14 +449,19 @@ controller:
                         }
                         gitHubTagDiscovery()
                         gitHubExcludeArchivedRepositories()
-                        /*
                         pullRequestLabelsBlackListFilterTrait {
                           labels('on-hold ci-skip skip-ci')
                         }
-                        */
                         notificationContextTrait {
                           contextLabel("continuous-integration/ci.g4v.dev")
                           typeSuffix(true)
+                        }
+                      }
+                      configure {
+                        def traits = it / 'sources' / 'data' / 'jenkins.branch.BranchSource' / 'source' / 'traits'
+                        traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                          strategyId(1) // Merging the pull request with the current target branch revision
+                          trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
                         }
                       }
                     }
