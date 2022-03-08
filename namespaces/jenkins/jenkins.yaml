@@ -457,13 +457,14 @@ controller:
                           typeSuffix(true)
                         }
                       }
-                      configure {
-                        def traits = it / 'sources' / 'data' / 'jenkins.branch.BranchSource' / 'source' / 'traits'
-                        traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
-                          strategyId(1) // Merging the pull request with the current target branch revision
-                          trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
-                        }
-                      }
+                    }
+                  }
+                  configure {
+                    def traits = it / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
+                    // Not discovered by Job-DSL: need to be configured as raw-XML
+                    traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                      strategyId(1) // 1-Merging the pull request with the current target branch revision
+                      trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
                     }
                   }
                 }
