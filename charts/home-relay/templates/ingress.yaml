@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "dev-home-relay"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+{{- range $.Values.relays }}
+    - {{ .hostname }}
+{{- end }}
+    secretName: home-relay-tls
+  rules:
+{{- range $.Values.relays }}
+    - host: {{ .hostname }}
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: home-relay
+                port:
+                  name: http
+            pathType: Prefix
+{{- end }}

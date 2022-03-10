@@ -1,0 +1,11 @@
+helmDefaults:
+  kubeContext: do-k8s
+
+releases:
+  - name: home-relay
+    chart: ../../charts/home-relay
+    namespace: proxy
+    values:
+      - home-relay.yaml
+    secrets:
+      - home-relay-secrets.yaml

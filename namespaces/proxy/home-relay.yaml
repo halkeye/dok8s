@@ -1,0 +1,14 @@
+---
+
+relays:
+  - hostname: books.g4v.dev
+    backend:
+      ip: 100.87.25.75
+      port: 443
+      hostname: calibre-web.nas.g4v.dev
+  - hostname: dev.g4v.dev
+    backend:
+      ip: 100.118.24.15
+      port: 443
+      hostname: dev.g4v.dev
+
