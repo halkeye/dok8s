@@ -1,5 +1,9 @@
 helmDefaults:
   kubeContext: do-k8s
+  cleanupOnFail: true
+  wait: true
+  timeout: 300
+  atomic: true
 
 releases:
   - name: home-relay

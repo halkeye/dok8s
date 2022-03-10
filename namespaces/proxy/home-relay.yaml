@@ -17,10 +17,20 @@ relays:
         auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
         auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
         auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+  - hostname: home.g4v.dev
+    backend:
+      ip: 100.73.87.77
+      port: 8123
+      scheme: http
+      hostname: home.g4v.dev
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/tls-acme: "true"
   - hostname: dev.g4v.dev
     backend:
       ip: 100.118.24.15
-      port: 443
+      port: 3000
+      scheme: http
       hostname: dev.g4v.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
