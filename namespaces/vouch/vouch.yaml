@@ -1,6 +1,7 @@
 ---
 ingress:
   enabled: true
+  ingressClassName: nginx
   hosts:
     - vouch.g4v.dev
   tls:
@@ -8,6 +9,7 @@ ingress:
       hosts:
         - vouch.g4v.dev
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/tls-acme: "true"
 
 config:
