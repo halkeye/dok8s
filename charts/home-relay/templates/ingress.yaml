@@ -1,17 +1,22 @@
+{{- range $.Values.relays }}
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "dev-home-relay"
+  name: "dev-home-relay-{{ .hostname | replace ".g4v.dev" ".g4v" | replace "." "-" }}"
+  labels:
+{{ include "app.labels" $ | indent 4 }}
+  {{- with .annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-{{- range $.Values.relays }}
     - {{ .hostname }}
-{{- end }}
-    secretName: home-relay-tls
+    secretName: home-relay-{{.hostname | replace ".g4v.dev" ".g4v" | replace "." "-" }}-tls
   rules:
-{{- range $.Values.relays }}
     - host: {{ .hostname }}
       http:
         paths:
@@ -22,4 +27,5 @@ spec:
                 port:
                   name: http
             pathType: Prefix
+
 {{- end }}
