@@ -43,6 +43,11 @@ pipeline {
         sh 'sops -d cert-manager-cluster-issuer-secrets.yml | kubectl apply -f -'
       }
     }
+    stage('Helmfile Repos update'){
+      steps {
+        sh 'helmfile repos'
+      }
+    }
     stage('Helmfile Lint'){
       steps {
         sh 'helmfile lint'
