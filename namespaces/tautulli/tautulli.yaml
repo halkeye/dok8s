@@ -5,7 +5,7 @@ ingress:
     enabled: true
     ingressClassName: nginx
     hosts:
-      - host: plexstats.do.g4v.dev
+      - host: plexstats.g4v.dev
         paths:
           - path: /
     annotations:

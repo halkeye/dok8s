@@ -1,12 +1,12 @@
 ingress:
   enabled: true
   ingressClassName: nginx
-  hostname: phpmyadmin.do.g4v.dev
+  hostname: phpmyadmin.g4v.dev
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    nginx.ingress.kubernetes.io/auth-signin: "https://vouch.do.g4v.dev/login?url=$scheme://$http_host$request_uri&lasso-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
-    nginx.ingress.kubernetes.io/auth-url: https://vouch.do.g4v.dev
+    nginx.ingress.kubernetes.io/auth-signin: "https://vouch.g4v.dev/login?url=$scheme://$http_host$request_uri&lasso-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+    nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
     nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
     nginx.ingress.kubernetes.io/auth-snippet: |
       # these return values are used by the @error401 call

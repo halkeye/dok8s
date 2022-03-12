@@ -10,13 +10,13 @@ controller:
 
   ingress:
     enabled: true
-    hostName: graphql-jenkins.do.g4v.dev
+    hostName: graphql-jenkins.g4v.dev
     path: /
     apiVersion: networking.k8s.io/v1
     tls:
       - secretName: graphql-jenkins-tls
         hosts:
-          - graphql-jenkins.do.g4v.dev
+          - graphql-jenkins.g4v.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       kubernetes.io/tls-acme: "true"
@@ -50,9 +50,9 @@ controller:
                 - "Overall/Administer:halkeye"
         unclassified:
           gitHubPluginConfig:
-            hookUrl: "https://graphql-jenkins.do.g4v.dev/github-webhook/"
+            hookUrl: "https://graphql-jenkins.g4v.dev/github-webhook/"
           githubPullRequests:
-            publishedURL: "https://graphql-jenkins.do.g4v.dev"
+            publishedURL: "https://graphql-jenkins.g4v.dev"
           mailer:
             replyToAddress: "graphql-jenkins@g4v.dev"
             smtpHost: "${SMTP_SERVER}"

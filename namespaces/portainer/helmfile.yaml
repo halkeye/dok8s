@@ -1,0 +1,16 @@
+helmDefaults:
+  kubeContext: do-k8s
+
+repositories:
+  - name: portainer
+    url: https://portainer.github.io/k8s/
+
+releases:
+  - name: portainer
+    chart: portainer/portainer
+    #chart: /home/halkeye/git/halkeye-helm-charts/portainer/charts/portainer/
+    namespace: games
+    values:
+      - portainer.yaml
+    #secrets:
+    #  - portainer-secrets.yaml

@@ -1,0 +1,18 @@
+helmDefaults:
+  kubeContext: do-k8s
+
+repositories:
+  - name: authentik
+    #url: https://charts.goauthentik.io
+    url: git+https://github.com/halkeye/goauthentik-helm@charts?ref=use-secrets
+
+releases:
+  - name: authentik
+    namespace: authentik
+    chart: authentik/authentik
+    #chart: ../../charts/goauthentik-helm/charts/authentik
+    #version: 5.2.1
+    values:
+      - authentik.yaml
+    secrets:
+      - authentik-secrets.yaml

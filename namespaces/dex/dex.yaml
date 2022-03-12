@@ -1,6 +1,6 @@
 config:
   # Set it to a valid URL
-  issuer: https://dex.do.g4v.dev
+  issuer: https://dex.g4v.dev
 
   # See https://dexidp.io/docs/storage/ for more options
   storage:
@@ -14,7 +14,7 @@ ingress:
   enabled: true
   className: nginx
   hosts:
-    - host: dex.do.g4v.dev
+    - host: dex.g4v.dev
       paths:
         - path: /
           pathType: Prefix

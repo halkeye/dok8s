@@ -4,7 +4,7 @@ ingress:
   path: /
   ingressClassName: nginx
   hosts:
-    - whoami.do.g4v.dev
+    - whoami.g4v.dev
   #annotations:
   #  nginx.ingress.kubernetes.io/auth-signin: "https://vouch.g4v.dev/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
   #  nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev

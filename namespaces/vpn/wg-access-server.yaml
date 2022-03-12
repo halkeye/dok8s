@@ -1,12 +1,12 @@
 ---
 config:
   loglevel: "debug"
-  externalHost: "vpn.do.g4v.dev:32487"
+  externalHost: "vpn.g4v.dev:32487"
   auth:
     oidc:
       name: "wg-access-server"
       issuer: "https://auth.g4v.dev/application/o/vpn/"
-      redirectURL: "https://admin-vpn.do.g4v.dev/callback"
+      redirectURL: "https://admin-vpn.g4v.dev/callback"
       scopes:
         - email
         - openid
@@ -18,11 +18,11 @@ wireguard:
   service:
     type: NodePort
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: vpn.do.g4v.dev
+      external-dns.alpha.kubernetes.io/hostname: vpn.g4v.dev
       external-dns.alpha.kubernetes.io/ttl: "120"
 persistence:
   enabled: false
 ingress:
   enabled: true
-  hosts: ["admin-vpn.do.g4v.dev"]
+  hosts: ["admin-vpn.g4v.dev"]
   ingressClassName: nginx

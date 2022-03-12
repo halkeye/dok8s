@@ -19,7 +19,7 @@ ingress:
     enabled: true
     ingressClassName: nginx
     hosts:
-      - host: wikijs.do.g4v.dev
+      - host: wikijs.g4v.dev
         paths:
           - path: /
     annotations:
