@@ -13,6 +13,12 @@ relays:
       nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
       nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
       nginx.ingress.kubernetes.io/auth-snippet: |
+        if ( $request_uri ~ ^/kobo/.* ) {
+          return 200;
+        }
+        if ( $request_uri ~ ^/download/[0-9]+/kepub ) {
+          return 200;
+        }
         # these return values are used by the @error401 call
         auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
         auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
