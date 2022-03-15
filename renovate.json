@@ -8,7 +8,7 @@
         "^namespaces/jenkins/jenkins.yaml$"
       ],
       "matchStrings": [
-        "tag: \"(?<currentValue>[a-z0-9.-]+)\""
+        "tag: \"(?<currentValue>.*)@(?<currentDigest>.*)\""
       ],
       "depNameTemplate": "halkeye/jenkins",
       "datasourceTemplate": "docker",
