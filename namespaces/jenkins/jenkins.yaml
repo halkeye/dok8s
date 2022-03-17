@@ -325,6 +325,9 @@ controller:
                 - string:
                     id: discord-webhook
                     secret: "${DISCORD_WEBHOOK}"
+                - string:
+                    id: halkeye-crates
+                    secret: "${CARGO_REGISTRY_TOKEN}"
         jobs:
           - script: |-
               def githubOrgs = [
@@ -364,6 +367,7 @@ controller:
                     "slack-foodee",
                     "slacktalker",
                     "soundboard",
+                    "typos-json-to-checkstyle",
                     "typos-json-to-github-annotations",
                     "www-gavinmogan-com",
                   ]
