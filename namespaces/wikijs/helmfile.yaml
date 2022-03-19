@@ -5,6 +5,7 @@ releases:
   - name: wikijs
     namespace: wikijs
     chart: k8s-at-home/wikijs
+    version: 6.2.1
     values:
       - wikijs.yaml
     secrets:
