@@ -1,0 +1,20 @@
+env:
+  TZ: America/Vancouver
+  WEBSOCKET_ENABLED: "true"
+
+persistence:
+  config:
+    enabled: true
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: bitwarden.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
