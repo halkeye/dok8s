@@ -29,15 +29,6 @@ releases:
     values:
       - ./schildichat-web.yaml
 
-  - name: matrix-media-repo
-    chart: halkeye/matrix-media-repo
-    version: 1.0.5
-    namespace: matrix
-    values:
-      - ./matrix-media-repo.yaml
-    secrets:
-      - ./matrix-media-repo-secrets.yaml
-
   - name: mautrix-whatsapp
     chart: halkeye/mautrix-whatsapp
     version: 1.0.1
@@ -68,7 +59,7 @@ releases:
   - name: mautrix-signal
     chart: halkeye/mautrix-signal
     namespace: matrix
-    version: 0.0.8
+    version: 0.0.10
     values:
       - ./mautrix-signal.yaml
     secrets:
