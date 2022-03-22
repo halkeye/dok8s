@@ -19,13 +19,6 @@ spec:
   rules:
     - host: {{ .hostname }}
       http:
-        paths:
-          - path: /
-            backend:
-              service:
-                name: home-relay
-                port:
-                  name: http
-            pathType: Prefix
+        paths: {{ concat (list (dict "path" "/" "backend" (dict "service" (dict "name" "home-relay" "port" (dict "name" "http"))) "pathType" "Prefix")) (.additionalPaths | default (list)) | toYaml | nindent 10 }}
 
 {{- end }}
