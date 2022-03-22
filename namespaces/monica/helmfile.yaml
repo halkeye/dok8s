@@ -1,0 +1,11 @@
+repositories:
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
+releases:
+  - name: monica
+    namespace: monica
+    chart: k8s-at-home/monica
+    values:
+      - monica.yaml
+    secrets:
+      - monica-secrets.yaml

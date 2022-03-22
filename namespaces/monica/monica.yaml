@@ -1,0 +1,40 @@
+env:
+  TZ: America/Vancouver
+  APP_URL: https://monica.g4v.dev
+
+secret:
+  DB_USERNAME: monica
+  DB_PORT: "25060"
+  DB_DATABASE: monica
+  AUTH_METHOD: oidc
+  APP_DISABLE_SIGNUP: "false"
+  SENTRY_SUPPORT: "false"
+  SENTRY_LARAVEL_DSN: ""
+  OIDC_DISPLAY_NAME_CLAIMS: "email|openid|profile"
+  OIDC_ISSUER_DISCOVER: "true"
+  # public|s3
+  DEFAULT_FILESYSTEM: public
+  # AWS keys for S3 when using this storage method
+  #AWS_KEY: 
+  #AWS_SECRET: 
+  #AWS_REGION: us-east-1
+  #AWS_BUCKET: 
+  #AWS_SERVER: 
+
+
+persistence:
+  config:
+    enabled: true
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: monica.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
