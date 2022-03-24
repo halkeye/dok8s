@@ -1,0 +1,20 @@
+helmDefaults:
+  kubeContext: do-k8s
+
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: authentik
+    #url: https://charts.goauthentik.io
+    url: git+https://github.com/halkeye/goauthentik-helm@charts?ref=use-secrets&depupdate=1
+
+releases:
+  - name: authentik
+    namespace: authentik
+    chart: authentik/authentik
+    #chart: ../../charts/goauthentik-helm/charts/authentik
+    #version: 5.2.1
+    values:
+      - authentik.yaml
+    secrets:
+      - authentik-secrets.yaml
