@@ -29,6 +29,7 @@ pipeline {
       steps {
         sh 'wget -O $(which sops) https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux'
         sh 'apk add gnupg'
+        sh 'helm plugin install https://github.com/aslafy-z/helm-git --version 0.11.1'
         sh 'kubectl cluster-info > /dev/null'
         sh '''
           cat "${PGP_PRIVATE_KEY}" | gpg --batch --import || true
