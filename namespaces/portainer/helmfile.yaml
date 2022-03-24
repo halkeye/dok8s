@@ -9,7 +9,7 @@ releases:
   - name: portainer
     chart: portainer/portainer
     #chart: /home/halkeye/git/halkeye-helm-charts/portainer/charts/portainer/
-    namespace: games
+    namespace: portainer
     values:
       - portainer.yaml
     #secrets:
