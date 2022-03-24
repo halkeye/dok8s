@@ -9,10 +9,11 @@ authentik:
     enabled: true
 
 ingress:
-  enabled: true
-  ingressClassName: nginx
-  hosts:
-  - host: auth.g4v.dev
-    paths:
-    - path: "/"
-      pathType: Prefix
+  main:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+    - host: auth.g4v.dev
+      paths:
+      - path: "/"
+        pathType: Prefix
