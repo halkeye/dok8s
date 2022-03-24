@@ -8,7 +8,7 @@ releases:
   - name: wg-access-server
     chart: wg-access-server/wg-access-server
     namespace: vpn
-    version: 0.5.2
+    version: v0.6.0
     values:
       - wg-access-server.yaml
     secrets:
