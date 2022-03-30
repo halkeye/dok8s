@@ -334,6 +334,7 @@ controller:
                 "halkeye": [
                   "public": true,
                   "repos": [
+                    "android-sms",
                     "bamboohr-employee-stats",
                     "codacy-maven-plugin",
                     "discord-twitch-streamers",
