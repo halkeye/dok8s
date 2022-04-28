@@ -59,7 +59,7 @@ releases:
   - name: mautrix-signal
     chart: halkeye/mautrix-signal
     namespace: matrix
-    version: 0.0.10
+    version: 0.1.0
     values:
       - ./mautrix-signal.yaml
     secrets:
