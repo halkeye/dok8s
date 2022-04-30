@@ -262,6 +262,12 @@ controller:
                     id: "halkeye-digitalocean-kubeconfig"
                     description: "Kubeconfig file for dok8s"
                     scope: GLOBAL
+                    secretBytes: "${base64:${HOME_KUBECONFIG}}"
+                - file:
+                    fileName: "kubeconfig"
+                    id: "halkeye-home-kubeconfig"
+                    description: "Kubeconfig file for dok8s"
+                    scope: GLOBAL
                     secretBytes: "${base64:${DIGITAL_OCEAN_KUBECONFIG}}"
                 - string:
                     id: github-admin-halkeye
