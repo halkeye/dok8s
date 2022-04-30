@@ -259,13 +259,13 @@ controller:
                         privateKey: "${DIGITAL_OCEAN_SSH_KEY}"
                 - file:
                     fileName: "kubeconfig"
-                    id: "halkeye-digitalocean-kubeconfig"
-                    description: "Kubeconfig file for dok8s"
+                    id: "halkeye-home-kubeconfig"
+                    description: "Kubeconfig file for home k8s servers"
                     scope: GLOBAL
                     secretBytes: "${base64:${HOME_KUBECONFIG}}"
                 - file:
                     fileName: "kubeconfig"
-                    id: "halkeye-home-kubeconfig"
+                    id: "halkeye-digitalocean-kubeconfig"
                     description: "Kubeconfig file for dok8s"
                     scope: GLOBAL
                     secretBytes: "${base64:${DIGITAL_OCEAN_KUBECONFIG}}"
