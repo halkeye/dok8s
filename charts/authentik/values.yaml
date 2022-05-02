@@ -8,6 +8,9 @@ worker:
   # -- worker replicas
   replicas: 1
 
+global:
+  labels: {}
+
 image:
   repository: ghcr.io/goauthentik/server
   tag: 2022.4.1
