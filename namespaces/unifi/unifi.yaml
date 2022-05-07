@@ -1,0 +1,53 @@
+image:
+  tag: v7.1.61
+
+timezone: America/Vancouver
+
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: unifi.g4v.dev
+        paths:
+          - path: /
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
+persistence:
+  data:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 5Gi
+
+service:
+  main:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    ports:
+      stun:
+        enabled: false
+      syslog:
+        enabled: false
+      discovery:
+        enabled: false
+  udp:
+    enabled: true
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    ports:
+      stun:
+        enabled: true
+        port: 3478
+        protocol: UDP
+      syslog:
+        enabled: true
+        port: 5514
+        protocol: UDP
+      discovery:
+        enabled: true
+        port: 10001
+        protocol: UDP
