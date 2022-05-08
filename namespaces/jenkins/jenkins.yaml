@@ -22,7 +22,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "latest@sha256:3b46f8aaf7d0b4bc025e897be3c5b3fb93985889e5cc28176884e2f0a0cf7c1d"
+  tag: "latest@sha256:9a9dfce4adefc68543849623f6be214f39bbde5399023301ac62c7b5741e57ee"
 
   sidecars:
     configAutoReload:
