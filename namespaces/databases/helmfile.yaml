@@ -17,7 +17,7 @@ releases:
       - redis-secrets.yaml
   - name: postgresql
     chart: bitnami/postgresql
-    version: 11.2.3
+    version: 11.2.4
     namespace: databases
     values:
       - postgresql.yaml
