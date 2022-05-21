@@ -13,7 +13,7 @@ global:
 
 image:
   repository: ghcr.io/goauthentik/server
-  tag: 2022.4.1
+  tag: 2022.5.2
   pullPolicy: IfNotPresent
   pullSecrets: []
 
