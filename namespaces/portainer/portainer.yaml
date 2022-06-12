@@ -1,6 +1,11 @@
 service:
     type: LoadBalancer
 
+image:
+  repository: portainer/portainer-ce
+  tag: 2.13.1
+  pullPolicy: IfNotExist
+
 ingress:
     enabled: true
     ingressClassName: nginx
