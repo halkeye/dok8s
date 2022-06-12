@@ -1,0 +1,14 @@
+#helmDefaults:
+#  atomic: true
+repositories:
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
+
+releases:
+  - name: photoprism
+    namespace: photos
+    chart: k8s-at-home/photoprism
+    values:
+      - photoprism.yaml
+    secrets:
+      - photoprism-secrets.yaml
