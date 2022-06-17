@@ -4,7 +4,7 @@ service:
 image:
   repository: portainer/portainer-ce
   tag: 2.13.1
-  pullPolicy: IfNotExist
+  pullPolicy: IfNotPresent
 
 ingress:
     enabled: true
