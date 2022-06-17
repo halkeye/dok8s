@@ -246,12 +246,6 @@ controller:
                         privateKey: "${DIGITAL_OCEAN_SSH_KEY}"
                 - file:
                     fileName: "kubeconfig"
-                    id: "halkeye-home-kubeconfig"
-                    description: "Kubeconfig file for home k8s servers"
-                    scope: GLOBAL
-                    secretBytes: "${base64:${HOME_KUBECONFIG}}"
-                - file:
-                    fileName: "kubeconfig"
                     id: "halkeye-digitalocean-kubeconfig"
                     description: "Kubeconfig file for dok8s"
                     scope: GLOBAL
@@ -304,14 +298,14 @@ controller:
                     fileName: key.asc
                     scope: GLOBAL
                     description: "GPG data for jenkins@g4v.dev"
-                    secretBytes: "${readFileBase64:/run/secrets/JENKINS_GPG_SECRET}"
+                    secretBytes: "${readFileBase64:/run/secrets/additional/JENKINS_GPG_SECRET}"
                 - file:
                     # gpg --export-ownertrust
                     id: jenkins-gpg-ownertrust
                     fileName: ownertrust.asc
                     scope: GLOBAL
                     description: "GPG ownertrust data for jenkins@g4v.dev"
-                    secretBytes: "${readFileBase64:/run/secrets/JENKINS_GPG_OWNERTRUST}"
+                    secretBytes: "${readFileBase64:/run/secrets/additional/JENKINS_GPG_OWNERTRUST}"
                 - string:
                     id: jenkins-gpg-passphrase
                     secret: "${JENKINS_GPG_PASSPHRASE}"
