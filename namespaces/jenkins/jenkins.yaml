@@ -102,7 +102,7 @@ controller:
           numExecutors: 0
           nodes:
             - permanent:
-                name: "odin"
+                name: "thor"
                 labelString: "home"
                 numExecutors: 4
                 remoteFS: "/home/jenkins-agent"
@@ -113,19 +113,6 @@ controller:
                       disabled: false
                       failIfWorkDirIsMissing: false
                       internalDir: "remoting"
-                retentionStrategy: "always"
-            - permanent:
-                labelString: "home"
-                launcher:
-                  jnlp:
-                    webSocket: true
-                    workDirSettings:
-                      disabled: false
-                      failIfWorkDirIsMissing: false
-                      internalDir: "remoting"
-                name: "philcoulson"
-                numExecutors: 4
-                remoteFS: "/home/jenkins-agent"
                 retentionStrategy: "always"
           clouds:
             - digitalOcean:
@@ -306,11 +293,11 @@ controller:
                     username: "${SAUCE_MINECRAFT_GAVINMOGAN_USERNAME}"
                     password: "${SAUCE_MINECRAFT_GAVINMOGAN_PASSWORD}"
                 - basicSSHUserPrivateKey:
-                    id: odin-ssh-key
+                    id: thor-ssh-key
                     username: "jenkins"
                     privateKeySource:
                       directEntry:
-                        privateKey: "${ODIN_SSH_KEY}"
+                        privateKey: "${THOR_SSH_KEY}"
                 - file:
                     # gpg -a --export-secret-keys jenkins@g4v.dev
                     id: jenkins-gpg-secret
