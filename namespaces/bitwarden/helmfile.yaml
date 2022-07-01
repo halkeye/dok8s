@@ -5,7 +5,7 @@ releases:
   - name: vaultwarden
     namespace: bitwarden
     chart: k8s-at-home/vaultwarden
-    version: 4.2.3
+    version: 5.0.0
     values:
       - bitwarden.yaml
     secrets:
