@@ -1,6 +1,6 @@
 image:
   repository: "ghcr.io/goauthentik/server"
-  tag: "2022.3.3"
+  tag: "2022.7.2"
 
 authentik:
   # This sends anonymous usage-data, stack traces on errors and
