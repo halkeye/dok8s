@@ -3,7 +3,7 @@ service:
 
 image:
   repository: portainer/portainer-ce
-  tag: 2.13.1
+  tag: 2.14.0
   pullPolicy: IfNotPresent
 
 ingress:
