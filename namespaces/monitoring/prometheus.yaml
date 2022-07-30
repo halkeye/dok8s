@@ -1,0 +1,114 @@
+---
+alertmanager:
+  strategy:
+    type: Recreate
+  persistentVolume:
+    storageClass: do-block-storage
+  baseURL: https://alertmanager.g4v.dev/
+  ingress:
+    enabled: true
+    hosts:
+      - alertmanager.g4v.dev
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/auth-signin: "https://vouch.g4v.dev/login?url=$scheme://$http_host$request_uri&lasso-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+      nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
+      nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        # these return values are used by the @error401 call
+        auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+        auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+        auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+
+server:
+  baseURL: https://prometheus.g4v.dev/
+  strategy:
+    type: Recreate
+  persistentVolume:
+    storageClass: do-block-storage
+  ingress:
+    enabled: true
+    hosts:
+      - prometheus.g4v.dev
+    ingressClassName: "nginx"
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/auth-signin: "https://vouch.g4v.dev/login?url=$scheme://$http_host$request_uri&lasso-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+      nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
+      nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        # these return values are used by the @error401 call
+        auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+        auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+        auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+
+pushgateway:
+  baseURL: https://pushgateway.g4v.dev/
+  strategy:
+    type: Recreate
+  persistentVolume:
+    storageClass: do-block-storage
+  #ingress:
+  #  enabled: true
+  #  hosts:
+  #    - pushgateway.g4v.dev
+  #  ingressClassName: "nginx"
+  #  annotations:
+  #    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#
+#
+# The Prometheus PushGateway can be accessed via port 9091 on the following DNS name from within your cluster:
+# prometheus-pushgateway.default.svc.cluster.local
+
+# Get the PushGateway URL by running these commands in the same shell:
+#   export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus,component=pushgateway" -o jsonpath="{.items[0].metadata.name}")
+#   kubectl --namespace default port-forward $POD_NAME 9091
+#
+kubeStateMetrics:
+  enabled: false
+
+serverFiles:
+  alerting_rules.yml:
+    groups:
+      - name: Instances
+        rules:
+          - alert: InstanceDown
+            expr: up == 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              description: "{{ $labels.instance }} of job {{ $labels.job }}/{{ $labels.kubernetes_pod_name }} has been down for more than 5 minutes."
+              summary: "Instance {{ $labels.instance }} down"
+          - alert: Pods Down
+            expr: sum(kube_pod_status_phase{phase !~ "Running|Succeeded"}) by (phase) > 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              description: "Bad pods for more than than 5 minutes."
+              summary: "Instance {{ $labels.instance }} down"
+          - alert: Unused PV
+            expr: sum(kube_persistentvolume_status_phase{phase!~"Bound"}) by (phase) > 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              description: "Unused pv for more than than 5 minutes."
+              summary: "Unused PV"
+          - alert: Broken PVC
+            expr: sum(kube_persistentvolumeclaim_status_phase{phase!~"Bound"}) by (phase) > 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: "Broken PVC(s)"
+          - alert: Matrix Bridge is down
+            expr: bridge_connected == 0
+            for: 5m
+            labels:
+              severity: page
+            annotations:
+              summary: "Matrix bridge is down"
