@@ -1,0 +1,23 @@
+apiVersion: v2
+appVersion: latest
+description: mailgun-smtp-server helm package
+name: mailgun-smtp-server
+version: 1.0.0
+kubeVersion: ">=1.16.0-0"
+keywords:
+  - mailgun-smtp-server
+home: https://github.com/k8s-at-home/charts/tree/master/charts/stable/mailgun-smtp-server
+icon: https://mailgun-smtp-server.org/icon
+sources:
+  - https://github.com/stevenolen/mailgun-smtp-server
+maintainers:
+  - name: Gavin Mogan
+    email: helm@gavinmogan.com
+dependencies:
+  - name: common
+    repository: https://library-charts.k8s-at-home.com
+    version: 4.4.2
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial version

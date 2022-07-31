@@ -14,3 +14,9 @@ releases:
     secrets:
       - postfix-secrets.yaml
 
+  - name: smtp
+    chart: ../../charts/mailgun-smtp-server
+    namespace: smtp
+    secrets:
+      - mailgun-smtp-server-secrets.yaml
+
