@@ -50,7 +50,7 @@ releases:
   - name: mautrix-googlechat
     chart: halkeye/mautrix-googlechat
     namespace: matrix
-    version: 1.0.1
+    version: 1.0.2
     values:
       - ./mautrix-googlechat.yaml
     secrets:
