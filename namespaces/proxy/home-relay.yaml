@@ -4,8 +4,9 @@ relays:
   - hostname: books.g4v.dev
     backend:
       ip: 100.87.25.75
-      port: 443
-      hostname: calibre-web.nas.g4v.dev
+      port: 80
+      scheme: http
+      hostname: books.g4v.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       kubernetes.io/tls-acme: "true"
