@@ -11,6 +11,7 @@ releases:
   - name: redis
     chart: bitnami/redis
     namespace: databases
+    version: 17.1.6
     values:
       - redis.yaml
     secrets:
@@ -33,12 +34,14 @@ releases:
   - name: mariadb
     chart: bitnami/mariadb
     namespace: databases
+    version: 11.3.0
     values:
       - mariadb.yaml
     secrets:
       - mariadb-secrets.yaml
   - name: phpmyadmin
     chart: bitnami/phpmyadmin
+    version: 10.3.2
     namespace: databases
     values:
       - phpmyadmin.yaml
