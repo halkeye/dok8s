@@ -16,7 +16,7 @@ releases:
       - prometheus-secrets.yaml
   - name: helm-exporter
     chart: sstarcher/helm-exporter
-    version: 1.2.2+6766a95
+    version: 1.2.3+4dc0dfc
     namespace: monitoring
   - name: kube-state-metrics
     chart: bitnami/kube-state-metrics
