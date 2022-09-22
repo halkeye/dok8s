@@ -3,8 +3,6 @@ persistence:
   enabled: true
 
 controller:
-  healthProbeReadinessFailureThreshold: 90
-  healthProbeLivenessFailureThreshold: 90
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -24,6 +22,13 @@ controller:
   image: halkeye/jenkins
   tag: "latest@sha256:a390ba3915cf346eec5331adbcf0b527442f83c655405b48d52688685e5d3ae6"
 
+  probes:
+    startupProbe:
+      failureThreshold: 40
+    livenessProbe:
+      failureThreshold: 40
+    readinessProbe:
+      failureThreshold: 40
   sidecars:
     configAutoReload:
       enabled: true
@@ -114,6 +119,7 @@ controller:
                       failIfWorkDirIsMissing: false
                       internalDir: "remoting"
                 retentionStrategy: "always"
+          clouds: []
           #clouds:
           #  - digitalOcean:
           #      authTokenCredentialId: halkeye-digitalocean
@@ -140,9 +146,6 @@ controller:
           #        workspacePath: "/jenkins/"
           #      timeoutMinutes: 5
           #      usePrivateNetworking: false
-          crumbIssuer:
-            standard:
-              excludeClientIPFromCrumb: true
         unclassified:
           bitbucketEndpointConfiguration:
             endpoints:
