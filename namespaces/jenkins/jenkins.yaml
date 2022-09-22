@@ -114,32 +114,32 @@ controller:
                       failIfWorkDirIsMissing: false
                       internalDir: "remoting"
                 retentionStrategy: "always"
-          clouds:
-            - digitalOcean:
-                authTokenCredentialId: halkeye-digitalocean
-                privateKeyCredentialId: halkeye-digitalocean-sshkey
-                connectionRetryWait: 10
-                instanceCap: 5
-                name: "dojenkins"
-                sshKeyId: 29638582
-                templates:
-                - idleTerminationInMinutes: 10
-                  installMonitoring: false
-                  instanceCap: 5
-                  labellessJobsAllowed: true
-                  #  doctl compute image list --public | grep -i docker | grep 20.04
-                  # 87786318     Docker 19.03.12 on Ubuntu 20.04
-                  imageId: "87786318"
-                  name: "agent"
-                  numExecutors: 2
-                  regionId: "tor1"
-                  setupPrivateNetworking: false
-                  sizeId: "s-2vcpu-2gb"
-                  sshPort: 22
-                  username: "root"
-                  workspacePath: "/jenkins/"
-                timeoutMinutes: 5
-                usePrivateNetworking: false
+          #clouds:
+          #  - digitalOcean:
+          #      authTokenCredentialId: halkeye-digitalocean
+          #      privateKeyCredentialId: halkeye-digitalocean-sshkey
+          #      connectionRetryWait: 10
+          #      instanceCap: 5
+          #      name: "dojenkins"
+          #      sshKeyId: 29638582
+          #      templates:
+          #      - idleTerminationInMinutes: 10
+          #        installMonitoring: false
+          #        instanceCap: 5
+          #        labellessJobsAllowed: true
+          #        #  doctl compute image list --public | grep -i docker | grep 20.04
+          #        # 87786318     Docker 19.03.12 on Ubuntu 20.04
+          #        imageId: "87786318"
+          #        name: "agent"
+          #        numExecutors: 2
+          #        regionId: "tor1"
+          #        setupPrivateNetworking: false
+          #        sizeId: "s-2vcpu-2gb"
+          #        sshPort: 22
+          #        username: "root"
+          #        workspacePath: "/jenkins/"
+          #      timeoutMinutes: 5
+          #      usePrivateNetworking: false
           crumbIssuer:
             standard:
               excludeClientIPFromCrumb: true
