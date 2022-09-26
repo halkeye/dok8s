@@ -20,7 +20,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "latest@sha256:f83cf8d2e8eed92add372423305a743a2795b5a09b796f2f7fa8d069386aa86b"
+  tag: "latest@sha256:0dc5d9f09d81951138a2acea41b5afc9e05cdd39b1538b1f33c306a1706ffe37"
 
   probes:
     startupProbe:
@@ -67,25 +67,35 @@ controller:
   JCasC:
     defaultConfig: false
     configScripts:
-      zzzcustom: |-
-        security:
-          queueItemAuthenticator:
-            authenticators:
-              - global:
-                  strategy: "triggeringUsersAuthorizationStrategy"
+      system-settings: |
+        unclassified:
+          defaultFolderConfiguration:
+            # Keep healthMetrics an empty list to ensure weather is disabled
+            healthMetrics: []
+        jenkins:
+          quietPeriod: 0 # No need to wait between build scheduling
+          disabledAdministrativeMonitors:
+            - "jenkins.security.QueueItemAuthenticatorMonitor"
+      pipeline-settings: |
+        unclassified:
+          #timestamper:
+          #  allPipelines: true
+          shell:
+            shell: "/bin/sh"
+      matrix-settings: |
+        jenkins:
+          authorizationStrategy:
+            globalMatrix:
+              permissions:
+                - "GROUP:Overall/Read:authenticated"
+                - "USER:Agent/Build:anonymous"
+                - "USER:Job/Discover:anonymous"
+                - "USER:Job/Read:anonymous"
+                - "USER:Overall/Read:anonymous"
+                - "USER:Overall/Administer:halkeye"
+      security: |
         jenkins:
           disableRememberMe: false
-          agentProtocols:
-            - "JNLP4-connect"
-            - "Ping"
-          authorizationStrategy:
-            projectMatrix:
-              permissions:
-              - "GROUP:Overall/Read:authenticated"
-              - "USER:Agent/Build:anonymous"
-              - "USER:Job/Discover:anonymous"
-              - "USER:Overall/Read:anonymous"
-              - "USER:Overall/Administer:halkeye"
           markupFormatter: "markdownFormatter"
           securityRealm:
             oic:
@@ -104,97 +114,7 @@ controller:
               emailFieldName: "email"
               fullNameFieldName: "name"
               groupsFieldName: "groups"
-          numExecutors: 0
-          nodes:
-            - permanent:
-                name: "thor"
-                labelString: "home"
-                numExecutors: 4
-                remoteFS: "/home/jenkins-agent"
-                launcher:
-                  jnlp:
-                    webSocket: true
-                    workDirSettings:
-                      disabled: false
-                      failIfWorkDirIsMissing: false
-                      internalDir: "remoting"
-                retentionStrategy: "always"
-          clouds: []
-          #clouds:
-          #  - digitalOcean:
-          #      authTokenCredentialId: halkeye-digitalocean
-          #      privateKeyCredentialId: halkeye-digitalocean-sshkey
-          #      connectionRetryWait: 10
-          #      instanceCap: 5
-          #      name: "dojenkins"
-          #      sshKeyId: 29638582
-          #      templates:
-          #      - idleTerminationInMinutes: 10
-          #        installMonitoring: false
-          #        instanceCap: 5
-          #        labellessJobsAllowed: true
-          #        #  doctl compute image list --public | grep -i docker | grep 20.04
-          #        # 87786318     Docker 19.03.12 on Ubuntu 20.04
-          #        imageId: "87786318"
-          #        name: "agent"
-          #        numExecutors: 2
-          #        regionId: "tor1"
-          #        setupPrivateNetworking: false
-          #        sizeId: "s-2vcpu-2gb"
-          #        sshPort: 22
-          #        username: "root"
-          #        workspacePath: "/jenkins/"
-          #      timeoutMinutes: 5
-          #      usePrivateNetworking: false
-        unclassified:
-          bitbucketEndpointConfiguration:
-            endpoints:
-            - bitbucketCloudEndpoint:
-                credentialsId: "bitbucket-halkeye"
-                enableCache: false
-                manageHooks: true
-                repositoriesCacheDuration: 0
-                teamCacheDuration: 0
-          location:
-            adminAddress: "jenkins@g4v.dev"
-            url: "https://ci.g4v.dev/"
-          email-ext:
-            defaultReplyTo: "jenkins@g4v.dev"
-            mailAccount:
-              smtpPort: "25"
-              smtpHost: "${SMTP_SERVER}"
-          gitHubPluginConfig:
-            configs:
-              - credentialsId: "github-admin-halkeye"
-            hookUrl: "https://ci.g4v.dev/github-webhook/"
-          mailer:
-            replyToAddress: "jenkins@g4v.dev"
-            smtpHost: "${SMTP_SERVER}"
-            smtpPort: "25"
-          buildDiscarders:
-            configuredBuildDiscarders:
-              - "jobBuildDiscarder"
-              - simpleBuildDiscarder:
-                  discarder:
-                    logRotator:
-                      numToKeepStr: "5"
-          themeManager:
-            disableUserThemes: false
-            theme: "darkSystem"
-          globalDefaultFlowDurabilityLevel:
-            durabilityHint: PERFORMANCE_OPTIMIZED
-          globalLibraries:
-            libraries:
-              - name: "github.com/halkeye/jenkins-shared-library"
-                implicit: true
-                defaultVersion: "master"
-                retriever:
-                  modernSCM:
-                    scm:
-                      git:
-                        credentialsId: "github-app"
-                        id: "29f65a8c-bc76-4fba-bddc-ac27fa04ccf4"
-                        remote: "https://github.com/halkeye/jenkins-shared-library"
+      credentials: |
         credentials:
           system:
             domainCredentials:
@@ -318,11 +238,104 @@ controller:
                 - string:
                     id: halkeye-crates
                     secret: "${CARGO_REGISTRY_TOKEN}"
+      zzzcustom: |-
+        jenkins:
+          numExecutors: 0
+          nodes:
+            - permanent:
+                name: "thor"
+                labelString: "home"
+                numExecutors: 4
+                remoteFS: "/home/jenkins-agent"
+                launcher:
+                  jnlp:
+                    webSocket: true
+                    workDirSettings:
+                      disabled: false
+                      failIfWorkDirIsMissing: false
+                      internalDir: "remoting"
+                retentionStrategy: "always"
+          clouds: []
+          #clouds:
+          #  - digitalOcean:
+          #      authTokenCredentialId: halkeye-digitalocean
+          #      privateKeyCredentialId: halkeye-digitalocean-sshkey
+          #      connectionRetryWait: 10
+          #      instanceCap: 5
+          #      name: "dojenkins"
+          #      sshKeyId: 29638582
+          #      templates:
+          #      - idleTerminationInMinutes: 10
+          #        installMonitoring: false
+          #        instanceCap: 5
+          #        labellessJobsAllowed: true
+          #        #  doctl compute image list --public | grep -i docker | grep 20.04
+          #        # 87786318     Docker 19.03.12 on Ubuntu 20.04
+          #        imageId: "87786318"
+          #        name: "agent"
+          #        numExecutors: 2
+          #        regionId: "tor1"
+          #        setupPrivateNetworking: false
+          #        sizeId: "s-2vcpu-2gb"
+          #        sshPort: 22
+          #        username: "root"
+          #        workspacePath: "/jenkins/"
+          #      timeoutMinutes: 5
+          #      usePrivateNetworking: false
+        unclassified:
+          bitbucketEndpointConfiguration:
+            endpoints:
+            - bitbucketCloudEndpoint:
+                credentialsId: "bitbucket-halkeye"
+                enableCache: false
+                manageHooks: true
+                repositoriesCacheDuration: 0
+                teamCacheDuration: 0
+          location:
+            adminAddress: "jenkins@g4v.dev"
+            url: "https://ci.g4v.dev/"
+          email-ext:
+            defaultReplyTo: "jenkins@g4v.dev"
+            mailAccount:
+              smtpPort: "25"
+              smtpHost: "${SMTP_SERVER}"
+          gitHubPluginConfig:
+            configs:
+              - credentialsId: "github-admin-halkeye"
+            hookUrl: "https://ci.g4v.dev/github-webhook/"
+          mailer:
+            replyToAddress: "jenkins@g4v.dev"
+            smtpHost: "${SMTP_SERVER}"
+            smtpPort: "25"
+          buildDiscarders:
+            configuredBuildDiscarders:
+              - "jobBuildDiscarder"
+              - simpleBuildDiscarder:
+                  discarder:
+                    logRotator:
+                      numToKeepStr: "5"
+          themeManager:
+            disableUserThemes: false
+            theme: "darkSystem"
+          globalDefaultFlowDurabilityLevel:
+            durabilityHint: PERFORMANCE_OPTIMIZED
+          globalLibraries:
+            libraries:
+              - name: "github.com/halkeye/jenkins-shared-library"
+                implicit: true
+                defaultVersion: "master"
+                retriever:
+                  modernSCM:
+                    scm:
+                      git:
+                        credentialsId: "github-app"
+                        id: "29f65a8c-bc76-4fba-bddc-ac27fa04ccf4"
+                        remote: "https://github.com/halkeye/jenkins-shared-library"
+      jobs: |-
         jobs:
           - script: |-
               def githubOrgs = [
                 "halkeye": [
-                  "public": true,
                   "repos": [
                     "android-sms",
                     "bamboohr-employee-stats",
@@ -364,55 +377,56 @@ controller:
                   ]
                 ],
                 "nodeschool": [
-                  "public": true,
                   "repos": [
                     "vancouver"
                   ]
                 ],
-                "halkeye-helm-charts": ["public": true],
-                "halkeye-docker": ["public": true],
-                "nodeschoolyvr": ["public": true],
+                "halkeye-helm-charts": [],
+                "halkeye-docker": [],
+                "nodeschoolyvr": [],
               ]
 
-              def appEnabledAccounts = ["halkeye", "halkeye-helm-charts", "halkeye-docker"]
+              def appEnabledAccounts = ['halkeye', 'halkeye-helm-charts', 'halkeye-docker']
 
               githubOrgs.keySet().each { githubOrg ->
+
                 organizationFolder(githubOrg) {
-                  authorization {
-                    if (githubOrgs[githubOrg]["public"]) {
-                      ["anonymous", "authorized", "authenticated"].each { user ->
-                        permission("hudson.model.Item.Read", user)
-                        permission("hudson.model.Item.Discover", user)
-                      }
+                  /*
+                  if (githubOrgs[githubOrg]['allowed_read_users']) {
+                    def perms = []
+                    githubOrgs[githubOrg]['allowed_read_users'].each { user ->
+                      perms.add('USER:hudson.model.Item.Read:' + user)
+                      perms.add('USER:hudson.model.Item.Discover:' + user)
                     }
-                    if (githubOrgs[githubOrg]["allowed_read_users"]) {
-                      githubOrgs[githubOrg]["allowed_read_users"].each { user ->
-                        permission("hudson.model.Item.Read", user)
-                        permission("hudson.model.Item.Discover", user)
+                    properties {
+                      authorizationMatrix {
+                        inheritanceStrategy {
+                          nonInheriting()
+                        }
+                        permissions(perms)
                       }
                     }
                   }
+                  */
                   buildStrategies {
                     buildAnyBranches {
                       strategies {
-                        buildAllBranches {
-                          strategies {
-                            buildRegularBranches()
-                            // skipInitialBuildOnFirstBranchIndexing()
+                        buildRegularBranches()
+                        buildChangeRequests {
+                          ignoreTargetOnlyChanges(false)
+                          ignoreUntrustedChanges(false)
+                        }
+                        buildNamedBranches {
+                          filters {
+                            regex {
+                              regex('^(main|master)$')
+                              caseSensitive(true)
+                            }
                           }
                         }
-                      }
-                    }
-                    buildAnyBranches {
-                      strategies {
-                        buildAllBranches {
-                          strategies {
-                            buildTags {
-                              atLeastDays '-1'
-                              atMostDays '3'
-                            }
-                            // skipInitialBuildOnFirstBranchIndexing()
-                          }
+                        buildTags {
+                          atLeastDays '-1'
+                          atMostDays '3'
                         }
                       }
                     }
@@ -420,8 +434,8 @@ controller:
                   orphanedItemStrategy {
                     defaultOrphanedItemStrategy {
                       pruneDeadBranches(true)
-                      numToKeepStr("5")
-                      daysToKeepStr("")
+                      numToKeepStr('5')
+                      daysToKeepStr('')
                     }
                     discardOldItems {
                       numToKeep(5)
@@ -429,11 +443,11 @@ controller:
                   }
                   organizations {
                     github {
-                      credentialsId(appEnabledAccounts.contains(githubOrg) ? "github-app-" + githubOrg : "github-halkeye")
+                      credentialsId(appEnabledAccounts.contains(githubOrg) ? 'github-app-' + githubOrg : 'github-halkeye')
                       repoOwner(githubOrg)
                       traits {
                         if (githubOrgs[githubOrg].repos) {
-                          sourceRegexFilter { "^" + regex(githubOrgs[githubOrg].repos.join("|") + "\$") }
+                          sourceRegexFilter { '^' + regex(githubOrgs[githubOrg].repos.join('|') + '$') }
                         }
                         pruneStaleBranchTrait()
                         gitHubExcludeArchivedRepositories()
@@ -444,23 +458,14 @@ controller:
                           strategyId(1) // Merging the pull request with the current target branch revision
                         }
                         gitHubTagDiscovery()
-                        gitHubExcludeArchivedRepositories()
                         pullRequestLabelsBlackListFilterTrait {
                           labels('on-hold ci-skip skip-ci')
                         }
                         notificationContextTrait {
-                          contextLabel("continuous-integration/ci.g4v.dev")
+                          contextLabel('continuous-integration/ci.g4v.dev')
                           typeSuffix(true)
                         }
                       }
-                    }
-                  }
-                  configure {
-                    def traits = it / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
-                    // Not discovered by Job-DSL: need to be configured as raw-XML
-                    traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
-                      strategyId(1) // 1-Merging the pull request with the current target branch revision
-                      trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
                     }
                   }
                 }
