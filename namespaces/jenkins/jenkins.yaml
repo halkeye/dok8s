@@ -416,14 +416,6 @@ controller:
                           ignoreTargetOnlyChanges(false)
                           ignoreUntrustedChanges(false)
                         }
-                        buildNamedBranches {
-                          filters {
-                            regex {
-                              regex('^(main|master)$')
-                              caseSensitive(true)
-                            }
-                          }
-                        }
                         buildTags {
                           atLeastDays '-1'
                           atMostDays '3'
@@ -458,8 +450,16 @@ controller:
                           strategyId(1) // Merging the pull request with the current target branch revision
                         }
                         gitHubTagDiscovery()
+                        pruneStaleBranchTrait()
                         pullRequestLabelsBlackListFilterTrait {
-                          labels('on-hold ci-skip skip-ci')
+                          labels('on-hold,ci-skip,skip-ci')
+                        }
+                        // Select branches and tags to build based on these filters
+                        headWildcardFilterWithPR {
+                          includes('main master PR-*')
+                          excludes('')
+                          tagIncludes('*')
+                          tagExcludes('')
                         }
                         notificationContextTrait {
                           contextLabel('continuous-integration/ci.g4v.dev')
