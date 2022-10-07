@@ -16,7 +16,7 @@ controller:
     enabled: true
     port: 10254
 
-  kind: "DaemonSet"
+#  kind: "DaemonSet"
 
   config:
     use-forwarded-headers: "true"
@@ -37,13 +37,13 @@ controller:
       prometheus.io/port: "10254"
 
 
-defaultBackend:
-  enabled: true
-  image:
-    repository: ghcr.io/tarampampam/error-pages
-    tag: 2.17.0
-  extraEnvs:
-  - name: TEMPLATE_NAME # Optional: change the default theme
-    value: l7-dark
-  - name: SHOW_DETAILS # Optional: enables the output of additional information on error pages
-    value: 'false'
+#defaultBackend:
+#  enabled: true
+#  image:
+#    repository: ghcr.io/tarampampam/error-pages
+#    tag: 2.17.0
+#  extraEnvs:
+#  - name: TEMPLATE_NAME # Optional: change the default theme
+#    value: l7-dark
+#  - name: SHOW_DETAILS # Optional: enables the output of additional information on error pages
+#    value: 'false'

@@ -12,7 +12,13 @@ releases:
     chart: halkeye/certificate
     namespace: kube-system
     values:
-      - ingress-nginx-certificate.yaml
+      - issuerRef:
+          kind: ClusterIssuer
+          name: letsencrypt
+        dnsNames:
+          - '*.g4v.dev'
+        commonName: '*.g4v.dev'
+        secretName: wildcard-do-g4v-tls
   - name: ingress-nginx
     namespace: kube-system
     chart: ingress-nginx/ingress-nginx
