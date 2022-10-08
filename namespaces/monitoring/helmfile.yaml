@@ -8,7 +8,7 @@ repositories:
 releases:
   - name: prometheus
     chart: prometheus-community/prometheus
-    version: 15.14.0
+    version: 15.15.0
     namespace: monitoring
     values:
       - prometheus.yaml
