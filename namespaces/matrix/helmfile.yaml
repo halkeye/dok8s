@@ -18,7 +18,7 @@ releases:
   - name: element-web
     chart: halkeye/element-web
     namespace: matrix
-    version: 1.0.46
+    version: 1.0.47
     values:
       - ./element-web.yaml
 
