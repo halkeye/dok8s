@@ -107,8 +107,16 @@ homeserver:
       - https://g4v.dev
 
   redis:
-    # password is in secret
-    password: clamshell-jaywalker-salaried
+    enabled: true
+    host:  synapse-redis-master.matrix.svc.cluster.local
+federation_worker:
+  redis:
+    enabled: true
+    host:  synapse-redis-master.matrix.svc.cluster.local
+federation_sender:
+  redis:
+    enabled: true
+    host:  synapse-redis-master.matrix.svc.cluster.local
 
 logconfig:
   root:
