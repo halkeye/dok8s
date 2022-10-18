@@ -11,7 +11,7 @@ releases:
   - name: redis
     chart: bitnami/redis
     namespace: databases
-    version: 17.3.5
+    version: 17.3.6
     values:
       - redis.yaml
     secrets:
