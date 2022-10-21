@@ -248,7 +248,7 @@ controller:
                     username: "jenkins"
                     privateKeySource:
                       directEntry:
-                        privateKey: "${readFileBase64:/run/secrets/additional/ANSIBLE_SSH_KEY}"
+                        privateKey: "${ANSIBLE_SSH_KEY}"
       zzzcustom: |-
         jenkins:
           numExecutors: 0
