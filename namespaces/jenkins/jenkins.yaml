@@ -238,6 +238,9 @@ controller:
                 - string:
                     id: halkeye-crates
                     secret: "${CARGO_REGISTRY_TOKEN}"
+                - string:
+                    id: thor-ansible-key
+                    secret: "${THOR_ANSIBLE_KEY}"
       zzzcustom: |-
         jenkins:
           numExecutors: 0
