@@ -242,13 +242,13 @@ controller:
                     id: "ansible-vault"
                     fileName: ".vault"
                     scope: GLOBAL
-                    secretBytes: "${base64:${ANSIBLE_KEY}}"
+                    secretBytes: "${readFileBase64:/run/secrets/additional/ANSIBLE_KEY}"
                 - basicSSHUserPrivateKey:
                     id: ansible-ssh-key
                     username: "jenkins"
                     privateKeySource:
                       directEntry:
-                        privateKey: "${ANSIBLE_SSH_KEY}"
+                        privateKey: "${readFileBase64:/run/secrets/additional/ANSIBLE_SSH_KEY}"
       zzzcustom: |-
         jenkins:
           numExecutors: 0
