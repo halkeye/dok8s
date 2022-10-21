@@ -239,9 +239,16 @@ controller:
                     id: halkeye-crates
                     secret: "${CARGO_REGISTRY_TOKEN}"
                 - file:
+                    id: "ansible-vault"
                     fileName: ".vault"
                     scope: GLOBAL
-                    secretBytes: "${base64:${THOR_ANSIBLE_KEY}}"
+                    secretBytes: "${base64:${ANSIBLE_KEY}}"
+                - basicSSHUserPrivateKey:
+                    id: ansible-ssh-key
+                    username: "jenkins"
+                    privateKeySource:
+                      directEntry:
+                        privateKey: "${ANSIBLE_SSH_KEY}"
       zzzcustom: |-
         jenkins:
           numExecutors: 0
