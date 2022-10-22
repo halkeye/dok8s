@@ -21,8 +21,8 @@ controller:
   config:
     use-forwarded-headers: "true"
     use-proxy-protocol: "true"
-    custom-http-errors: >-
-      401,403,404,500,501,502,503
+    #custom-http-errors: >-
+    #  401,403,404,500,501,502,503
 
   service:
     type: LoadBalancer
