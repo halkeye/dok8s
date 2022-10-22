@@ -33,7 +33,7 @@ probes:
 
 extra_python_modules:
   - https://github.com/t2bot/synapse-simple-antispam/archive/refs/heads/master.zip#egg=synapse-simple-antispam
-  - https://github.com/devture/matrix-synapse-shared-secret-auth/archive/refs/tags/2.0.1.zip
+  - https://github.com/devture/matrix-synapse-shared-secret-auth/archive/refs/tags/2.0.2.zip
   - https://github.com/matrix-org/synapse-s3-storage-provider/archive/refs/heads/main.zip
 
 homeserver:
