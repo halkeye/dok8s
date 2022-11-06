@@ -1,4 +1,9 @@
 ---
+serviceAccounts:
+  server:
+    create: true
+    annotations: {}
+
 alertmanager:
   strategy:
     type: Recreate
@@ -43,6 +48,39 @@ server:
         auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
         auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
         auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+  podAnnotations:
+    checksum.tailscale: '{{ .Values.tailscaleApiKey | sha256sum | quote }}'
+  sidecarContainers:
+    tailscale:
+      image: docker.io/mvisonneau/tailscale:v1.28.0
+      envFrom:
+        - secretRef:
+            name: tailscale-prometheus-config
+      env:
+        - { name: TAILSCALE_HOSTNAME, value: prometheus }
+      volumeMounts:
+        - name: lib-modules
+          mountPath: /lib/modules
+      securityContext:
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+  extraVolumes:
+    - name: lib-modules
+      hostPath:
+        path: /lib/modules
+
+extraManifests:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: tailscale-prometheus-config
+    type: Opaque
+    stringData:
+      TAILSCALE_AUTH_KEY: "{{ .Values.tailscaleApiKey }}"
 
 pushgateway:
   baseURL: https://pushgateway.g4v.dev/
