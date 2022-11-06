@@ -5,6 +5,8 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
 releases:
   - name: prometheus
     chart: prometheus-community/prometheus
@@ -22,3 +24,11 @@ releases:
     chart: bitnami/kube-state-metrics
     namespace: monitoring
     version: 3.2.5
+  - name: grafana
+    chart: grafana/grafana
+    namespace: monitoring
+    version: 6.43.4
+    values:
+      - grafana.yaml
+    secrets:
+      - grafana-secrets.yaml
