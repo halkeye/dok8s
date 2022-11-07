@@ -112,6 +112,86 @@ serverFiles:
     groups:
       - name: Instances
         rules:
+          - alert: PrometheusJobMissing
+            expr: absent(up{job="prometheus"})
+            for: 0m
+            labels:
+              severity: warning
+            annotations:
+              summary: Prometheus job missing (instance {{ $labels.instance }})
+              description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: PrometheusTargetMissing
+            expr: up == 0
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: Prometheus target missing (instance {{ $labels.instance }})
+              description: "A Prometheus target has disappeared. An exporter might be crashed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: PrometheusNotificationsBacklog
+            expr: min_over_time(prometheus_notifications_queue_length[10m]) > 0
+            for: 0m
+            labels:
+              severity: warning
+            annotations:
+              summary: Prometheus notifications backlog (instance {{ $labels.instance }})
+              description: "The Prometheus notification queue has not been empty for 10 minutes\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: PrometheusTargetMissingWithWarmupTime
+            expr: sum by (instance, job) ((up == 0) * on (instance) group_right(job) (node_time_seconds - node_boot_time_seconds > 600))
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: Prometheus target missing with warmup time (instance {{ $labels.instance }})
+              description: "Allow a job time to start up (10 minutes) before alerting that it's down.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: PrometheusConfigurationReloadFailure
+            expr: prometheus_config_last_reload_successful != 1
+            for: 0m
+            labels:
+              severity: warning
+            annotations:
+              summary: Prometheus configuration reload failure (instance {{ $labels.instance }})
+              description: "Prometheus configuration reload error\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: TraefikServiceDown
+            expr: count(traefik_service_server_up) by (service) == 0
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: Traefik service down (instance {{ $labels.instance }})
+              description: "All Traefik services are down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: JenkinsOffline
+            expr: jenkins_node_offline_value > 1
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: Jenkins offline (instance {{ $labels.instance }})
+              description: "Jenkins offline: `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: JenkinsHealthcheck
+            expr: jenkins_health_check_score < 1
+            for: 0m
+            labels:
+              severity: critical
+            annotations:
+              summary: Jenkins healthcheck (instance {{ $labels.instance }})
+              description: "Jenkins healthcheck score: {{$value}}. Healthcheck failure for `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          - alert: JenkinsOutdatedPlugins
+            expr: sum(jenkins_plugins_withUpdate) by (instance) > 3
+            for: 1d
+            labels:
+              severity: warning
+            annotations:
+              summary: Jenkins outdated plugins (instance {{ $labels.instance }})
+              description: "{{ $value }} plugins need update\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          #- alert: JenkinsBuildsHealthScore
+          #  expr: default_jenkins_builds_health_score < 1
+          #  for: 0m
+          #  labels:
+          #    severity: warning
+          #  annotations:
+          #    summary: Jenkins builds health score (instance {{ $labels.instance }})
+          #    description: "Healthcheck failure for `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
           - alert: InstanceDown
             expr: up == 0
             for: 5m
