@@ -25,11 +25,15 @@ dashboards:
       datasource: Prometheus
     node-exporter-full:
       gnetId: 1860
-      revision: 21
+      revision: 28
       datasource: Prometheus
       #url: https://grafana.com/grafana/dashboards/9367
     jenkins-performance:
       gnetId: 9524
+      revision: 1
+      datasource: Prometheus
+    jenkins-performance-2:
+      gnetId: 9964
       revision: 1
       datasource: Prometheus
     # https://grafana.com/grafana/dashboards/315
@@ -87,10 +91,39 @@ dashboards:
     #  revision: 8
     #  datasource: Prometheus
     blocky:
-      url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
+      gnetId: 13768
+      revision: 1
       datasource: Prometheus
     nut:
       gnetId: 14371
+      revision: 1
+      datasource: Prometheus
+    kube-state-metrics-v2:
+      gnetId: 13332
+      revision: 12
+      datasource: Prometheus
+    alertmanager:
+      gnetId: 9578
+      revision: 4
+      datasource: Prometheus
+    go-processes:
+      gnetId: 6671
+      revision: 2
+      datasource: Prometheus
+    go-metrics:
+      gnetId: 10826
+      revision: 1
+      datasource: Prometheus
+    traefik:
+      gnetId: 4475
+      revision: 5
+      datasource: Prometheus
+    radarr:
+      gnetId: 12896
+      revision: 1
+      datasource: Prometheus
+    sonarr:
+      gnetId: 12530
       revision: 1
       datasource: Prometheus
 
