@@ -122,7 +122,7 @@ serverFiles:
               description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
           - alert: PrometheusTargetMissing
             expr: up == 0
-            for: 0m
+            for: 15m
             labels:
               severity: critical
             annotations:
