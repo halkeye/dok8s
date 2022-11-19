@@ -231,9 +231,9 @@ serverFiles:
             annotations:
               summary: "Matrix bridge is down"
           - alert: ProwlarrSystemMessages
-            expr: prowlarr_system_health_issues
-            for: 1hr
+            expr: count(prowlarr_system_health_issues) by (message) >= 0
+            for: 1d
             labels:
               severity: warning
             annotations:
-              summary: Prowlarr System Message - {{$value.message}}
+              summary: Prowlarr System Message - {{ $labels.message }}
