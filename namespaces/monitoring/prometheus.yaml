@@ -230,3 +230,10 @@ serverFiles:
               severity: page
             annotations:
               summary: "Matrix bridge is down"
+          - alert: ProwlarrSystemMessages
+            expr: prowlarr_system_health_issues
+            for: 1hr
+            labels:
+              severity: warning
+            annotations:
+              summary: Prowlarr System Message - {{$value.message}}
