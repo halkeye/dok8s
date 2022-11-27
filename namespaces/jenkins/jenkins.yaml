@@ -259,7 +259,7 @@ controller:
                 numExecutors: 4
                 remoteFS: "/home/jenkins-agent"
                 launcher:
-                  jnlp:
+                  inbound:
                     webSocket: true
                     workDirSettings:
                       disabled: false
