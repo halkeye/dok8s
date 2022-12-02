@@ -4,8 +4,8 @@ relays:
   - hostname: books.g4v.dev
     backend:
       ip: 100.87.25.75
-      port: 80
-      scheme: http
+      port: 443
+      scheme: https
       hostname: books.g4v.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
