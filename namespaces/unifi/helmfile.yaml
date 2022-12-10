@@ -6,6 +6,7 @@ releases:
   - name: unifi
     chart: k8s-at-home/unifi
     namespace: unifi
+    version: 5.1.2
     values:
       - unifi.yaml
     secrets:

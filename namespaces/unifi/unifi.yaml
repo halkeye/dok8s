@@ -1,4 +1,5 @@
 image:
+  repository: jacobalberty/unifi
   tag: v7.1.61
 
 timezone: America/Vancouver
