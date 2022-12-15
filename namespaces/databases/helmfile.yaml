@@ -34,7 +34,7 @@ releases:
   - name: mariadb
     chart: bitnami/mariadb
     namespace: databases
-    version: 11.4.1
+    version: 11.4.2
     values:
       - mariadb.yaml
     secrets:
