@@ -3,14 +3,12 @@ repositories:
     url: https://shanestarcher.com/helm-charts/
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
-  - name: bitnami
-    url: https://charts.bitnami.com/bitnami
   - name: grafana
     url: https://grafana.github.io/helm-charts
 releases:
   - name: prometheus
     chart: prometheus-community/prometheus
-    version: 15.18.0
+    version: 19.0.2
     namespace: monitoring
     values:
       - prometheus.yaml
@@ -20,10 +18,6 @@ releases:
     chart: sstarcher/helm-exporter
     version: 1.2.3+4dc0dfc
     namespace: monitoring
-  - name: kube-state-metrics
-    chart: bitnami/kube-state-metrics
-    namespace: monitoring
-    version: 3.2.6
   - name: grafana
     chart: grafana/grafana
     namespace: monitoring

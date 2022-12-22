@@ -13,7 +13,10 @@ alertmanager:
   ingress:
     enabled: true
     hosts:
-      - alertmanager.g4v.dev
+      - host: alertmanager.g4v.dev
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
@@ -73,6 +76,9 @@ server:
       hostPath:
         path: /lib/modules
 
+kube-state-metrics:
+  enabled: true
+
 extraManifests:
   - apiVersion: v1
     kind: Secret
@@ -81,31 +87,6 @@ extraManifests:
     type: Opaque
     stringData:
       TAILSCALE_AUTH_KEY: "{{ .Values.tailscaleApiKey }}"
-
-pushgateway:
-  baseURL: https://pushgateway.g4v.dev/
-  strategy:
-    type: Recreate
-  persistentVolume:
-    storageClass: do-block-storage
-  #ingress:
-  #  enabled: true
-  #  hosts:
-  #    - pushgateway.g4v.dev
-  #  ingressClassName: "nginx"
-  #  annotations:
-  #    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-#
-#
-# The Prometheus PushGateway can be accessed via port 9091 on the following DNS name from within your cluster:
-# prometheus-pushgateway.default.svc.cluster.local
-
-# Get the PushGateway URL by running these commands in the same shell:
-#   export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus,component=pushgateway" -o jsonpath="{.items[0].metadata.name}")
-#   kubectl --namespace default port-forward $POD_NAME 9091
-#
-kubeStateMetrics:
-  enabled: false
 
 serverFiles:
   alerting_rules.yml:
