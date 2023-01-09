@@ -4,7 +4,7 @@ replicas: 1
 image:
   repository: docker.io/mvisonneau/tailscale
   pullPolicy: IfNotPresent
-  tag: v1.34.1
+  tag: v1.34.2
   # tag: <default to chart app version>
 
 # Use hostNetwork for the pod
