@@ -1,7 +1,0 @@
-metrics:
-  enabled: true
-primary:
-  resources:
-    requests:
-      memory: 1024Mi
-      cpu: 250m

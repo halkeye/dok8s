@@ -31,17 +31,3 @@ releases:
       - pgadmin.yaml
     secrets:
       - pgadmin-secrets.yaml
-  - name: mariadb
-    chart: bitnami/mariadb
-    namespace: databases
-    version: 11.4.2
-    values:
-      - mariadb.yaml
-    secrets:
-      - mariadb-secrets.yaml
-  - name: phpmyadmin
-    chart: bitnami/phpmyadmin
-    version: 10.4.0
-    namespace: databases
-    values:
-      - phpmyadmin.yaml
