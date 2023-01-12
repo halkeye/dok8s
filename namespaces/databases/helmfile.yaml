@@ -41,7 +41,7 @@ releases:
       - mariadb-secrets.yaml
   - name: phpmyadmin
     chart: bitnami/phpmyadmin
-    version: 10.3.10
+    version: 10.4.0
     namespace: databases
     values:
       - phpmyadmin.yaml
