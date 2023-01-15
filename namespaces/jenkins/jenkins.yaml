@@ -127,7 +127,6 @@ controller:
                     owner: "halkeye"
                 - gitHubApp:
                     appID: "74743"
-                    description: "GitHub app"
                     description: "GitHub app - github-app-halkeye"
                     id: "github-app-halkeye"
                     privateKey: "${GITHUB_APP_KEY}"
@@ -146,24 +145,30 @@ controller:
                     owner: "halkeye-helm-charts"
                 - usernamePassword:
                     id: bitbucket-halkeye
+                    description: "bitbucket-halkeye"
                     username: halkeye
                     password: "${BITBUCKET_HALKEYE_PASSWORD}"
                 - usernamePassword:
                     id: contentful-halkeye
+                    description: contentful-halkeye
                     username: "${CONTENTFUL_HALKEYE_USERNAME}"
                     password: "${CONTENTFUL_HALKEYE_PASSWORD}"
                 - usernamePassword:
                     id: dockerhub-halkeye
+                    description: dockerhub-halkeye
                     username: "${DOCKERHUB_HALKEYE_USERNAME}"
                     password: "${DOCKERHUB_HALKEYE_PASSWORD}"
                 - string:
                     id: modio-halkeye
+                    description: modio-halkeye
                     secret: "${MODIO_HALKEYE_ACCESS_TOKEN}"
                 - string:
                     id: halkeye-digitalocean
+                    description: halkeye-digitalocean
                     secret: "${DIGITAL_OCEAN_TOKEN}"
                 - basicSSHUserPrivateKey:
                     id: halkeye-digitalocean-sshkey
+                    description: halkeye-digitalocean-sshkey
                     privateKeySource:
                       directEntry:
                         privateKey: "${DIGITAL_OCEAN_SSH_KEY}"
@@ -175,20 +180,25 @@ controller:
                     secretBytes: "${base64:${DIGITAL_OCEAN_KUBECONFIG}}"
                 - string:
                     id: github-admin-halkeye
+                    description: github-admin-halkeye
                     secret: "${GITHUB_ADMIN_HALKEYE_SECRET}"
                 - usernamePassword:
                     id: github-halkeye
+                    description: github-halkeye
                     username: "${GITHUB_HALKEYE_USERNAME}"
                     password: "${GITHUB_HALKEYE_PASSWORD}"
                 - string:
                     id: github-halkeye-react-book-reader
+                    description: github-halkeye-react-book-reader
                     secret: "${GITHUB_HALKEYE_REACT_BOOK_READER_SECRET}"
                 - usernamePassword:
                     id: goodreads
+                    description: goodreads
                     username: "${GOODREADS_USERNAME}"
                     password: "${GOODREADS_PASSWORD}"
                 - basicSSHUserPrivateKey:
                     id: halkeye-bitbucket
+                    description: halkeye-bitbucket
                     passphrase: "${HALKEYE_BITUCKET_PASSPHRASE}"
                     privateKeySource:
                       directEntry:
@@ -196,21 +206,26 @@ controller:
                     username: "${HALKEYE_BITUCKET_USERNAME}"
                 - usernamePassword:
                     id: halkeye-quay
+                    description: halkeye-quay
                     username: "${HALKEYE_QUAY_USERNAME}"
                     password: "${HALKEYE_QUAY_PASSWORD}"
                 - usernamePassword:
                     id: halkeye-surge
+                    description: halkeye-surge
                     username: "${HALKEYE_SURGE_USERNAME}"
                     password: "${HALKEYE_SURGE_PASSWORD}"
                 - string:
                     id: netlify-gavinmogan
+                    description: netlify-gavinmogan
                     secret: "${GITHUB_NETLIFY_GAVINMOGAN_SECRET}"
                 - usernamePassword:
                     id: sauce-minecraft-gavinmogan
+                    description: sauce-minecraft-gavinmogan
                     username: "${SAUCE_MINECRAFT_GAVINMOGAN_USERNAME}"
                     password: "${SAUCE_MINECRAFT_GAVINMOGAN_PASSWORD}"
                 - basicSSHUserPrivateKey:
                     id: thor-ssh-key
+                    description: thor-ssh-key
                     username: "jenkins"
                     privateKeySource:
                       directEntry:
@@ -218,6 +233,7 @@ controller:
                 - file:
                     # gpg -a --export-secret-keys jenkins@g4v.dev
                     id: jenkins-gpg-secret
+                    description: jenkins-gpg-secret
                     fileName: key.asc
                     scope: GLOBAL
                     description: "GPG data for jenkins@g4v.dev"
@@ -225,26 +241,32 @@ controller:
                 - file:
                     # gpg --export-ownertrust
                     id: jenkins-gpg-ownertrust
+                    description: jenkins-gpg-ownertrust
                     fileName: ownertrust.asc
                     scope: GLOBAL
                     description: "GPG ownertrust data for jenkins@g4v.dev"
                     secretBytes: "${readFileBase64:/run/secrets/additional/JENKINS_GPG_OWNERTRUST}"
                 - string:
                     id: jenkins-gpg-passphrase
+                    description: jenkins-gpg-passphrase
                     secret: "${JENKINS_GPG_PASSPHRASE}"
                 - string:
                     id: discord-webhook
+                    description: discord-webhook
                     secret: "${DISCORD_WEBHOOK}"
                 - string:
                     id: halkeye-crates
+                    description: halkeye-crates
                     secret: "${CARGO_REGISTRY_TOKEN}"
                 - file:
-                    id: "ansible-vault"
+                    id: ansible-vault
+                    description: ansible-vault
                     fileName: ".vault"
                     scope: GLOBAL
                     secretBytes: "${readFileBase64:/run/secrets/additional/ANSIBLE_KEY}"
                 - basicSSHUserPrivateKey:
                     id: ansible-ssh-key
+                    description: ansible-ssh-key
                     username: "jenkins"
                     privateKeySource:
                       directEntry:
