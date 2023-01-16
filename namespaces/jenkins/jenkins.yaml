@@ -20,7 +20,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "latest@sha256:962f4200fe13e9d97f6256bebcbdc3bbd39d65d8573015fdb2ddd8737059dfb3"
+  tag: "latest@sha256:5007924be917490e6cf1dfbc23a8c27c3c14ca648f2f2b5eba0f4938db914994"
 
   probes:
     startupProbe:
@@ -277,8 +277,13 @@ controller:
           nodes:
             - permanent:
                 name: "thor"
-                labelString: "home"
+                labelString: "home node linux"
                 numExecutors: 4
+                nodeProperties:
+                - envVars:
+                    env:
+                    - key: "PATH"
+                      value: "/home/jenkins-agent/go/bin:/home/jenkins-agent/.asdf/shims:/home/jenkins-agent/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/usr/local/go/bin"
                 remoteFS: "/home/jenkins-agent"
                 launcher:
                   inbound:
