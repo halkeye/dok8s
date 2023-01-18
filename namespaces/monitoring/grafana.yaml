@@ -11,9 +11,9 @@ persistence:
 dashboards:
   default:
     synapse:
-      # url: https://raw.githubusercontent.com/matrix-org/synapse/master/contrib/grafana/synapse.json
-      gnetId: 10046
-      revision: 1
+      url: https://raw.githubusercontent.com/matrix-org/synapse/master/contrib/grafana/synapse.json
+      #gnetId: 10046
+      #revision: 150
       datasource: Prometheus
     helm-exporter:
       gnetId: 9367
