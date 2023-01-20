@@ -7,6 +7,8 @@ image:
   tag: v1.34.2
   # tag: <default to chart app version>
 
+ingressClassName: nginx
+
 # Use hostNetwork for the pod
 hostNetwork: false
 
@@ -110,10 +112,10 @@ config:
 rbac:
   # rbac.serviceAccount -- whether to create serviceAccount and role/bindings or not
   create: true
-
-  # rbac.serviceAccount -- default name of serviceAccount is "default" if you don't define the name by yourself
+  enabled: true
   serviceAccount:
-    name: tailscale-relay
+    name:
 
-  # rbac.stateSecretName -- name of the secret in which tailscaled will store its state
-  stateSecretName: tailscale-relay-state
+
+defaultRelay: {}
+relays:

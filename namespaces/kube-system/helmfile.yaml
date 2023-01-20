@@ -10,6 +10,7 @@ repositories:
 releases:
   - name: g4v-do-wildcard-certificate
     chart: halkeye/certificate
+    version: 0.0.4
     namespace: kube-system
     values:
       - issuerRef:

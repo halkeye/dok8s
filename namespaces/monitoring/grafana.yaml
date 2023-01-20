@@ -8,6 +8,9 @@ adminUser: grafana@g4v.dev
 persistence:
   enabled: false
 
+#rbac:
+#  pspEnabled: false
+
 dashboards:
   default:
     synapse:

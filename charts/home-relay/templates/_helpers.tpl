@@ -71,3 +71,16 @@ Generate basic annotations
     {{ default "default" .Values.rbac.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{- define "app.relayDefinition" -}}
+                        reverse_proxy {{.backend.scheme | default "https"}}://{{ .backend.ip }}:{{ .backend.port }} {
+                                header_up Host {{ .backend.hostname }}
+                                header_up X-Forwarded-Host {host}
+                                transport http {
+                                        {{- if eq (.backend.scheme | default "https") "https" }}
+                                        tls_server_name {{ .backend.hostname }}
+                                        tls_insecure_skip_verify
+                                        {{- end }}
+                                }
+                        }
+{{- end -}}
