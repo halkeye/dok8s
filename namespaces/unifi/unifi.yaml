@@ -27,3 +27,5 @@ persistence:
 service:
   main:
     type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/do-loadbalancer-name: "dok8s-unifi"
