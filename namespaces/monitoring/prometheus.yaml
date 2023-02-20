@@ -10,8 +10,12 @@ alertmanager:
   persistentVolume:
     storageClass: do-block-storage
   baseURL: https://alertmanager.g4v.dev/
+  #service:
+  #  annotations:
+  #    tailscale.com/expose: "true"
   ingress:
     enabled: true
+    className: "prometheus"
     hosts:
       - host: alertmanager.g4v.dev
         paths:
@@ -20,14 +24,6 @@ alertmanager:
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      nginx.ingress.kubernetes.io/auth-signin: "https://vouch.g4v.dev/login?url=$scheme://$http_host$request_uri&lasso-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
-      nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
-      nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
-      nginx.ingress.kubernetes.io/auth-snippet: |
-        # these return values are used by the @error401 call
-        auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
-        auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
-        auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
 
 server:
   baseURL: https://prometheus.g4v.dev/
@@ -35,22 +31,17 @@ server:
     type: Recreate
   persistentVolume:
     storageClass: do-block-storage
+  #service:
+  #  annotations:
+  #    tailscale.com/expose: "true"
   ingress:
     enabled: true
+    ingressClassName: "prometheus"
     hosts:
       - prometheus.g4v.dev
-    ingressClassName: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      nginx.ingress.kubernetes.io/auth-signin: "https://vouch.g4v.dev/login?url=$scheme://$http_host$request_uri&lasso-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
-      nginx.ingress.kubernetes.io/auth-url: https://vouch.g4v.dev
-      nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
-      nginx.ingress.kubernetes.io/auth-snippet: |
-        # these return values are used by the @error401 call
-        auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
-        auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
-        auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
 
 kube-state-metrics:
   enabled: true
