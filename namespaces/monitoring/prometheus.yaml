@@ -185,3 +185,24 @@ serverFiles:
               severity: warning
             annotations:
               summary: Prowlarr System Message - {{ $labels.message }}
+          - alert: sonarrSystemMessages
+            expr: count(sonarr_system_health_issues) by (message) >= 0
+            for: 1d
+            labels:
+              severity: warning
+            annotations:
+              summary: sonarr System Message - {{ $labels.message }}
+          - alert: radarrSystemMessages
+            expr: count(radarr_system_health_issues) by (message) >= 0
+            for: 1d
+            labels:
+              severity: warning
+            annotations:
+              summary: radarr System Message - {{ $labels.message }}
+          - alert: lidarrSystemMessages
+            expr: count(lidarr_system_health_issues) by (message) >= 0
+            for: 1d
+            labels:
+              severity: warning
+            annotations:
+              summary: lidarr System Message - {{ $labels.message }}
