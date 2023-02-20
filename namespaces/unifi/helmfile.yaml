@@ -9,5 +9,3 @@ releases:
     version: 5.1.2
     values:
       - unifi.yaml
-    secrets:
-      - unifi-secrets.yaml

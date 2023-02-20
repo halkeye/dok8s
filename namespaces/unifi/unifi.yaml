@@ -27,28 +27,3 @@ persistence:
 service:
   main:
     type: LoadBalancer
-    externalTrafficPolicy: Local
-    ports:
-      stun:
-        enabled: false
-      syslog:
-        enabled: false
-      discovery:
-        enabled: false
-  udp:
-    enabled: true
-    type: LoadBalancer
-    externalTrafficPolicy: Local
-    ports:
-      stun:
-        enabled: true
-        port: 3478
-        protocol: UDP
-      syslog:
-        enabled: true
-        port: 5514
-        protocol: UDP
-      discovery:
-        enabled: true
-        port: 10001
-        protocol: UDP
