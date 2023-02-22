@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pushproxy
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: pushproxy
+  template:
+    metadata:
+      labels:
+        app: pushproxy
+    spec:
+      containers:
+        - name: pushproxy
+          image: rancher/pushprox-proxy:v0.1.0-rancher2-proxy
+          ports:
+          - containerPort: 8080
+            name: web
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pushproxy
+  namespace: monitoring
+  labels:
+    app: pushproxy
+  annotations:
+    tailscale.com/expose: "true"
+spec:
+  ports:
+   - port: 8080
+     name: web
+     protocol: TCP
+     targetPort: web
+  selector:
+    app: pushproxy
