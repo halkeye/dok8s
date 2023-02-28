@@ -129,6 +129,9 @@ dashboards:
       gnetId: 12530
       revision: 1
       datasource: Prometheus
+    qbittorrent:
+      url: https://raw.githubusercontent.com/caseyscarborough/qbittorrent-grafana-dashboard/a27811eadf3d024dc7be3623052cf64cf33d8de8/dashboard-modern.json
+      datasource: Prometheus
 
 plugins:
   - grafana-clock-panel
