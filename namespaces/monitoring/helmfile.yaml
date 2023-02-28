@@ -54,7 +54,7 @@ releases:
       - prometheus-secrets.yaml
   - name: helm-exporter
     chart: sstarcher/helm-exporter
-    version: 1.2.3+4dc0dfc
+    version: 1.2.4+c4edcdf
     namespace: monitoring
   - name: grafana
     chart: grafana/grafana
