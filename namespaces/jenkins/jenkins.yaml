@@ -450,7 +450,7 @@ controller:
                         buildNamedBranches {
                           filters {
                             regex {
-                              regex('^(main|master)$')
+                              regex('^(main|master|gh-pages)$')
                               caseSensitive(true)
                             }
                           }
