@@ -149,11 +149,6 @@ controller:
                     username: halkeye
                     password: "${BITBUCKET_HALKEYE_PASSWORD}"
                 - usernamePassword:
-                    id: contentful-halkeye
-                    description: contentful-halkeye
-                    username: "${CONTENTFUL_HALKEYE_USERNAME}"
-                    password: "${CONTENTFUL_HALKEYE_PASSWORD}"
-                - usernamePassword:
                     id: dockerhub-halkeye
                     description: dockerhub-halkeye
                     username: "${DOCKERHUB_HALKEYE_USERNAME}"
@@ -258,6 +253,10 @@ controller:
                     id: halkeye-crates
                     description: halkeye-crates
                     secret: "${CARGO_REGISTRY_TOKEN}"
+                - string:
+                    id: npm-halkeye-ci
+                    description: npm-halkeye-ci
+                    secret: "${NPM_HALKEYE_CI}"
                 - file:
                     id: ansible-vault
                     description: ansible-vault
