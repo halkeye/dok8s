@@ -390,6 +390,7 @@ controller:
                     "go_windows_stats",
                     "graphite_scripts",
                     "halkeye-ansible",
+                    "helm-charts",
                     "helm-repo-html",
                     "home-ansible",
                     "hubot-plugins",
