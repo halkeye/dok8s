@@ -392,6 +392,7 @@ controller:
                     "halkeye-ansible",
                     "helm-charts",
                     "helm-repo-html",
+                    "helm-semantic-release-config",
                     "home-ansible",
                     "hubot-plugins",
                     "infinicatr",
