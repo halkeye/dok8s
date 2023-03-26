@@ -46,7 +46,7 @@ releases:
             enabled: true
   - name: prometheus
     chart: prometheus-community/prometheus
-    version: 19.7.2
+    version: 20.0.2
     namespace: monitoring
     values:
       - prometheus.yaml
