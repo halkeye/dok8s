@@ -144,11 +144,6 @@ controller:
                     privateKey: "${GITHUB_APP_KEY}"
                     owner: "halkeye-helm-charts"
                 - usernamePassword:
-                    id: bitbucket-halkeye
-                    description: "bitbucket-halkeye"
-                    username: halkeye
-                    password: "${BITBUCKET_HALKEYE_PASSWORD}"
-                - usernamePassword:
                     id: dockerhub-halkeye
                     description: dockerhub-halkeye
                     username: "${DOCKERHUB_HALKEYE_USERNAME}"
@@ -191,14 +186,6 @@ controller:
                     description: goodreads
                     username: "${GOODREADS_USERNAME}"
                     password: "${GOODREADS_PASSWORD}"
-                - basicSSHUserPrivateKey:
-                    id: halkeye-bitbucket
-                    description: halkeye-bitbucket
-                    passphrase: "${HALKEYE_BITUCKET_PASSPHRASE}"
-                    privateKeySource:
-                      directEntry:
-                        privateKey: "${HALKEYE_BITUCKET_KEY}"
-                    username: "${HALKEYE_BITUCKET_USERNAME}"
                 - usernamePassword:
                     id: halkeye-quay
                     description: halkeye-quay
@@ -320,14 +307,6 @@ controller:
           #      timeoutMinutes: 5
           #      usePrivateNetworking: false
         unclassified:
-          bitbucketEndpointConfiguration:
-            endpoints:
-            - bitbucketCloudEndpoint:
-                credentialsId: "bitbucket-halkeye"
-                enableCache: false
-                manageHooks: true
-                repositoriesCacheDuration: 0
-                teamCacheDuration: 0
           location:
             adminAddress: "jenkins@g4v.dev"
             url: "https://ci.g4v.dev/"
