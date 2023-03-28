@@ -8,7 +8,7 @@ repositories:
 releases:
   - name: synapse
     chart: halkeye/synapse
-    version: 0.8.26
+    version: 0.8.27
     namespace: matrix
     values:
       - ./synapse.yaml
