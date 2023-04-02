@@ -68,7 +68,7 @@ releases:
   - name: mautrix-instagram
     chart: halkeye/mautrix-instagram
     namespace: matrix
-    version: 1.0.1
+    version: 1.0.2
     values:
       - ./mautrix-instagram.yaml
     secrets:
