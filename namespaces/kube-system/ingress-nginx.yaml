@@ -31,10 +31,21 @@ controller:
       enabled: "true"
     annotations:
       external-dns.alpha.kubernetes.io/hostname: "*.g4v.dev."
-      "service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol": "true"
-      "service.beta.kubernetes.io/do-loadbalancer-hostname": "do.g4v.dev"
       prometheus.io/scrape: "true"
       prometheus.io/port: "10254"
+      # Name for DO UI
+      service.beta.kubernetes.io/do-loadbalancer-name: "dok8s-ingress-nginx"
+      # Based on https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/docs/controllers/services/examples/https-with-pass-through-nginx.yml
+      service.beta.kubernetes.io/do-loadbalancer-protocol: "http"
+      service.beta.kubernetes.io/do-loadbalancer-tls-ports: "443"
+      service.beta.kubernetes.io/do-loadbalancer-tls-passthrough: "true"
+      service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
+      # Fix some issues for internal references - see https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/docs/controllers/services/annotations.md#servicebetakubernetesiodo-loadbalancer-hostname
+      service.beta.kubernetes.io/do-loadbalancer-hostname: "do.g4v.dev"
+      # Per https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/docs/controllers/services/annotations.md#servicebetakubernetesiodo-loadbalancer-http-ports
+      service.beta.kubernetes.io/do-loadbalancer-http-ports: "80"
+      # Default is round_robin - https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/docs/controllers/services/annotations.md#servicebetakubernetesiodo-loadbalancer-algorithm
+      service.beta.kubernetes.io/do-loadbalancer-algorithm: "least_connections"
 
 defaultBackend:
   enabled: true
