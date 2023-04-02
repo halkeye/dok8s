@@ -313,7 +313,7 @@ controller:
           email-ext:
             defaultReplyTo: "jenkins@g4v.dev"
             mailAccount:
-              smtpPort: "25"
+              smtpPort: "587"
               smtpHost: "${SMTP_SERVER}"
           gitHubPluginConfig:
             configs:
@@ -322,7 +322,7 @@ controller:
           mailer:
             replyToAddress: "jenkins@g4v.dev"
             smtpHost: "${SMTP_SERVER}"
-            smtpPort: "25"
+            smtpPort: "587"
           buildDiscarders:
             configuredBuildDiscarders:
               - "jobBuildDiscarder"

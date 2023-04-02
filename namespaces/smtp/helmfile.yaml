@@ -4,19 +4,13 @@ helmDefaults:
 repositories:
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
+  - name: bokysan-postfix
+    url: https://bokysan.github.io/docker-postfix
 
 releases:
   - name: postfix
-    chart: halkeye/postfix
+    chart: bokysan-postfix/mail
+    version: 3.6.1
     namespace: smtp
-    values:
-      - postfix.yaml
     secrets:
       - postfix-secrets.yaml
-
-  - name: mailgun-smtp-server
-    chart: ../../charts/mailgun-smtp-server
-    namespace: smtp
-    secrets:
-      - mailgun-smtp-server-secrets.yaml
-
