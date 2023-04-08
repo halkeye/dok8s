@@ -1,6 +1,6 @@
 image:
   repository: jacobalberty/unifi
-  tag: v7.3.76
+  tag: "v7.3.76"
 
 timezone: America/Vancouver
 

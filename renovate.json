@@ -4,7 +4,12 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
       "automerge": true
     }
   ],
@@ -17,6 +22,17 @@
         "tag: \"(?<currentValue>.*)@(?<currentDigest>.*)\""
       ],
       "depNameTemplate": "halkeye/jenkins",
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
+    },
+    {
+      "fileMatch": [
+        "^namespaces/unifi/unifi.yaml$"
+      ],
+      "matchStrings": [
+        "tag: \"(?<currentValue>.*)\""
+      ],
+      "depNameTemplate": "jacobalberty/unifi",
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker"
     }
