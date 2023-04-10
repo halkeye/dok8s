@@ -147,7 +147,7 @@ redis:
 | service.enabled | bool | `true` | Service that is created to access authentik |
 | service.labels | object | `{}` |  |
 | service.name | string | `"http"` |  |
-| service.port | int | `80` |  |
+| service.port | int | `9000` |  |
 | service.protocol | string | `"TCP"` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` | Service account is needed for managed outposts |

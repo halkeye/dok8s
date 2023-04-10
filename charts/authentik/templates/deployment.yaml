@@ -3,16 +3,19 @@
 {{- $env = merge $env (dict "name" $name "valueFrom" (toYaml $val)) }}
 {{- end }}
 {{- $envFrom := .Values.envFrom }}
-{{- $envFrom := append $envFrom (dict "secretRef" (dict "name" (printf "%s-secrets" (include "common.names.fullname" .) ))) }}
+{{- $envFrom := append $envFrom (dict "secretRef" (dict "name" (printf "%s-secrets" (include "bjw-s.common.lib.chart.names.fullname" .) ))) }}
 {{- range list "server" "worker" }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ printf "%s-%s" (include "common.names.fullname" $) . }}
-  labels:
-    {{- include "common.labels" $ | nindent 4 }}
-    app.kubernetes.io/component: "{{ . }}"
+  name: {{ printf "%s-%s" (include "bjw-s.common.lib.chart.names.fullname" $) . }}
+  {{- with (merge (dict "app.kubernetes.io/component" .) (include "bjw-s.common.lib.metadata.allLabels" $ | fromYaml)) }}
+  labels: {{- . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with include "bjw-s.common.lib.controller.metadata.annotations" $ }}
+  annotations: {{- . | nindent 4 }}
+  {{- end }}
 spec:
   {{ if eq . "server" -}}
   replicas: {{ $.Values.replicas }}
@@ -21,21 +24,20 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "common.labels.selectorLabels" $ | nindent 6 }}
+      {{- include "bjw-s.common.lib.metadata.selectorLabels" $ | nindent 6 }}
       app.kubernetes.io/component: "{{ . }}"
   template:
     metadata:
-      labels:
-        {{- include "common.labels.selectorLabels" $ | nindent 8 }}
-        app.kubernetes.io/component: "{{ . }}"
-        app.kubernetes.io/version: "{{ $.Values.image.tag }}"
+      {{- with (merge (dict "app.kubernetes.io/component" . "app.kubernetes.io/version" $.Values.image.tag) (include "bjw-s.common.lib.controller.metadata.labels" $ | fromYaml)) }}
+        labels: {{- . | toYaml | nindent 10 }}
+      {{- end }}
     spec:
       {{- if $.Values.image.pullSecrets }}
       imagePullSecrets:
         {{- toYaml $.Values.image.pullSecrets | nindent 8 }}
       {{- end }}
       {{- if $.Values.serviceAccount.create }}
-      serviceAccountName: {{ include "common.names.fullname" $ }}
+      serviceAccountName: {{ include "bjw-s.common.lib.chart.names.fullname" $ }}
       {{- end }}
       {{- with $.Values.affinity }}
       affinity:
@@ -133,12 +135,12 @@ spec:
             - name: GEOIPUPDATE_ACCOUNT_ID
               valueFrom:
                 secretKeyRef:
-                  name: {{ printf "%s-secrets" (include "common.names.fullname" $) }}
+                  name: {{ printf "%s-secrets" (include "bjw-s.common.lib.chart.names.fullname" $) }}
                   key: GEOIPUPDATE_ACCOUNT_ID
             - name: GEOIPUPDATE_LICENSE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ printf "%s-secrets" (include "common.names.fullname" $) }}
+                  name: {{ printf "%s-secrets" (include "bjw-s.common.lib.chart.names.fullname" $) }}
                   key: GEOIPUPDATE_LICENSE_KEY
           volumeMounts:
             - name: geoip-db

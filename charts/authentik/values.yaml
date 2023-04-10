@@ -141,6 +141,8 @@ service:
     # -- Service that is created to access authentik
     enabled: true
     type: ClusterIP
+    extraSelectorLabels:
+      app.kubernetes.io/component: "server"
     ports:
       http:
         enabled: true
