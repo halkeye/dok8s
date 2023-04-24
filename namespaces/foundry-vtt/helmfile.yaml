@@ -1,0 +1,57 @@
+repositories:
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  #- name: mahahe
+  #  url: https://helm.mahahe.it/
+
+releases:
+  - name: g4v-prometheus-certificate
+    chart: halkeye/certificate
+    version: 0.0.4
+    namespace: foundry-vtt
+    values:
+      - issuerRef:
+          kind: ClusterIssuer
+          name: letsencrypt
+        dnsNames:
+          - 'vtt.g4v.dev'
+        commonName: 'vtt.g4v.dev'
+        secretName: g4v-vtt-certificate-tls
+  - name: vtt-ingress
+    namespace: foundry-vtt
+    chart: ingress-nginx/ingress-nginx
+    version: 4.6.0
+    values:
+      - controller:
+          config:
+            use-forwarded-headers: "true"
+          service:
+            type: ClusterIP
+            annotations:
+              prometheus.io/scrape: "true"
+              prometheus.io/port: "10254"
+              tailscale.com/expose: "true"
+              tailscale.com/hostname: "vtt-ingress"
+          extraArgs:
+            default-ssl-certificate: "foundry-vtt/g4v-vtt-certificate-tls"
+          ingressClassResource:
+            name: vtt
+            enabled: true
+      - defaultBackend:
+          enabled: true
+          image:
+            repository: ghcr.io/tarampampam/error-pages
+            tag: 2.17.0
+          extraEnvs:
+          - name: TEMPLATE_NAME # Optional: change the default theme
+            value: l7-dark
+          - name: SHOW_DETAILS # Optional: enables the output of additional information on error pages
+            value: 'false'
+  - name: foundry-vtt
+    #chart: mahahe/foundry-vtt
+    chart: ../../charts/foundry-vtt
+    namespace: foundry-vtt
+    values:
+      - foundry-vtt.yaml
+    secrets:
+      - foundry-vtt-secrets.yaml

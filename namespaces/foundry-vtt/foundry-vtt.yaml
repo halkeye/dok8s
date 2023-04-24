@@ -1,0 +1,8 @@
+image:
+  repository: felddy/foundryvtt
+  tag: 10.291
+foundryvtt:
+  version: 10.291
+persistence:
+  storageClass: "do-block-storage"
+  enable: true
