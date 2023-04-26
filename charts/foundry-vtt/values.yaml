@@ -68,7 +68,7 @@ affinity: {}
 image:
   pullPolicy: IfNotPresent
   repository: felddy/foundryvtt
-  tag: 10.288
+  tag: 11.295
 
 ## @param imagePullSecrets Credentials for Docker private repository.
 imagePullSecrets: []
