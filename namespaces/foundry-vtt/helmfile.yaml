@@ -1,8 +1,8 @@
 repositories:
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
-  #- name: mahahe
-  #  url: https://helm.mahahe.it/
+  - name: halkeye
+    url: https://halkeye.github.io/helm-charts
 
 releases:
   - name: g4v-prometheus-certificate
@@ -48,8 +48,8 @@ releases:
           - name: SHOW_DETAILS # Optional: enables the output of additional information on error pages
             value: 'false'
   - name: foundry-vtt
-    #chart: mahahe/foundry-vtt
-    chart: ../../charts/foundry-vtt
+    chart: halkeye/foundry-vtt
+    version: 1.1.0
     namespace: foundry-vtt
     values:
       - foundry-vtt.yaml
