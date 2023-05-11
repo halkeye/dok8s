@@ -9,8 +9,8 @@ env:
   PHOTOPRISM_DETECT_NSFW: "true" # Flag photos as private that MAY be offensive (requires TensorFlow)
   PHOTOPRISM_ORIGINALS_LIMIT: 1000 # File size limit for originals in MB (increase for high-res video)
   PHOTOPRISM_READONLY: "false" # Don't modify originals directory (reduced functionality)
-  PHOTOPRISM_DATABASE_DRIVER: "mysql" # Use MariaDB (or MySQL) instead of SQLite for improved performance
-  PHOTOPRISM_DATABASE_SERVER: "db-mysql-sfo2-06502-do-user-8094590-0.b.db.ondigitalocean.com:25060" # MariaDB database server (hostname:port)
+  PHOTOPRISM_DATABASE_DRIVER: "mariadb" # Use MariaDB (or MySQL) instead of SQLite for improved performance
+  PHOTOPRISM_DATABASE_SERVER: "mariadb" # MariaDB database server (hostname:port)
   PHOTOPRISM_DATABASE_NAME: "photoprism" # MariaDB database schema name
   PHOTOPRISM_DATABASE_USER: "photoprism" # MariaDB database user name
 
@@ -23,27 +23,16 @@ persistence:
     size: 300Gi
     accessMode: ReadWriteOnce
 
-#podSecurityContext:
-#  runAsUser: 1026
-#  runAsGroup: 100
-#  fsGroup: 100
-
 ingress:
   main:
     enabled: true
+    ingressClassName: nginx
     hosts:
       - host: photos.g4v.dev
         paths:
           - path: /
-    tls:
-      - secretName: photos-tls
-        hosts:
-          - photos.g4v.dev
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt
-      kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 image:
-  tag: "220517-bullseye"
+  tag: "230506"

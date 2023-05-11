@@ -1,14 +1,24 @@
 #helmDefaults:
 #  atomic: true
 repositories:
-  - name: k8s-at-home
-    url: https://k8s-at-home.com/charts/
+  - name: geek-cookbook
+    url: https://geek-cookbook.github.io/charts/
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
 
 releases:
   - name: photoprism
     namespace: photos
-    chart: k8s-at-home/photoprism
+    chart: geek-cookbook/photoprism
+    version: 7.2.0
     values:
       - photoprism.yaml
     secrets:
       - photoprism-secrets.yaml
+  - name: mariadb
+    namespace: photos
+    chart: bitnami/mariadb
+    values:
+      - mariadb.yaml
+    secrets:
+      - mariadb-secrets.yaml
