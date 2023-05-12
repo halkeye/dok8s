@@ -1,9 +1,9 @@
 dependencies:
 - name: common
   repository: https://bjw-s.github.io/helm-charts
-  version: 1.4.0
+  version: 1.5.0
 - name: redis
   repository: https://charts.goauthentik.io
   version: 15.7.6
-digest: sha256:e9da1fd11711578180626e6a5e085edeffff94ed733b0597c0aed3bb89396509
-generated: "2023-04-12T19:09:25.053130341Z"
+digest: sha256:ae3c0030f47a235e87778f55f4e7768d9b6931b6d05e3cddaf5b8b35a71054b7
+generated: "2023-05-12T00:34:20.927188169Z"
