@@ -1,7 +1,0 @@
----
-primary:
-  service:
-    type: ClusterIP
-    annotations:
-      tailscale.com/expose: "true"
-      tailscale.com/hostname: "mariadb-photos"
