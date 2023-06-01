@@ -203,6 +203,19 @@ extraConfigs:
     url: http://mautrix-signal:29328
     sender_localpart: signalbot
     rate_limited: false
+  halkeye-imessage.yaml:
+    id: halkeye-imessage
+    namespaces:
+      users:
+        # The localpart here is username_template from the config, but .+ instead of {{.}}
+        - regex: '@halkeye_imessage.+:g4v\.dev'
+          exclusive: true
+        # Localpart here is appservice -> bot -> username from the config
+        - regex: '@halkeye_imessage:g4v\.dev'
+          exclusive: true
+    url: http://mautrix-wsproxy:29331
+    sender_localpart: 2llzuiUMrypP4zQ5TICDn4yvaEQfRMgDjNwpJwxhMoveLVjSDvCfYetYNxdDpB0d
+    rate_limited: false
 
 persistence:
   enabled: false
