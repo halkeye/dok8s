@@ -49,6 +49,7 @@ homeserver:
     - /config/twitter-registration.yaml
     - /config/googlechat-registration.yaml
     - /config/signal-registration.yaml
+    - /config/halkeye-imessage.yaml
   enable_group_creation: true
   enable_3pid_lookup: true
   #default_identity_server: https://matrix-identity.g4v.dev
@@ -211,10 +212,10 @@ extraConfigs:
         - regex: '@halkeye_imessage.+:g4v\.dev'
           exclusive: true
         # Localpart here is appservice -> bot -> username from the config
-        - regex: '@halkeye_imessage:g4v\.dev'
+        - regex: '@halkeye_imessagebot:g4v\.dev'
           exclusive: true
     url: http://mautrix-wsproxy:29331
-    sender_localpart: 2llzuiUMrypP4zQ5TICDn4yvaEQfRMgDjNwpJwxhMoveLVjSDvCfYetYNxdDpB0d
+    sender_localpart: halkeye_imessage
     rate_limited: false
 
 persistence:
