@@ -29,7 +29,7 @@ releases:
   - name: external-dns
     namespace: kube-system
     chart: bitnami/external-dns
-    version: 6.20.3
+    version: 6.20.4
     values:
       - external-dns.yaml
     secrets:
