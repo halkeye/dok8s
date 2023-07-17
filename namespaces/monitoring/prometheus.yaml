@@ -170,28 +170,28 @@ serverFiles:
             annotations:
               summary: "Matrix bridge is down"
           - alert: ProwlarrSystemMessages
-            expr: count(prowlarr_system_health_issues) by (message) >= 0
+            expr: count(prowlarr_system_health_issues{message!=""}) by (message) >= 0
             for: 1d
             labels:
               severity: warning
             annotations:
               summary: Prowlarr System Message - {{ $labels.message }}
           - alert: sonarrSystemMessages
-            expr: count(sonarr_system_health_issues) by (message) >= 0
+            expr: count(sonarr_system_health_issues{message!=""}) by (message) >= 0
             for: 1d
             labels:
               severity: warning
             annotations:
               summary: sonarr System Message - {{ $labels.message }}
           - alert: radarrSystemMessages
-            expr: count(radarr_system_health_issues) by (message) >= 0
+            expr: count(radarr_system_health_issues{message!=""}) by (message) >= 0
             for: 1d
             labels:
               severity: warning
             annotations:
               summary: radarr System Message - {{ $labels.message }}
           - alert: lidarrSystemMessages
-            expr: count(lidarr_system_health_issues) by (message) >= 0
+            expr: count(lidarr_system_health_issues{message!=""}) by (message) >= 0
             for: 1d
             labels:
               severity: warning
