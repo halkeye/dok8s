@@ -37,6 +37,8 @@ releases:
               prometheus.io/port: "10254"
               tailscale.com/expose: "true"
               tailscale.com/hostname: "prometheus-ingress"
+              external-dns.alpha.kubernetes.io/hostname: prometheus.g4v.dev,alertmanager.g4v.dev
+              external-dns.alpha.kubernetes.io/ttl: "600"
           extraArgs:
             default-ssl-certificate: "monitoring/g4v-prometheus-certificate-tls"
           ingressClassResource:
