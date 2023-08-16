@@ -46,7 +46,6 @@ homeserver:
     - /config/whatsapp-registration.yaml
     - /config/telegram-registration.yaml
     - /config/instagram-registration.yaml
-    - /config/twitter-registration.yaml
     - /config/googlechat-registration.yaml
     - /config/signal-registration.yaml
     - /config/halkeye-imessage.yaml
@@ -171,18 +170,6 @@ extraConfigs:
           regex: "#instagram_.+:g4v.dev"
     url: http://mautrix-instagram.matrix.svc.cluster.local:29328
     sender_localpart: instagrambot
-    rate_limited: false
-  twitter-registration.yaml:
-    id: twitter
-    namespaces:
-      users:
-        - exclusive: true
-          regex: "@twitter_.+:g4v.dev"
-      aliases:
-        - exclusive: true
-          regex: "#twitter_.+:g4v.dev"
-    url: http://mautrix-twitter.matrix.svc.cluster.local:29328
-    sender_localpart: twitterbot
     rate_limited: false
   googlechat-registration.yaml:
     id: googlechatbot

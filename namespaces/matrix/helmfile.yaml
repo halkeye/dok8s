@@ -74,15 +74,6 @@ releases:
     secrets:
       - ./mautrix-instagram-secrets.yaml
 
-  - name: mautrix-twitter
-    chart: halkeye/mautrix-twitter
-    namespace: matrix
-    version: 1.0.4
-    values:
-      - ./mautrix-twitter.yaml
-    secrets:
-      - ./mautrix-twitter-secrets.yaml
-
   - name: mautrix-wsproxy
     chart: halkeye/mautrix-wsproxy
       #chart: /home/halkeye/git/halkeye-helm-charts/mautrix-wsproxy
