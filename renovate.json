@@ -35,6 +35,17 @@
       "depNameTemplate": "jacobalberty/unifi",
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker"
+    },
+    {
+      "fileMatch": [
+        "^namespaces/bitwarden/bitwarden.yaml$"
+      ],
+      "matchStrings": [
+        "tag: \"(?<currentValue>.*)\""
+      ],
+      "depNameTemplate": "vaultwarden/server",
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
     }
   ]
 }
