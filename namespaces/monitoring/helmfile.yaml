@@ -7,6 +7,8 @@ repositories:
     url: https://grafana.github.io/helm-charts
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
+  - name: wiremind
+    url: https://wiremind.github.io/wiremind-helm-charts
 
 releases:
   - name: g4v-prometheus-certificate
@@ -66,3 +68,9 @@ releases:
       - grafana.yaml
     secrets:
       - grafana-secrets.yaml
+  - name: karma
+    chart: wiremind/karma
+    namespace: monitoring
+    version: 2.3.0
+    values:
+      - karma.yaml

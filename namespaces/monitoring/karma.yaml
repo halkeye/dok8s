@@ -1,0 +1,29 @@
+service:
+  annotations:
+    prometheus.io/scrape: "true"
+ingress:
+  enabled: true
+  hosts:
+    - karma.g4v.dev
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    external-dns.alpha.kubernetes.io/hostname: karma.g4v.dev
+    external-dns.alpha.kubernetes.io/ttl: "600"
+  ingressClassName: "prometheus"
+
+configMap:
+  enabled: true
+  rawConfig:
+    alertmanager:
+      interval: 60s
+      servers:
+        - name: prod-alertmanager
+          uri: http://prometheus-alertmanager:9093
+          timeout: 10s
+          proxy: false
+    annotations:
+      default:
+        hidden: false
+      hidden:
+        - help
+      visible: []
