@@ -25,6 +25,10 @@ jobs:
           SOPS_AGE_CONTENTS: "${{ secrets.SOPS_AGE_KEY_FILE }}"
         run: |
           echo "${SOPS_AGE_CONTENTS}" > $SOPS_AGE_KEY_FILE
+
+      - run: |
+          md5sum $SOPS_AGE_KEY_FILE
+          wc -l $SOPS_AGE_KEY_FILE
           grep 'public key' $SOPS_AGE_KEY_FILE
 
       - name: Write ~/.kube/config
