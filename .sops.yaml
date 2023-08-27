@@ -2,3 +2,10 @@ creation_rules:
   - pgp: >-
       88FABF5F307FB5870B6AD2E8A266F2D3F9D60C45,
       E7919C84E0BEF3312903AE47E3A9E309C44FED27
+  - path_regex: .*
+    key_groups:
+      - age:
+        # thor
+        - age1vqm5gwkmf38jsmt3j4lm3fdslausskaadtz360ewn0g7z2fchahqyr694v
+        # ghactions
+        - age1kg5j06vpay75xpetn4h35ezu8qchknyjt2g7wzx8cm3d06vs0yxq503880
