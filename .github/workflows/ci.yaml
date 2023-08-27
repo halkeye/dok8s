@@ -30,8 +30,8 @@ jobs:
         env:
           DIGITAL_OCEAN_KUBECONFIG: ${{ secrets.DIGITAL_OCEAN_KUBECONFIG }}
         run: |
-          mkdir -p .kube
-          echo "$DIGITAL_OCEAN_KUBECONFIG" > ~/.kube/config
+          mkdir -p $HOME/.kube
+          echo "$DIGITAL_OCEAN_KUBECONFIG" > $HOME/.kube/config
 
       #- name: Setup helmfile
       #  uses: mamezou-tech/setup-helmfile@v1.2.0
