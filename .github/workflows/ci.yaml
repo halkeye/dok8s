@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - github-actions
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,6 +18,7 @@ jobs:
       - name: write sops age file
         env:
           SOPS_AGE_CONTENTS: ${{ secrets.SOPS_AGE_KEY_FILE }}
+          SOPS_AGE_KEY_FILE: ${{ github.workspace }}/.sops.age.keyfile.txt
         run: |
           echo "$SOPS_AGE_CONTENTS" > $SOPS_AGE_KEY_FILE
 
