@@ -22,9 +22,10 @@ jobs:
 
       - name: write sops age file
         env:
-          SOPS_AGE_CONTENTS: ${{ secrets.SOPS_AGE_KEY_FILE }}
+          SOPS_AGE_CONTENTS: "${{ secrets.SOPS_AGE_KEY_FILE }}"
         run: |
-          echo "$SOPS_AGE_CONTENTS" > $SOPS_AGE_KEY_FILE
+          echo "${SOPS_AGE_CONTENTS}" > $SOPS_AGE_KEY_FILE
+          grep 'public key' $SOPS_AGE_KEY_FILE
 
       - name: Write ~/.kube/config
         env:
