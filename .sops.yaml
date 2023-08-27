@@ -1,7 +1,4 @@
 creation_rules:
-  - pgp: >-
-      88FABF5F307FB5870B6AD2E8A266F2D3F9D60C45,
-      E7919C84E0BEF3312903AE47E3A9E309C44FED27
   - path_regex: .*
     key_groups:
       - age:
