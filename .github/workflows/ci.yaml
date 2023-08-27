@@ -61,7 +61,7 @@ jobs:
         run: |
           kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.yaml
           curl -qs https://raw.githubusercontent.com/tailscale/tailscale/d38abe90be0738f097ba79abed0a50af226b16f7/cmd/k8s-operator/manifests/operator.yaml | sed "s/# SET CLIENT ID HERE/$TAILSCALE_CLIENT_ID/; s/# SET CLIENT SECRET HERE/$TAILSCALE_CLIENT_SECRET/" | kubectl apply -f -
-          sops -d cert-manager-cluster-issuer-secrets.yml | kubectl apply -f -
+          sops -d cert-manager-cluster-issuer-secrets.yaml | kubectl apply -f -
 
       - name: Diff on Pull Request
         if: "github.event_name == 'pull_request'"
