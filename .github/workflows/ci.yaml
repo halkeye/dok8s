@@ -23,6 +23,13 @@ jobs:
         run: |
           echo "$SOPS_AGE_CONTENTS" > $SOPS_AGE_KEY_FILE
 
+      - name: Write ~/.kube/config
+        env:
+          DIGITAL_OCEAN_KUBECONFIG: ${{ secrets.DIGITAL_OCEAN_KUBECONFIG }}
+        run: |
+          mkdir -p .kube
+          echo "$DIGITAL_OCEAN_KUBECONFIG" > ~/.kube/config
+
       #- name: Setup helmfile
       #  uses: mamezou-tech/setup-helmfile@v1.2.0
 
