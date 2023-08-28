@@ -7,9 +7,9 @@ on:
       - github-actions
 env:
   SOPS_AGE_KEY_FILE: ${{ github.workspace }}/.sops.age.keyfile.txt
-  HELM_CACHE_HOME: "$RUNNER_TEMP/.helm/cache"
-  HELM_CONFIG_HOME: "$RUNNER_TEMP/.helm/config"
-  HELM_DATA_HOME: "$RUNNER_TEMP/.helm/data"
+  # HELM_CACHE_HOME: "$RUNNER_TEMP/.helm/cache"
+  # HELM_CONFIG_HOME: "$RUNNER_TEMP/.helm/config"
+  # HELM_DATA_HOME: "$RUNNER_TEMP/.helm/data"
 jobs:
   build:
     runs-on: ubuntu-latest
