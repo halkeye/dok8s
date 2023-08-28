@@ -50,7 +50,7 @@ releases:
             enabled: true
   - name: prometheus
     chart: prometheus-community/prometheus
-    version: 23.4.0
+    version: 24.0.0
     namespace: monitoring
     values:
       - prometheus.yaml
