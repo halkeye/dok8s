@@ -25,6 +25,7 @@ jobs:
         run: |
           mkdir -p "${HOME}/.kube"
           echo "$DIGITAL_OCEAN_KUBECONFIG" > "${HOME}/.kube/config"
+          chmod 700 -R "${HOME}/.kube"
 
       - name: Sops Binary Installer
         uses: mdgreenwald/mozilla-sops-action@v1.4.1
