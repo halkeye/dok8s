@@ -7,9 +7,6 @@ on:
       - github-actions
 env:
   SOPS_AGE_KEY_FILE: ${{ github.workspace }}/.sops.age.keyfile.txt
-  # HELM_CACHE_HOME: "$RUNNER_TEMP/.helm/cache"
-  # HELM_CONFIG_HOME: "$RUNNER_TEMP/.helm/config"
-  # HELM_DATA_HOME: "$RUNNER_TEMP/.helm/data"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,7 +32,7 @@ jobs:
       - name: Helmfile Repos update
         uses: helmfile/helmfile-action@v1.0.0
         with:
-          helmfileArgs: repos
+          helmfile-args: repos
           helm-plugins: >
             https://github.com/databus23/helm-diff --version 3.1.3,
             https://github.com/hypnoglow/helm-s3 --version 0.9.2,
@@ -45,7 +42,7 @@ jobs:
       - name: Helmfile lint
         uses: helmfile/helmfile-action@v1.0.0
         with:
-          helmfileArgs: lint
+          helmfile-args: lint
           helm-plugins: >
             https://github.com/databus23/helm-diff --version 3.1.3,
             https://github.com/hypnoglow/helm-s3 --version 0.9.2,
@@ -66,7 +63,7 @@ jobs:
         if: "github.event_name == 'pull_request'"
         uses: helmfile/helmfile-action@v1.0.0
         with:
-          helmfileArgs: --no-color diff --suppress-secrets --skip-deps --context=2 --concurrency=8
+          helmfile-args: --no-color diff --suppress-secrets --skip-deps --context=2 --concurrency=8
           helm-plugins: >
             https://github.com/databus23/helm-diff --version 3.1.3,
             https://github.com/hypnoglow/helm-s3 --version 0.9.2,
@@ -77,7 +74,7 @@ jobs:
         if: "github.event_name != 'pull_request'"
         uses: helmfile/helmfile-action@v1.0.0
         with:
-          helmfileArgs: --suppress-secrets --concurrency=8
+          helmfile-args: --suppress-secrets --concurrency=8
           helm-plugins: >
             https://github.com/databus23/helm-diff --version 3.1.3,
             https://github.com/hypnoglow/helm-s3 --version 0.9.2,
