@@ -33,7 +33,7 @@ jobs:
         uses: mdgreenwald/mozilla-sops-action@v1.4.1
 
       - name: Helmfile Repos update
-        uses: helmfile/helmfile-action@v1.0.0
+        uses: helmfile/helmfile-action@v1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -45,7 +45,7 @@ jobs:
             https://github.com/jkroepke/helm-secrets --version 4.5.0
 
       - name: Helmfile lint
-        uses: helmfile/helmfile-action@v1.0.0
+        uses: helmfile/helmfile-action@v1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -63,7 +63,7 @@ jobs:
 
       - name: Diff on Pull Request
         if: "github.event_name == 'pull_request'"
-        uses: helmfile/helmfile-action@v1.0.0
+        uses: helmfile/helmfile-action@v1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -71,7 +71,7 @@ jobs:
 
       - name: Apply
         if: "github.event_name != 'pull_request'"
-        uses: helmfile/helmfile-action@v1.0.0
+        uses: helmfile/helmfile-action@v1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
