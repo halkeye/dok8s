@@ -31,6 +31,8 @@ jobs:
 
       - name: Helmfile Repos update
         uses: helmfile/helmfile-action@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           helmfile-args: repos
           helm-plugins: >
@@ -41,6 +43,8 @@ jobs:
 
       - name: Helmfile lint
         uses: helmfile/helmfile-action@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           helmfile-args: lint
           helm-plugins: >
@@ -62,6 +66,8 @@ jobs:
       - name: Diff on Pull Request
         if: "github.event_name == 'pull_request'"
         uses: helmfile/helmfile-action@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           helmfile-args: --no-color diff --suppress-secrets --skip-deps --context=2 --concurrency=8
           helm-plugins: >
@@ -73,6 +79,8 @@ jobs:
       - name: Apply
         if: "github.event_name != 'pull_request'"
         uses: helmfile/helmfile-action@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           helmfile-args: --suppress-secrets --concurrency=8
           helm-plugins: >
