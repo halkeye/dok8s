@@ -20,7 +20,7 @@ releases:
   - name: vtt-ingress
     namespace: foundry-vtt
     chart: ingress-nginx/ingress-nginx
-    version: 4.7.1
+    version: 4.7.2
     values:
       - controller:
           config:
