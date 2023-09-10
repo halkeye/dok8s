@@ -1,7 +1,7 @@
 image:
   repository: githubexporter/github-exporter
   pullPolicy: IfNotPresent
-  tag: 1.0.4
+  tag: 2.0.5-alpha
 
 envFrom:
    - secretRef:
