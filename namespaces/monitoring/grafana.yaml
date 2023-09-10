@@ -93,10 +93,6 @@ dashboards:
     #  gnetId: 11313
     #  revision: 8
     #  datasource: Prometheus
-    blocky:
-      gnetId: 13768
-      revision: 1
-      datasource: Prometheus
     nut:
       gnetId: 14371
       revision: 1
@@ -133,8 +129,8 @@ dashboards:
       url: https://raw.githubusercontent.com/caseyscarborough/qbittorrent-grafana-dashboard/a27811eadf3d024dc7be3623052cf64cf33d8de8/dashboard-modern.json
       datasource: Prometheus
     adguard:
-      gnetId: 10176
-      revision: 2
+      gnetId: 13330
+      revision: 3
       datasource: Prometheus
 
 plugins:
