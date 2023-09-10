@@ -1,0 +1,31 @@
+image:
+  repository: githubexporter/github-exporter
+  pullPolicy: IfNotPresent
+  tag: 1.25.2
+
+envFrom:
+   - secretRef:
+       name: github-exporter-secret
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9171"
+
+env:
+  ORGS: halkeye-docker,halkeye-helm-charts
+  USERS: halkeye
+
+service:
+  main:
+    ports:
+      http:
+        port: 9171
+
+ingress:
+  main:
+    enabled: false
+
+persistence:
+  config:
+    enabled: false
+

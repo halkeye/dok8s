@@ -9,6 +9,8 @@ repositories:
     url: https://kubernetes.github.io/ingress-nginx
   - name: wiremind
     url: https://wiremind.github.io/wiremind-helm-charts
+  - name: bjw-s
+    url: https://bjw-s.github.io/helm-charts
 
 releases:
   - name: g4v-prometheus-certificate
@@ -74,3 +76,11 @@ releases:
     version: 2.3.0
     values:
       - karma.yaml
+  - name: github-exporter
+    chart: bjw-s/app-template
+    namespace: monitoring
+    version: 1.5.1
+    values:
+      - github-exporter.yaml
+    secrets:
+      - github-exporter-secrets.yaml
