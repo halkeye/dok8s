@@ -330,9 +330,6 @@ controller:
                   discarder:
                     logRotator:
                       numToKeepStr: "5"
-          themeManager:
-            disableUserThemes: false
-            theme: "darkSystem"
           globalDefaultFlowDurabilityLevel:
             durabilityHint: PERFORMANCE_OPTIMIZED
           globalLibraries:
