@@ -4,7 +4,7 @@ replicas: 1
 image:
   repository: docker.io/mvisonneau/tailscale
   pullPolicy: IfNotPresent
-  tag: v1.46.1
+  tag: v1.48.2
   # tag: <default to chart app version>
 
 ingressClassName: nginx
