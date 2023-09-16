@@ -13,6 +13,9 @@ config:
     community_template: "signal_{localpart}={server}"
     relay:
       enabled: true
+    encryption:
+      # Allow encryption, work in group chat rooms with e2ee enabled
+      allow: true
     permissions:
       "g4v.dev": "user"
       "@halkeye:g4v.dev": "admin"
