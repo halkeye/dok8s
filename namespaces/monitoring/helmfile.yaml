@@ -73,7 +73,7 @@ releases:
   - name: karma
     chart: wiremind/karma
     namespace: monitoring
-    version: 2.3.0
+    version: 2.4.0
     values:
       - karma.yaml
   - name: github-exporter
