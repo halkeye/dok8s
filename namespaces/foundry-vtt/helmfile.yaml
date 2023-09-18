@@ -1,55 +1,11 @@
 repositories:
-  - name: ingress-nginx
-    url: https://kubernetes.github.io/ingress-nginx
   - name: halkeye
     url: https://halkeye.github.io/helm-charts
 
 releases:
-  - name: g4v-prometheus-certificate
-    chart: halkeye/certificate
-    version: 0.0.4
-    namespace: foundry-vtt
-    values:
-      - issuerRef:
-          kind: ClusterIssuer
-          name: letsencrypt
-        dnsNames:
-          - 'vtt.g4v.dev'
-        commonName: 'vtt.g4v.dev'
-        secretName: g4v-vtt-certificate-tls
-  - name: vtt-ingress
-    namespace: foundry-vtt
-    chart: ingress-nginx/ingress-nginx
-    version: 4.7.2
-    values:
-      - controller:
-          config:
-            use-forwarded-headers: "true"
-          service:
-            type: ClusterIP
-            annotations:
-              prometheus.io/scrape: "true"
-              prometheus.io/port: "10254"
-              tailscale.com/expose: "true"
-              tailscale.com/hostname: "vtt-ingress"
-          extraArgs:
-            default-ssl-certificate: "foundry-vtt/g4v-vtt-certificate-tls"
-          ingressClassResource:
-            name: vtt
-            enabled: true
-      - defaultBackend:
-          enabled: true
-          image:
-            repository: ghcr.io/tarampampam/error-pages
-            tag: 2.17.0
-          extraEnvs:
-          - name: TEMPLATE_NAME # Optional: change the default theme
-            value: l7-dark
-          - name: SHOW_DETAILS # Optional: enables the output of additional information on error pages
-            value: 'false'
   - name: foundry-vtt
     chart: halkeye/foundry-vtt
-    version: 1.2.0
+    version: 1.3.0
     namespace: foundry-vtt
     values:
       - foundry-vtt.yaml
