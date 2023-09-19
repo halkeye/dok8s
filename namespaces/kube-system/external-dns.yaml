@@ -1,8 +1,11 @@
 ---
-provider: digitalocean
+provider: cloudflare
 
 sources: ['service', 'ingress']
 
 interval: "1m"
 
 policy: sync # or upsert-only
+
+fqdnTemplates:
+  - "{{.Name}}.g4v.dev"
