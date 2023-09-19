@@ -1,11 +1,17 @@
 ---
 provider: cloudflare
 
-sources: ['service', 'ingress']
+sources:
+  - service
+  - ingress
+serviceTypeFilter:
+  - LoadBalancer
 
-interval: "1m"
+interval: "10m"
 
 policy: sync # or upsert-only
 
-fqdnTemplates:
-  - "{{.Name}}.g4v.dev"
+logLevel: debug
+
+domainFilters:
+  - g4v.dev
