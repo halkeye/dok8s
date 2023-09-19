@@ -26,11 +26,11 @@ releases:
     version: 4.7.2
     values:
       - ingress-nginx.yaml
-  - name: external-dns
-    namespace: kube-system
-    chart: bitnami/external-dns
-    version: 6.26.1
-    values:
-      - external-dns.yaml
-    secrets:
-      - external-dns-secrets.yaml
+  #- name: external-dns
+  #  namespace: kube-system
+  #  chart: bitnami/external-dns
+  #  version: 6.26.1
+  #  values:
+  #    - external-dns.yaml
+  #  secrets:
+  #    - external-dns-secrets.yaml
