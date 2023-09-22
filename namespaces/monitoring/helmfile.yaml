@@ -65,7 +65,7 @@ releases:
   - name: grafana
     chart: grafana/grafana
     namespace: monitoring
-    version: 6.59.4
+    version: 6.59.5
     values:
       - grafana.yaml
     secrets:
