@@ -196,10 +196,8 @@ extraConfigs:
     id: halkeye-imessage
     namespaces:
       users:
-        # The localpart here is username_template from the config, but .+ instead of {{.}}
         - regex: '@halkeye_imessage.+:g4v\.dev'
           exclusive: true
-        # Localpart here is appservice -> bot -> username from the config
         - regex: '@halkeye_imessagebot:g4v\.dev'
           exclusive: true
     url: http://mautrix-wsproxy:29331
