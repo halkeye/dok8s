@@ -13,7 +13,7 @@ releases:
   - name: jenkins
     namespace: jenkins
     chart: jenkins/jenkins
-    version: 4.7.2
+    version: 4.8.1
     values:
       - jenkins.yaml
     secrets:
