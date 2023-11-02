@@ -10,7 +10,7 @@ repositories:
 releases:
   - name: postfix
     chart: bokysan-postfix/mail
-    version: v4.0.1
+    version: v4.0.2
     namespace: smtp
     secrets:
       - postfix-secrets.yaml
