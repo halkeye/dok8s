@@ -79,7 +79,7 @@ releases:
   - name: github-exporter
     chart: bjw-s/app-template
     namespace: monitoring
-    version: 1.5.1
+    version: 2.0.3
     values:
       - github-exporter.yaml
     secrets:
