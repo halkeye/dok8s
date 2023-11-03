@@ -76,11 +76,3 @@ releases:
     version: 2.5.0
     values:
       - karma.yaml
-  - name: github-exporter
-    chart: bjw-s/app-template
-    namespace: monitoring
-    version: 1.5.1
-    values:
-      - github-exporter.yaml
-    secrets:
-      - github-exporter-secrets.yaml
