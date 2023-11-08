@@ -5,7 +5,7 @@ repositories:
 releases:
   - name: foundry-vtt
     chart: halkeye/foundry-vtt
-    version: 1.8.0
+    version: 1.9.0
     namespace: foundry-vtt
     values:
       - foundry-vtt.yaml
