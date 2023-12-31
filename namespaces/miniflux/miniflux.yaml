@@ -1,0 +1,76 @@
+controllers:
+  main:
+    replicas: 2
+    strategy: RollingUpdate
+    containers:
+      main:
+        image:
+          repository: ghcr.io/miniflux/miniflux
+          tag: 2.0.50-distroless@sha256:625f6decf8740020fabec273e0f694f218a50281e251e13514ac2be4d9147ca8
+        env:
+          BASE_URL: https://miniflux.g4v.dev
+          CREATE_ADMIN: "1"
+          # DEBUG: "1"
+          LOG_DATE_TIME: "1"
+          METRICS_ALLOWED_NETWORKS: "10.32.0.0/16"
+          METRICS_COLLECTOR: "1"
+          OAUTH2_USER_CREATION: "1"
+          OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://auth.g4v.dev
+          OAUTH2_PROVIDER: oidc
+          OAUTH2_REDIRECT_URL: https://miniflux.g4v.dev/oauth2/oidc/callback
+          POLLING_SCHEDULER: entry_frequency
+          POLLING_FREQUENCY: "15"
+          PORT: &port 80
+          RUN_MIGRATIONS: "1"
+        probes:
+          liveness: &probes
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /healthcheck
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probes
+          startup:
+            enabled: false
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
+        resources:
+          limits: &resources
+            memory: 256Mi
+          requests:
+            <<: *resources
+            cpu: 10m
+    pod:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        runAsNonRoot: true
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: miniflux
+service:
+  main:
+    ports:
+      http:
+        port: *port
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: &host "miniflux.g4v.dev"
+        paths:
+          - path: /
+            service:
+              name: main
+              port: http
