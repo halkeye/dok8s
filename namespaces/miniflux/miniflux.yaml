@@ -20,7 +20,7 @@ controllers:
           OAUTH2_REDIRECT_URL: https://miniflux.g4v.dev/oauth2/oidc/callback
           POLLING_SCHEDULER: entry_frequency
           POLLING_FREQUENCY: "15"
-          PORT: &port 80
+          PORT: &port 3000
           RUN_MIGRATIONS: "1"
         probes:
           liveness: &probes
