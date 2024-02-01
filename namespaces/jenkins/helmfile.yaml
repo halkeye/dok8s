@@ -9,12 +9,12 @@ repositories:
   - name: jenkins
     url: https://charts.jenkins.io
 
-releases:
-  - name: jenkins
-    namespace: jenkins
-    chart: jenkins/jenkins
-    version: 4.12.1
-    values:
-      - jenkins.yaml
-    secrets:
-      - jenkins-secrets.yaml
+releases: []
+  #- name: jenkins
+  #  namespace: jenkins
+  #  chart: jenkins/jenkins
+  #  version: 4.12.1
+  #  values:
+  #    - jenkins.yaml
+  #  secrets:
+  #    - jenkins-secrets.yaml
