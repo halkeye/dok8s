@@ -20,7 +20,7 @@ controller:
     prometheus.io/port: "8080"
     prometheus.io/scrape: "true"
   image: halkeye/jenkins
-  tag: "latest@sha256:7e9e8757bc68e4be9e5249fa0b392e393559d7f6216d04c701905624a1be52c5"
+  tag: "latest@sha256:51a11580b85702516c7fefa27ed5a9fd2972af20b466e79216611431404260ba"
 
   probes:
     startupProbe:
