@@ -1,0 +1,69 @@
+{{- $env := .Values.env }}
+{{- range $name, $val := $.Values.envValueFrom }}
+{{- $env = merge $env (dict "name" $name "valueFrom" (toYaml $val)) }}
+{{- end }}
+{{- $envFrom := .Values.envFrom }}
+{{- $envFrom := append $envFrom (dict "secretRef" (dict "name" (printf "%s-secrets" (include "bjw-s.common.lib.chart.names.fullname" .) ))) }}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "bjw-s.common.lib.chart.names.fullname" $ }}-import-certs
+  labels: {{- include "bjw-s.common.lib.metadata.allLabels" $ | nindent 4 }}
+  {{- with include "bjw-s.common.lib.controller.metadata.annotations" $ }}
+  annotations: {{- . | nindent 4 }}
+  {{- end }}
+spec:
+  schedule: "@daily"
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          {{- if $.Values.image.pullSecrets }}
+          imagePullSecrets:
+            {{- toYaml $.Values.image.pullSecrets | nindent 10 }}
+          {{- end }}
+          {{- if $.Values.serviceAccount.create }}
+          serviceAccountName: {{ include "bjw-s.common.lib.chart.names.fullname" $ }}
+          {{- end }}
+          {{- with $.Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with $.Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          containers:
+          - name: {{ $.Chart.Name }}
+            image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+            imagePullPolicy: "{{ $.Values.image.pullPolicy }}"
+            args:
+              - import_certificate
+              - --certificate
+              - /certs/tls.crt
+              - --private-key
+              - /certs/tls.key
+              - --name
+              - tls
+            {{- with $env }}
+            env:
+              {{- range $k, $v := . }}
+              - name: {{ quote $k }}
+                value: {{ quote $v }}
+              {{- end }}
+            {{- end }}
+            {{- with $envFrom }}
+            envFrom:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with $.Values.volumeMounts }}
+            volumeMounts:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+          {{- with $.Values.volumes }}
+          volumes:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
