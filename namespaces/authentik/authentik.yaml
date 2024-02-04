@@ -19,3 +19,16 @@ ingress:
       paths:
       - path: "/"
         pathType: Prefix
+    tls:
+      - hosts:
+          - auth.g4v.dev
+        secretName: "authentik-tls"
+
+volumeMounts:
+  - name: certs
+    mountPath: /certs
+
+volumes:
+  - name: certs
+    secret:
+      secretName: "authentik-tls"
