@@ -9,7 +9,7 @@ releases:
   - name: not-the-plants
     namespace: not-the-plants
     chart: bjw/app-template
-    version: 2.5.0
+    version: 2.6.0
     values:
       - values.yaml
     secrets:
