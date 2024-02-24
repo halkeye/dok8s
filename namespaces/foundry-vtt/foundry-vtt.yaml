@@ -1,5 +1,6 @@
 image:
   repository: felddy/foundryvtt
+  tag: 11.315.1
 persistence:
   storageClass: "do-block-storage"
   enable: true
