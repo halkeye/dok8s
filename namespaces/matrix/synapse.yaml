@@ -49,7 +49,8 @@ homeserver:
     - /config/instagram-registration.yaml
     - /config/googlechat-registration.yaml
     - /config/signal-registration.yaml
-    - /config/halkeye-imessage.yaml
+    - /config/halkeye-imessages.yaml
+    - /config/mautrix-gmessages.yaml
   enable_group_creation: true
   enable_3pid_lookup: true
   #default_identity_server: https://matrix-identity.g4v.dev
@@ -203,6 +204,18 @@ extraConfigs:
     url: http://mautrix-wsproxy:29331
     sender_localpart: halkeye_imessage
     rate_limited: false
+  mautrix-gmessages.yaml:
+    url: http://mautrix-gmessages.matrix.svc.cluster.local.:29336
+    sender_localpart: 01X9cfMqwFl8Zrfh01Y2L4yqNLCtZGFG
+    rate_limited: false
+    namespaces:
+        users:
+            - regex: ^@gmessagesbot:g4v\.dev$
+              exclusive: true
+            - regex: ^@gmessages_.*:g4v\.dev$
+              exclusive: true
+    de.sorunome.msc2409.push_ephemeral: true
+    push_ephemeral: true
 
 persistence:
   enabled: false
