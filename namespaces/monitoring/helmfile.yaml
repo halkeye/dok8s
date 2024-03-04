@@ -1,3 +1,7 @@
+helmDefaults:
+  kubeContext: do-k8s
+  cleanupOnFail: true
+
 repositories:
   - name: sstarcher
     url: https://shanestarcher.com/helm-charts/
@@ -9,8 +13,6 @@ repositories:
     url: https://kubernetes.github.io/ingress-nginx
   - name: wiremind
     url: https://wiremind.github.io/wiremind-helm-charts
-  - name: bjw-s
-    url: https://bjw-s.github.io/helm-charts
 
 releases:
   - name: g4v-prometheus-certificate
