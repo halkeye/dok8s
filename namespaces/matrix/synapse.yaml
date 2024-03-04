@@ -49,7 +49,7 @@ homeserver:
     - /config/instagram-registration.yaml
     - /config/googlechat-registration.yaml
     - /config/signal-registration.yaml
-    - /config/halkeye-imessages.yaml
+    - /config/halkeye-imessage.yaml
     - /config/mautrix-gmessages.yaml
   enable_group_creation: true
   enable_3pid_lookup: true
