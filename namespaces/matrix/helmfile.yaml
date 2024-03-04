@@ -1,4 +1,5 @@
 helmDefaults:
+  kubeContext: do-k8s
   cleanupOnFail: true
 
 repositories:
