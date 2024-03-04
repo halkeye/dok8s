@@ -207,6 +207,7 @@ extraConfigs:
   mautrix-gmessages.yaml:
     url: http://mautrix-gmessages.matrix.svc.cluster.local.:29336
     sender_localpart: 01X9cfMqwFl8Zrfh01Y2L4yqNLCtZGFG
+    id: gmessages
     rate_limited: false
     namespaces:
         users:
