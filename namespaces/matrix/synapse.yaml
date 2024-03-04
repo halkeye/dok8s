@@ -51,6 +51,7 @@ homeserver:
     - /config/signal-registration.yaml
     - /config/halkeye-imessage.yaml
     - /config/mautrix-gmessages.yaml
+    - /config/mautrix-gmessages-doublepuppet.yaml
   enable_group_creation: true
   enable_3pid_lookup: true
   #default_identity_server: https://matrix-identity.g4v.dev
@@ -217,6 +218,25 @@ extraConfigs:
               exclusive: true
     de.sorunome.msc2409.push_ephemeral: true
     push_ephemeral: true
+  mautrix-gmessages-doublepuppet.yaml:
+    id: mautrix-gmessages-doublepuppet
+    # The URL is intentionally left empty (null), as the homeserver shouldn't
+    # push events anywhere for this extra appservice. If you use a
+    # non-spec-compliant server, you may need to put some fake URL here.
+    url:
+    # Generate random strings for these three fields. Only the as_token really
+    # matters, hs_token is never used because there's no url, and the default
+    # user (sender_localpart) is never used either.
+    sender_localpart: 167r6wr81kEl7mOaqYRImjPxKL7M14ZrWAylfY8W9vQb6Z9G9kfG6c53LDU13oqp
+    # Bridges don't like ratelimiting. This should only apply when using the
+    # as_token, normal user tokens will still be ratelimited.
+    rate_limited: false
+    namespaces:
+      users:
+      # Replace your\.domain with your server name (escape dots for regex)
+      - regex: '@.*:g4v\.dev'
+        # This must be false so the appservice doesn't take over all users completely.
+        exclusive: false
 
 persistence:
   enabled: false
