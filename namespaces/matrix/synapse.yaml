@@ -223,17 +223,15 @@ extraConfigs:
     push_ephemeral: true
   mautrix-linkedin.yaml:
     url: http://mautrix-linkedin.matrix.svc.cluster.local.:29336
-    sender_localpart: linkedinbot
     id: linkedin
     rate_limited: false
     namespaces:
-        users:
-            - regex: ^@linkedinbot:g4v\.dev$
-              exclusive: true
-            - regex: ^@linkedin_.*:g4v\.dev$
-              exclusive: true
-    de.sorunome.msc2409.push_ephemeral: true
-    push_ephemeral: true
+      aliases: []
+      users:
+          - regex: ^@linkedinbot:g4v\.dev$
+            exclusive: true
+          - regex: ^@linkedin_.*:g4v\.dev$
+            exclusive: true
   mautrix-gmessages-doublepuppet.yaml:
     id: mautrix-gmessages-doublepuppet
     # The URL is intentionally left empty (null), as the homeserver shouldn't
