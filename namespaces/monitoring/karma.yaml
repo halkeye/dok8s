@@ -4,12 +4,12 @@ service:
 ingress:
   enabled: true
   hosts:
-    - karma.g4v.dev
+    - karma.taildba47.ts.net
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     external-dns.alpha.kubernetes.io/hostname: karma.g4v.dev
     external-dns.alpha.kubernetes.io/ttl: "600"
-  ingressClassName: "prometheus"
+  ingressClassName: "ingress"
 
 configMap:
   enabled: true

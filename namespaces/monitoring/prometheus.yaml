@@ -15,9 +15,10 @@ alertmanager:
   #    tailscale.com/expose: "true"
   ingress:
     enabled: true
-    className: "prometheus"
+    className: "tailscale"
     hosts:
-      - host: alertmanager.g4v.dev
+      - host: alertmanager.taildba47.ts.net
+
         paths:
           - path: /
             pathType: ImplementationSpecific
@@ -36,9 +37,9 @@ server:
   #    tailscale.com/expose: "true"
   ingress:
     enabled: true
-    ingressClassName: "prometheus"
+    ingressClassName: "tailscale"
     hosts:
-      - prometheus.g4v.dev
+      - prometheus.taildba47.ts.net
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
