@@ -17,11 +17,13 @@ alertmanager:
     enabled: true
     className: "tailscale"
     hosts:
-      - host: alertmanager.taildba47.ts.net
-
+      - host: prometheus-alertmanager.taildba47.ts.net
         paths:
           - path: /
             pathType: ImplementationSpecific
+    tls:
+      - hosts:
+          - prometheus-alertmanager.taildba47.ts.net
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
@@ -39,10 +41,13 @@ server:
     enabled: true
     ingressClassName: "tailscale"
     hosts:
-      - prometheus.taildba47.ts.net
+      - prometheus-server.taildba47.ts.net
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    tls:
+      - hosts:
+          - prometheus-server.taildba47.ts.net
 
 kube-state-metrics:
   enabled: true

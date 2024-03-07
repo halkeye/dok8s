@@ -10,6 +10,9 @@ ingress:
     external-dns.alpha.kubernetes.io/hostname: karma.g4v.dev
     external-dns.alpha.kubernetes.io/ttl: "600"
   ingressClassName: "ingress"
+  tls:
+    - hosts:
+        - karma.taildba47.ts.net
 
 configMap:
   enabled: true
