@@ -9,7 +9,7 @@ alertmanager:
     type: Recreate
   persistentVolume:
     storageClass: do-block-storage
-  baseURL: https://alertmanager.g4v.dev/
+  baseURL: https://alertmanager.taildba47.ts.net/
   #service:
   #  annotations:
   #    tailscale.com/expose: "true"
@@ -27,7 +27,7 @@ alertmanager:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 server:
-  baseURL: https://prometheus.g4v.dev/
+  baseURL: https://prometheus.taildba47.ts.net/
   strategy:
     type: Recreate
   persistentVolume:
