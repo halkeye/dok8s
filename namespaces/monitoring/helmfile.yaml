@@ -9,49 +9,10 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: grafana
     url: https://grafana.github.io/helm-charts
-  - name: ingress-nginx
-    url: https://kubernetes.github.io/ingress-nginx
   - name: wiremind
     url: https://wiremind.github.io/wiremind-helm-charts
 
 releases:
-  - name: g4v-prometheus-certificate
-    chart: halkeye/certificate
-    version: 0.0.4
-    namespace: monitoring
-    values:
-      - issuerRef:
-          kind: ClusterIssuer
-          name: letsencrypt
-        dnsNames:
-          - 'prometheus.g4v.dev'
-          - 'alertmanager.g4v.dev'
-        commonName: 'prometheus.g4v.dev'
-        secretName: g4v-prometheus-certificate-tls
-  - name: prometheus-ingress
-    namespace: monitoring
-    chart: ingress-nginx/ingress-nginx
-    version: 4.10.0
-    values:
-      - controller:
-          config:
-            use-forwarded-headers: "true"
-          service:
-            type: ClusterIP
-            annotations:
-              prometheus.io/scrape: "true"
-              prometheus.io/port: "10254"
-              tailscale.com/expose: "true"
-              tailscale.com/hostname: "prometheus-ingress"
-              external-dns.alpha.kubernetes.io/hostname: prometheus.g4v.dev,alertmanager.g4v.dev
-              external-dns.alpha.kubernetes.io/ttl: "600"
-          extraArgs:
-            default-ssl-certificate: "monitoring/g4v-prometheus-certificate-tls"
-          ingressClassResource:
-            # -- Name of the ingressClass
-            name: prometheus
-            # -- Is this ingressClass enabled or not
-            enabled: true
   - name: prometheus
     chart: prometheus-community/prometheus
     version: 25.16.0
