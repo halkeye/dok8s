@@ -113,30 +113,6 @@ serverFiles:
             annotations:
               summary: Jenkins offline (instance {{ $labels.instance }})
               description: "Jenkins offline: `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-          - alert: JenkinsHealthcheck
-            expr: jenkins_health_check_score < 1
-            for: 0m
-            labels:
-              severity: critical
-            annotations:
-              summary: Jenkins healthcheck (instance {{ $labels.instance }})
-              description: "Jenkins healthcheck score: {{$value}}. Healthcheck failure for `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-          - alert: JenkinsOutdatedPlugins
-            expr: sum(jenkins_plugins_withUpdate) by (instance) > 3
-            for: 1d
-            labels:
-              severity: warning
-            annotations:
-              summary: Jenkins outdated plugins (instance {{ $labels.instance }})
-              description: "{{ $value }} plugins need update\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-          #- alert: JenkinsBuildsHealthScore
-          #  expr: default_jenkins_builds_health_score < 1
-          #  for: 0m
-          #  labels:
-          #    severity: warning
-          #  annotations:
-          #    summary: Jenkins builds health score (instance {{ $labels.instance }})
-          #    description: "Healthcheck failure for `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
           - alert: InstanceDown
             expr: up == 0
             for: 5m
@@ -175,31 +151,3 @@ serverFiles:
               severity: page
             annotations:
               summary: "Matrix bridge is down"
-#          - alert: ProwlarrSystemMessages
-#            expr: count(prowlarr_system_health_issues{message!=""}) by (message) >= 0
-#            for: 1d
-#            labels:
-#              severity: warning
-#            annotations:
-#              summary: Prowlarr System Message - {{ $labels.message }}
-#          - alert: sonarrSystemMessages
-#            expr: count(sonarr_system_health_issues{message!=""}) by (message) >= 0
-#            for: 1d
-#            labels:
-#              severity: warning
-#            annotations:
-#              summary: sonarr System Message - {{ $labels.message }}
-#          - alert: radarrSystemMessages
-#            expr: count(radarr_system_health_issues{message!=""}) by (message) >= 0
-#            for: 1d
-#            labels:
-#              severity: warning
-#            annotations:
-#              summary: radarr System Message - {{ $labels.message }}
-#          - alert: lidarrSystemMessages
-#            expr: count(lidarr_system_health_issues{message!=""}) by (message) >= 0
-#            for: 1d
-#            labels:
-#              severity: warning
-#            annotations:
-#              summary: lidarr System Message - {{ $labels.message }}
