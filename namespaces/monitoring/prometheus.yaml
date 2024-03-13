@@ -9,7 +9,7 @@ alertmanager:
     type: Recreate
   persistentVolume:
     storageClass: do-block-storage
-  baseURL: https://alertmanager.taildba47.ts.net/
+  baseURL: https://prometheus-alertmanager.taildba47.ts.net/
   #service:
   #  annotations:
   #    tailscale.com/expose: "true"
