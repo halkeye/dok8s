@@ -49,7 +49,6 @@ homeserver:
     - /config/instagram-registration.yaml
     - /config/googlechat-registration.yaml
     - /config/signal-registration.yaml
-    - /config/halkeye-imessage.yaml
     - /config/mautrix-gmessages.yaml
     - /config/mautrix-gmessages-doublepuppet.yaml
     - /config/mautrix-linkedin.yaml
@@ -196,17 +195,6 @@ extraConfigs:
           group_id: +signal:g4v.dev
     url: http://mautrix-signal:29328
     sender_localpart: signalbot
-    rate_limited: false
-  halkeye-imessage.yaml:
-    id: halkeye-imessage
-    namespaces:
-      users:
-        - regex: '@halkeye_imessage.+:g4v\.dev'
-          exclusive: true
-        - regex: '@halkeye_imessagebot:g4v\.dev'
-          exclusive: true
-    url: http://mautrix-wsproxy:29331
-    sender_localpart: halkeye_imessage
     rate_limited: false
   mautrix-gmessages.yaml:
     url: http://mautrix-gmessages.matrix.svc.cluster.local.:29336
