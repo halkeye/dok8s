@@ -1,9 +1,0 @@
----
-ingress:
-  enabled: true
-  ingressClassName: nginx
-  hosts:
-    - mautrix-wsproxy.g4v.dev
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/tls-acme: "true"
