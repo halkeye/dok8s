@@ -46,14 +46,13 @@ homeserver:
   app_service_config_files:
     - /config/whatsapp-registration.yaml
     - /config/telegram-registration.yaml
-    - /config/instagram-registration.yaml
     - /config/googlechat-registration.yaml
     - /config/signal-registration.yaml
     - /config/mautrix-gmessages.yaml
     - /config/mautrix-gmessages-doublepuppet.yaml
     - /config/mautrix-linkedin.yaml
-    - /config/mautrix-meta.yaml
-    - /config/mautrix-meta-doublepuppet.yaml
+    - /config/mautrix-instagram.yaml
+    - /config/mautrix-instagram-doublepuppet.yaml
   enable_group_creation: true
   enable_3pid_lookup: true
   #default_identity_server: https://matrix-identity.g4v.dev
@@ -166,18 +165,6 @@ extraConfigs:
     url: http://mautrix-telegram.matrix.svc.cluster.local:29317
     sender_localpart: telegrambot
     rate_limited: false
-  instagram-registration.yaml:
-    id: instagram
-    namespaces:
-      users:
-        - exclusive: true
-          regex: "@instagram_.+:g4v.dev"
-      aliases:
-        - exclusive: true
-          regex: "#instagram_.+:g4v.dev"
-    url: http://mautrix-instagram.matrix.svc.cluster.local:29328
-    sender_localpart: instagrambot
-    rate_limited: false
   googlechat-registration.yaml:
     id: googlechatbot
     namespaces:
@@ -241,21 +228,21 @@ extraConfigs:
       - regex: '@.*:g4v\.dev'
         # This must be false so the appservice doesn't take over all users completely.
         exclusive: false
-  mautrix-meta.yaml:
-    url: http://mautrix-meta.matrix.svc.cluster.local.:29336
+  mautrix-instagram.yaml:
+    url: http://mautrix-instagram.matrix.svc.cluster.local.:29336
     sender_localpart: 01X9cfMqwFl8Zrfh01Y2L4yqNLCtZGFG
-    id: meta
+    id: instagram
     rate_limited: false
     namespaces:
         users:
-            - regex: ^@metabot:g4v\.dev$
+            - regex: ^@instagrambot:g4v\.dev$
               exclusive: true
-            - regex: ^@meta_.*:g4v\.dev$
+            - regex: ^@instagram_.*:g4v\.dev$
               exclusive: true
     de.sorunome.msc2409.push_ephemeral: true
     push_ephemeral: true
-  mautrix-meta-doublepuppet.yaml:
-    id: mautrix-meta-doublepuppet
+  mautrix-instagram-doublepuppet.yaml:
+    id: mautrix-instagram-doublepuppet
     # The URL is intentionally left empty (null), as the homeserver shouldn't
     # push events anywhere for this extra appservice. If you use a
     # non-spec-compliant server, you may need to put some fake URL here.
