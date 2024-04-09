@@ -1,7 +1,9 @@
 ---
+helmDefaults:
+  kubeContext: do-k8s
+  cleanupOnFail: true
+
 repositories:
-  - name: bitnami
-    url: https://charts.bitnami.com/bitnami
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
   - name: halkeye
@@ -26,11 +28,3 @@ releases:
     version: 4.10.0
     values:
       - ingress-nginx.yaml
-  #- name: external-dns
-  #  namespace: kube-system
-  #  chart: bitnami/external-dns
-  #  version: 6.26.1
-  #  values:
-  #    - external-dns.yaml
-  #  secrets:
-  #    - external-dns-secrets.yaml

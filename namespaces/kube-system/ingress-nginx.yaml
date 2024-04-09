@@ -16,6 +16,8 @@ controller:
     enabled: true
     port: 10254
 
+  allowSnippetAnnotations: true
+
 #  kind: "DaemonSet"
 
   config:
