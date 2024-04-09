@@ -1,6 +1,3 @@
-image:
-  repository: "ghcr.io/goauthentik/server"
-
 redis:
   enabled: true
 
@@ -10,28 +7,29 @@ authentik:
   error_reporting:
     enabled: true
 
-ingress:
-  main:
-    enabled: true
-    ingressClassName: nginx
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt
-      kubernetes.io/tls-acme: "true"
-    hosts:
-    - host: auth.g4v.dev
-      paths:
-      - path: "/"
-        pathType: Prefix
-    tls:
-      - hosts:
-          - auth.g4v.dev
+server:
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+        kubernetes.io/tls-acme: "true"
+      hosts:
+      - host: auth.g4v.dev
+        paths:
+        - path: "/"
+          pathType: Prefix
+      tls:
+        - hosts:
+            - auth.g4v.dev
+          secretName: "authentik-tls"
+
+  volumeMounts:
+    - name: certs
+      mountPath: /certs
+
+  volumes:
+    - name: certs
+      secret:
         secretName: "authentik-tls"
-
-volumeMounts:
-  - name: certs
-    mountPath: /certs
-
-volumes:
-  - name: certs
-    secret:
-      secretName: "authentik-tls"

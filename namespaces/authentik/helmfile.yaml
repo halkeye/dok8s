@@ -2,18 +2,14 @@ helmDefaults:
   kubeContext: do-k8s
 
 repositories:
-  - name: bitnami
-    url: https://charts.bitnami.com/bitnami
-  - name: bjw
-    url: https://bjw-s.github.io/helm-charts
   - name: authentik
     url: https://charts.goauthentik.io
 
 releases:
   - name: authentik
     namespace: authentik
-    chart: ../../charts/authentik
-    #chart: authentik/authentik
+    #chart: ../../charts/authentik
+    chart: authentik/authentik
     #chart: ../../charts/goauthentik-helm/charts/authentik
     #version: 5.2.1
     values:
