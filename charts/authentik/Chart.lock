@@ -1,9 +1,0 @@
-dependencies:
-- name: common
-  repository: https://bjw-s.github.io/helm-charts
-  version: 1.5.1
-- name: redis
-  repository: https://charts.goauthentik.io
-  version: 15.7.6
-digest: sha256:a5c7c891d5408af60e83ca755f2342f67dd6095a02e36ec116210ad796ab7600
-generated: "2023-06-02T10:53:47.026616519Z"
