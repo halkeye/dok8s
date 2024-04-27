@@ -47,6 +47,7 @@ homeserver:
     - /config/whatsapp-registration.yaml
     - /config/telegram-registration.yaml
     - /config/googlechat-registration.yaml
+    - /config/googlechat-doublepuppet.yaml
     - /config/signal-registration.yaml
     - /config/mautrix-gmessages.yaml
     - /config/mautrix-gmessages-doublepuppet.yaml
@@ -175,6 +176,26 @@ extraConfigs:
     url: http://mautrix-googlechat:29320
     sender_localpart: googlechatbot
     rate_limited: false
+  googlechat-doublepuppet.yaml:
+    id: googlechatbot-doublepuppet
+    # The URL is intentionally left empty (null), as the homeserver shouldn't
+    # push events anywhere for this extra appservice. If you use a
+    # non-spec-compliant server, you may need to put some fake URL here.
+    url:
+    # Generate random strings for these three fields. Only the as_token really
+    # matters, hs_token is never used because there's no url, and the default
+    # user (sender_localpart) is never used either.
+    sender_localpart: EYXftK8gu5HukwIgCrb69R3xhtsjilEMcMgqFjsvl91L6CHMBeA0cA8m5ODhhpBC
+    # Bridges don't like ratelimiting. This should only apply when using the
+    # as_token, normal user tokens will still be ratelimited.
+    rate_limited: false
+    namespaces:
+      users:
+      # Replace your\.domain with your server name (escape dots for regex)
+      - regex: '@.*:g4v\.dev'
+        # This must be false so the appservice doesn't take over all users completely.
+        exclusive: false
+
   signal-registration.yaml:
     id: signal
     namespaces:
