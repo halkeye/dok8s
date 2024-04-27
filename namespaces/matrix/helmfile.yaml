@@ -48,15 +48,6 @@ releases:
     secrets:
       - ./mautrix-telegram-secrets.yaml
 
-  - name: mautrix-googlechat
-    chart: halkeye/mautrix-googlechat
-    namespace: matrix
-    version: 1.0.5
-    values:
-      - ./mautrix-googlechat.yaml
-    secrets:
-      - ./mautrix-googlechat-secrets.yaml
-
   - name: mautrix-signal
     chart: halkeye/mautrix-signal
     namespace: matrix
