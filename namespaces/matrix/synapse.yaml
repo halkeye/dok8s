@@ -45,6 +45,7 @@ homeserver:
   public_baseurl: https://matrix.g4v.dev/
   app_service_config_files:
     - /config/whatsapp-registration.yaml
+    - /config/whatsapp-doublepuppet.yaml
     - /config/telegram-registration.yaml
     - /config/googlechat-registration.yaml
     - /config/googlechat-doublepuppet.yaml
@@ -154,6 +155,16 @@ extraConfigs:
       users:
         - regex: ^@whatsapp_[0-9]+:g4v.dev$
           exclusive: true
+  whatsapp-doublepuppet.yaml:
+    id: whatsapp-doublepuppet
+    url:
+    # not actually used
+    sender_localpart: FePgh8IgCtl1SPkDJwDHahjdcDr5arWtzZ5f7w0vshCQhxEji4edR0YG64Cd8SUX
+    rate_limited: false
+    namespaces:
+      users:
+        - regex: '@.*:g4v\.dev'
+          exclusive: false
   telegram-registration.yaml:
     id: telegram
     namespaces:

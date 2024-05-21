@@ -30,15 +30,6 @@ releases:
     values:
       - ./schildichat-web.yaml
 
-  - name: mautrix-whatsapp
-    chart: halkeye/mautrix-whatsapp
-    version: 1.7.0
-    namespace: matrix
-    values:
-      - ./mautrix-whatsapp.yaml
-    secrets:
-      - ./mautrix-whatsapp-secrets.yaml
-
   - name: mautrix-telegram
     chart: halkeye/mautrix-telegram
     namespace: matrix
