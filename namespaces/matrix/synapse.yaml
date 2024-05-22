@@ -47,6 +47,7 @@ homeserver:
     - /config/whatsapp-registration.yaml
     - /config/whatsapp-doublepuppet.yaml
     - /config/telegram-registration.yaml
+    - /config/telegram-doublepuppet.yaml
     - /config/googlechat-registration.yaml
     - /config/googlechat-doublepuppet.yaml
     - /config/signal-registration.yaml
@@ -177,6 +178,16 @@ extraConfigs:
     url: http://mautrix-telegram.matrix.svc.cluster.local:29317
     sender_localpart: telegrambot
     rate_limited: false
+  telegram-doublepuppet.yaml:
+    id: telegram-doublepuppet
+    url:
+    # not actually used
+      sender_localpart: d123c923-f409-40dd-b3af-bdee3123999a
+    rate_limited: false
+    namespaces:
+      users:
+        - regex: '@.*:g4v\.dev'
+          exclusive: false
   googlechat-registration.yaml:
     id: googlechatbot
     namespaces:

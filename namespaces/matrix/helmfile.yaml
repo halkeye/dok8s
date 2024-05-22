@@ -30,15 +30,6 @@ releases:
     values:
       - ./schildichat-web.yaml
 
-  - name: mautrix-telegram
-    chart: halkeye/mautrix-telegram
-    namespace: matrix
-    version: 1.0.1
-    values:
-      - ./mautrix-telegram.yaml
-    secrets:
-      - ./mautrix-telegram-secrets.yaml
-
   - name: mautrix-signal
     chart: halkeye/mautrix-signal
     namespace: matrix
