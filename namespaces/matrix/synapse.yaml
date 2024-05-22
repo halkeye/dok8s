@@ -182,7 +182,7 @@ extraConfigs:
     id: telegram-doublepuppet
     url:
     # not actually used
-      sender_localpart: d123c923-f409-40dd-b3af-bdee3123999a
+    sender_localpart: d123c923-f409-40dd-b3af-bdee3123999a
     rate_limited: false
     namespaces:
       users:
