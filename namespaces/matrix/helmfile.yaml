@@ -29,12 +29,3 @@ releases:
     namespace: matrix
     values:
       - ./schildichat-web.yaml
-
-  - name: mautrix-signal
-    chart: halkeye/mautrix-signal
-    namespace: matrix
-    version: 0.3.0
-    values:
-      - ./mautrix-signal.yaml
-    secrets:
-      - ./mautrix-signal-secrets.yaml
