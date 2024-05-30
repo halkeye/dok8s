@@ -107,7 +107,7 @@ homeserver:
     - netloc: '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'
 
   password_config:
-    enabled: false
+    enabled: true
   sso:
     client_whitelist:
       - https://chat.g4v.dev
