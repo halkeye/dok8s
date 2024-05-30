@@ -51,6 +51,7 @@ homeserver:
     - /config/googlechat-registration.yaml
     - /config/googlechat-doublepuppet.yaml
     - /config/signal-registration.yaml
+    - /config/signal-doublepuppet.yaml
     - /config/mautrix-gmessages.yaml
     - /config/mautrix-gmessages-doublepuppet.yaml
     - /config/mautrix-linkedin.yaml
@@ -228,6 +229,16 @@ extraConfigs:
     url: http://mautrix-signal:29328
     sender_localpart: signalbot
     rate_limited: false
+  signal-doublepuppet.yaml:
+    id: signal-doublepuppet
+    url:
+    # not actually used
+    sender_localpart: d31ZSuzGQo2rqdgWfu4VZEBEbC0KdEoz4Tc8zcPjADRzCObYOiOSbF6Q5oAZBPgU
+    rate_limited: false
+    namespaces:
+      users:
+        - regex: '@.*:g4v\.dev'
+          exclusive: false
   mautrix-gmessages.yaml:
     url: http://mautrix-gmessages.matrix.svc.cluster.local.:29336
     sender_localpart: 01X9cfMqwFl8Zrfh01Y2L4yqNLCtZGFG
