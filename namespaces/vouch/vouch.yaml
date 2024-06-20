@@ -10,6 +10,7 @@ ingress:
         - vouch.g4v.dev
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
     kubernetes.io/tls-acme: "true"
 
 config:
