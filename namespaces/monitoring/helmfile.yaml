@@ -36,6 +36,6 @@ releases:
   - name: karma
     chart: wiremind/karma
     namespace: monitoring
-    version: 2.5.3
+    version: 2.6.1
     values:
       - karma.yaml
