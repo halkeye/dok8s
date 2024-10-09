@@ -31,14 +31,6 @@ dashboards:
       revision: 28
       datasource: Prometheus
       #url: https://grafana.com/grafana/dashboards/9367
-    jenkins-performance:
-      gnetId: 9524
-      revision: 1
-      datasource: Prometheus
-    jenkins-performance-2:
-      gnetId: 9964
-      revision: 1
-      datasource: Prometheus
     # https://grafana.com/grafana/dashboards/315
     # need a scrape config
     kubernetes-cluster-monitoring-315:

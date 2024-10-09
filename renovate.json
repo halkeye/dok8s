@@ -16,17 +16,6 @@
   "regexManagers": [
     {
       "fileMatch": [
-        "^namespaces/jenkins/jenkins.yaml$"
-      ],
-      "matchStrings": [
-        "tag: \"(?<currentValue>.*)@(?<currentDigest>.*)\""
-      ],
-      "depNameTemplate": "halkeye/jenkins",
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "docker"
-    },
-    {
-      "fileMatch": [
         "^namespaces/unifi/unifi.yaml$"
       ],
       "matchStrings": [

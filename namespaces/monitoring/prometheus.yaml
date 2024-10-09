@@ -105,14 +105,6 @@ serverFiles:
             annotations:
               summary: Traefik service down (instance {{ $labels.instance }})
               description: "All Traefik services are down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-          - alert: JenkinsOffline
-            expr: jenkins_node_offline_value > 1
-            for: 0m
-            labels:
-              severity: critical
-            annotations:
-              summary: Jenkins offline (instance {{ $labels.instance }})
-              description: "Jenkins offline: `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
           - alert: InstanceDown
             expr: up == 0
             for: 5m
