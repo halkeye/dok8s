@@ -3,6 +3,7 @@ issuerRef:
   name: letsencrypt
 dnsNames:
   - '*.g4v.dev'
+  - '*.do.g4v.dev'
 commonName: '*.g4v.dev'
 secretName: wildcard-do-g4v-tls
 
