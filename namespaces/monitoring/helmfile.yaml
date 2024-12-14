@@ -15,7 +15,7 @@ repositories:
 releases:
   - name: prometheus
     chart: prometheus-community/prometheus
-    version: 26.0.0
+    version: 26.0.1
     namespace: monitoring
     values:
       - prometheus.yaml
