@@ -9,8 +9,6 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: grafana
     url: https://grafana.github.io/helm-charts
-  - name: wiremind
-    url: https://wiremind.github.io/wiremind-helm-charts
 
 releases:
   - name: prometheus
@@ -33,9 +31,3 @@ releases:
       - grafana.yaml
     secrets:
       - grafana-secrets.yaml
-  - name: karma
-    chart: wiremind/karma
-    namespace: monitoring
-    version: 2.9.1
-    values:
-      - karma.yaml
